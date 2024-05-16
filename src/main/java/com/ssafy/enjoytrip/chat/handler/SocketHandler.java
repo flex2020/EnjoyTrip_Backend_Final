@@ -54,7 +54,6 @@ public class SocketHandler extends TextWebSocketHandler {
 	protected void handleTextMessage(WebSocketSession session, TextMessage msg) throws Exception {
 		super.handleTextMessage(session, msg);
 		int curIdx = idx.incrementAndGet();
-		
         String timestamp = LocalDateTime.now().format(formatter);
 		// ChatDTO 객체에 유저 메시지 맵핑
 		ChatDto chat = objectMapper.reader().readValue(msg.getPayload(), ChatDto.class);
