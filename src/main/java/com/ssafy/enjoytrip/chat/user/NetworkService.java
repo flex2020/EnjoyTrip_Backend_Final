@@ -70,12 +70,12 @@ public class NetworkService {
 		}
 	}
 	
-	public void sendBroadcast(ChatDto chatDto, int planNum) {
+	public void sendBroadcast(ChatDto chatDto, int matchId) {
 		TextMessage tm;
 		try {
 			tm = new TextMessage(objectMapper.writer().writeValueAsString(chatDto));
 			for (ConcurrentHashMap.Entry<String, User> entry : sessionMap.entrySet()) {
-				if (entry.getValue().getMatchId() == planNum) {
+				if (entry.getValue().getMatchId() == matchId) {
 					System.out.println("send to in " + entry.getValue().getMatchId() + " user " + entry.getValue().getUsername());
 					try {
 					entry.getValue().getSession().sendMessage(tm);
@@ -113,6 +113,7 @@ public class NetworkService {
 	
 	public boolean removeUser(String sessionID) {
 		int matchId = getUser(sessionID).getMatchId();
+		System.out.println(matchId);
 		if (userCountByMatchIdMap.get(matchId).decrementAndGet() == 0) {
 			curListStateByMatchIdMap.remove(matchId);
 		}
