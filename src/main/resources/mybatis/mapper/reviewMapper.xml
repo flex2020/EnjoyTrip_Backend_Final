@@ -4,6 +4,17 @@
 
 <mapper namespace="com.ssafy.enjoytrip.review.model.ReviewMapper">
 	<insert id="writeReview" parameterType="reviewDto">
-		
+		insert into reviews (match_id, member_id, review_title, scope, content, hit, register_time, deleted, like_count)
+		values (4, 1, #{reviewTitle}, #{scope}, #{content}, #{hit}, now(), #{deleted})
 	</insert>
+	
+	<select id="listReview" resultType="reviewDto">
+		select review_id, match_id, member_id, review_title, scope, content, hit, register_time, deleted, like_count from reviews
+		limit #{start}, #{listsize}
+	</select>
+	
+	<select id="getTotalReviewCount" parameterType="map" resultType="int">
+		select count(review_id)
+		from reviews
+	</select>
 </mapper>
