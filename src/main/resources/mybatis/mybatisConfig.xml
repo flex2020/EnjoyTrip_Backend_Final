@@ -8,8 +8,12 @@
   </settings>
   <typeAliases>
   	<!-- <typeAlias type="com.ssafy.enjoytrip.member.MemberDto" alias="memberDto"/> -->
+  	<typeAlias type="com.ssafy.enjoytrip.trip.model.dto.SidoDto" alias="sidoDto"/>
+  	<typeAlias type="com.ssafy.enjoytrip.trip.model.dto.GugunDto" alias="gugunDto"/>
+  	<typeAlias type="com.ssafy.enjoytrip.trip.model.dto.AttractionDto" alias="attractionDto"/>
   </typeAliases>
   <mappers>
     <!-- <mapper resource="mybatis/mapper/memberMapper.xml" /> -->
+    <mapper resource="mybatis/mapper/tripMapper.xml" />
   </mappers>
 </configuration>

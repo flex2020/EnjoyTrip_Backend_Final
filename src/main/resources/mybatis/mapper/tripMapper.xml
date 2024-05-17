@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.trip.model.mapper.TripMapper">
+	<select id="sidoList" resultType="sidoDto">
+		SELECT sido_code, sido_name
+			FROM sido
+	</select>
+	
+	<select id="gugunList" parameterType="string" resultType="gugunDto">
+		select gugun_code,
+			gugun_name
+			from gugun
+			where sido_code = #{sidoCode}
+	</select>
+	
+	<select id="searchAttractions" parameterType="map" resultType="attractionDto">
+		SELECT
+			distinct(content_id),
+			content_type_id,
+			title,
+			addr1,
+			addr2,
+			tel,
+			first_image,
+			first_image2,
+			sido_code,
+			gugun_code,
+			latitude,
+			longitude
+			FROM
+			attraction_info
+			WHERE
+			1=1
+			<if test="keyword != null and keyword != ''">
+				 AND (addr1 like CONCAT('%', #{keyword}, '%') OR title like CONCAT('%', #{keyword}, '%'))
+			</if>
+			<if test="sidoCode != null and sidoCode != ''">
+				AND sido_code = #{sidoCode}
+			</if>
+			<if test="gugunCode != null and gugunCode != ''">
+				AND gugun_code = #{gugunCode}
+			</if>
+			
+	</select>
+	
+	<select id="totalPages" parameterType="map" resultType="int">
+		SELECT count(*)
+			from  attraction_info
+			WHERE
+			1=1
+			<if test="keyword != null and keyword != ''">
+				 AND (addr1 like CONCAT('%', #{keyword}, '%') OR title like CONCAT('%', #{keyword}, '%'))
+			</if>
+			<if test="sidoCode != null and sidoCode != ''">
+				AND sido_code = #{sidoCode}
+			</if>
+			<if test="gugunCode != null and gugunCode != ''">
+				AND gugun_code = #{gugunCode}
+			</if>
+	</select>
+</mapper>
