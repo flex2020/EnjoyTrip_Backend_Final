@@ -50,6 +50,7 @@ public class ReviewController {
 			) {
 		// logic 처리
 		try {
+//			System.out.println(map.toString());
 			ReviewListDto reviewListDto = reviewService.listReview(map);
 			Map<String,Object> res = new HashMap();
 			res.put("msg", "조회완료");

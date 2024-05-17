@@ -48,6 +48,9 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewListDto.setCurrentPage(currentPage);
 		reviewListDto.setTotalPageCount(totalPageCount);
 		
+//		System.out.println(start+" "+sizePerPage);
+//		System.out.println(list.toString());
+		
 		return reviewListDto;
 	}
 
