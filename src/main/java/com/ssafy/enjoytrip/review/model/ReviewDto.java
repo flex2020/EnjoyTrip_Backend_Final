@@ -19,4 +19,5 @@ public class ReviewDto {
 	private int hit;
 	private String registerTime;
 	private int deleted;
+	private int likeCount;
 }
