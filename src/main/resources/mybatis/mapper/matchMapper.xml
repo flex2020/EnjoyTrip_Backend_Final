@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.match.model.MatchMapper">
+	<select id="match" parameterType="string" resultType="attractionDto">
+		SELECT att.*
+			from matches mat
+		    join travel_destinations td on mat.course_id = td.course_id
+		    join attraction_info att on att.content_id = td.attraction_id
+		    where mat.match_id = #{matchId}
+		    order by td.order;
+	</select>
+</mapper>
