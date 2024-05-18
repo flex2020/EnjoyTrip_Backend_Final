@@ -9,4 +9,5 @@ import com.ssafy.enjoytrip.trip.model.dto.AttractionDto;
 @Mapper
 public interface MatchMapper {
 	List<AttractionDto> match(String matchId);
+	MatchDto matchDetail(String matchId);
 }

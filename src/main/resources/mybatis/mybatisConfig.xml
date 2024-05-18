@@ -14,13 +14,14 @@
   	<typeAlias type="com.ssafy.enjoytrip.trip.model.dto.AttractionDto" alias="attractionDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.match.model.MatchDto" alias="matchDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.course.model.CourseDto" alias="courseDto"/>
-  	<typeAlias type="com.ssafy.enjoytrip.member.model.MemberDto" alias="memberDto"/>
-  	
+  	<typeAlias type="com.ssafy.enjoytrip.course.model.TravelDestinationDto" alias="travelDestinationDto"/>
+  	<typeAlias type="com.ssafy.enjoytrip.member.model.MemberDto" alias="memberDto"/>  	
   </typeAliases>
   <mappers>
     <!-- <mapper resource="mybatis/mapper/memberMapper.xml" /> -->
     <mapper resource="mybatis/mapper/tripMapper.xml" />
     <mapper resource="mybatis/mapper/reviewMapper.xml" />
     <mapper resource="mybatis/mapper/matchMapper.xml" />
+    <mapper resource="mybatis/mapper/courseMapper.xml" />
   </mappers>
 </configuration>

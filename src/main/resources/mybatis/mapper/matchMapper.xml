@@ -12,4 +12,9 @@
 		    where mat.match_id = #{matchId}
 		    order by td.order;
 	</select>
+	<select id="matchDetail" parameterType="string" resultType="matchDto">
+		select *
+			from matches
+			where match_id = #{matchId}
+	</select>
 </mapper>

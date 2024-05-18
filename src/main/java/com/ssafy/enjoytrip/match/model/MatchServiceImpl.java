@@ -16,5 +16,9 @@ public class MatchServiceImpl implements MatchService {
 	public List<AttractionDto> match(String matchId) {
 		return matchMapper.match(matchId);
 	}
+	@Override
+	public MatchDto matchDetail(String matchId) {
+		return matchMapper.matchDetail(matchId);
+	}
 	
 }

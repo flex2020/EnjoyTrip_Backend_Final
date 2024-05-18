@@ -1,6 +1,8 @@
 package com.ssafy.enjoytrip.match.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,6 +28,10 @@ public class MatchController {
 	@GetMapping("/{matchId}")
 	public ResponseEntity<?> getMatchCourse(@PathVariable("matchId") String matchId) {
 		List<AttractionDto> result = matchService.match(matchId);
-		return ResponseEntity.ok(result);
+		MatchDto matchInfo = matchService.matchDetail(matchId);
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("courseItem", result);
+		resultMap.put("matchInfo", matchInfo);
+		return ResponseEntity.ok(resultMap);
 	}
 }
