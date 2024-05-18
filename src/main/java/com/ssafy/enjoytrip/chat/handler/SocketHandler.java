@@ -112,11 +112,39 @@ public class SocketHandler extends TextWebSocketHandler {
 			networkService.sendBroadcast(chatDto, chat.getMatchId());
 			
 		}
-		// path : 여행 코스 수정
-		else if (chat.getType().equals("course")) {
+		// add-tab : 탭 추가
+		else if (chat.getType().equals("add-tab")) {
+			User curUser = networkService.getUser(session.getId());
+			ChatDto chatDto = ChatDto.builder()
+			        .type("add-tab")
+			        .content(chat.getContent())
+			        .username(curUser.getUsername())
+			        .idx(curIdx)
+			        .matchId(curUser.getMatchId())
+			        .userIdx(curUser.getUserIdx())
+			        .timestamp(timestamp)
+			        .build();
+			networkService.sendBroadcast(chatDto, chat.getMatchId());
+		}
+		// delete-tab : 탭 삭제
+		else if (chat.getType().equals("delete-tab")) {
+			User curUser = networkService.getUser(session.getId());
+			ChatDto chatDto = ChatDto.builder()
+			        .type("delete-tab")
+			        .content(chat.getContent())
+			        .username(curUser.getUsername())
+			        .idx(curIdx)
+			        .matchId(curUser.getMatchId())
+			        .userIdx(curUser.getUserIdx())
+			        .timestamp(timestamp)
+			        .build();
+			networkService.sendBroadcast(chatDto, chat.getMatchId());
+		}
+		// update-tab : 여행 코스 수정
+		else if (chat.getType().equals("update-tab")) {
 			int matchId = chat.getMatchId();
 			ChatDto chatDto = ChatDto.builder()
-					.type("course")
+					.type("update-tab")
 					.content(chat.getContent())
 					.idx(curIdx)
 					.matchId(matchId)
@@ -124,8 +152,9 @@ public class SocketHandler extends TextWebSocketHandler {
 					.timestamp(timestamp)
 					.build();
 			
-			networkService.setListState(matchId, chatDto.getContent());
+			//networkService.setListState(matchId, chatDto.getContent());
 			System.out.println(chatDto.getContent().toString());
+			//networkService.sendBroadcast(chatDto, matchId);
 			networkService.sendBroadcastExcept(chatDto, matchId);
 		}
 	}

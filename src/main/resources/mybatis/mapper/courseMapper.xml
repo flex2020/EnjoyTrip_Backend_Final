@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.course.model.CourseMapper">
+	<delete id="removeCourseDestByCourseId" parameterType="string">
+		delete
+			from travel_destinations
+			where course_id = #{courseId}
+	</delete>
+	
+	<insert id="addCourseDestinations">
+		insert
+			into travel_destinations (course_id, attraction_id, `order`)
+			values
+			<foreach collection="list" item="td" separator=",">
+		      (#{td.courseId}, #{td.attractionId}, #{td.order})
+		    </foreach>
+	</insert>
+</mapper>

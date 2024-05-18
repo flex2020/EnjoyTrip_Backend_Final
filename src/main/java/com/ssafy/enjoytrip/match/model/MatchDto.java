@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MatchDto {
 	private String matchId;
-	private CourseDto course;
-	private MemberDto author;
+	private String courseId;
+	private String authorId;
 	private String matchTitle;
 	private String travelStartDate;
 	private String travelEndDate;
