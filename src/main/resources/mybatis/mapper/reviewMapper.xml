@@ -8,8 +8,33 @@
 		values (#{matchId}, 1, #{reviewTitle}, #{scope}, #{content}, #{hit}, now(), #{deleted}, #{likeCount})
 	</insert>
 	
+	<sql id="search">
+		<if test="word != null and word != ''">
+			<if test="key == 'subject'">
+				and review_title, content like concat('%', #{word}, '%') 
+			</if>
+			<if test="key != 'subject'">
+				and ${key} = #{word}
+			</if>
+		</if>
+	</sql>
+	
 	<select id="listReview" resultType="reviewDto">
 		select review_id, match_id, member_id, review_title, scope, content, hit, register_time, deleted, like_count from reviews
+		where 1=1
+		<choose>
+			<when test="scopeKey == 1">
+	            and scope = 1
+	        </when>
+	        <when test="scopeKey == 2">
+	            and scope = 2
+	        </when>
+		</choose>
+		<choose>
+			<when test="keyword != ''">
+	            and review_title like concat('%', #{keyword}, '%')
+	        </when>
+		</choose>
 		<choose>
 	        <when test="sortKey == 0">
 	            ORDER BY review_id DESC
