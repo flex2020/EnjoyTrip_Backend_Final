@@ -9,5 +9,11 @@ public interface ReviewService {
 
 	void updateHit(int viewId) throws Exception;
 
-	ReviewViewDto getReview(int viewId) throws Exception;
+	ReviewViewDto getReviewView(int viewId) throws Exception;
+
+	ReviewDto getReviewUpdate(int viewId) throws Exception;
+
+	void updateReview(ReviewDto reviewDto) throws Exception;
+
+	void deleteReview(int viewId) throws Exception;
 }

@@ -61,9 +61,24 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public ReviewViewDto getReview(int viewId) throws Exception {
+	public ReviewViewDto getReviewView(int viewId) throws Exception {
 
-		return reviewMapper.getReview(viewId);
+		return reviewMapper.getReviewView(viewId);
+	}
+
+	@Override
+	public ReviewDto getReviewUpdate(int viewId) throws Exception {
+		return reviewMapper.getReviewUpdate(viewId);
+	}
+
+	@Override
+	public void updateReview(ReviewDto reviewDto) throws Exception {
+		reviewMapper.updateReview(reviewDto);
+	}
+
+	@Override
+	public void deleteReview(int viewId) throws Exception {
+		reviewMapper.deleteReview(viewId);
 	}
 
 }
