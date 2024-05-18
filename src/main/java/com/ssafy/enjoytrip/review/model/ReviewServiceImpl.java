@@ -54,4 +54,16 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewListDto;
 	}
 
+	@Override
+	public void updateHit(int viewId) throws Exception {
+		// TODO Auto-generated method stub
+		reviewMapper.updateHit(viewId);
+	}
+
+	@Override
+	public ReviewViewDto getReview(int viewId) throws Exception {
+
+		return reviewMapper.getReview(viewId);
+	}
+
 }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.enjoytrip.review.model.ReviewDto;
 import com.ssafy.enjoytrip.review.model.ReviewListDto;
 import com.ssafy.enjoytrip.review.model.ReviewService;
+import com.ssafy.enjoytrip.review.model.ReviewViewDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,7 +52,6 @@ public class ReviewController {
 			) {
 		// logic 처리
 		try {
-//			System.out.println(map.toString());
 			ReviewListDto reviewListDto = reviewService.listReview(map);
 			Map<String,Object> res = new HashMap();
 			res.put("msg", "조회완료");
@@ -59,10 +60,16 @@ public class ReviewController {
 					new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
 			return resp;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+			return exceptionHandling(e);
 		}
+	}
+	
+	@GetMapping("/{viewid}")
+	public ResponseEntity<ReviewViewDto> getArticle(
+			@PathVariable("viewid") int viewId)
+			throws Exception {
+		reviewService.updateHit(viewId);
+		return new ResponseEntity<ReviewViewDto>(reviewService.getReview(viewId), HttpStatus.OK);
 	}
 	
 	private ResponseEntity<String> exceptionHandling(Exception e) {

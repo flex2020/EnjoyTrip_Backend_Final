@@ -17,4 +17,41 @@
 		select count(review_id)
 		from reviews
 	</select>
+	
+	<update id="updateHit" parameterType="int">
+		update reviews
+		set hit = hit + 1
+		where review_id = #{reviewId}
+	</update>
+	
+	<select id="getReview" parameterType="int" resultType="reviewViewDto">
+		<!-- select r.review_id, r.match_id, r.member_id, r.review_title, r.scope, r.content, r.hit, r.register_time, r.deleted, r.like_count,
+		m.member_name 
+		from reviews r, members m
+		where r.member_id = m.member_id
+		and r.review_id = #{viewId} -->
+		
+		SELECT 
+    r.review_id AS reviewId,
+    r.match_id AS matchId,
+    r.member_id AS memberId,
+    r.review_title AS reviewTitle,
+    r.scope AS scope,
+    r.content AS content,
+    r.hit AS hit,
+    r.register_time AS registerTime,
+    r.deleted AS deleted,
+    r.like_count AS likeCount,
+    m.member_name AS memberName,
+    DATE_FORMAT(mt.travel_start_date, '%Y-%m-%d') AS travelStartDate,
+    DATE_FORMAT(mt.travel_end_date, '%Y-%m-%d') AS travelEndDate
+FROM 
+    reviews r
+INNER JOIN 
+    members m ON r.member_id = m.member_id
+INNER JOIN 
+    matches mt ON r.match_id = mt.match_id
+where r.member_id = m.member_id
+		and r.review_id = #{viewId}
+	</select>
 </mapper>
