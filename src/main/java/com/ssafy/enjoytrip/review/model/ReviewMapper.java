@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ssafy.enjoytrip.match.model.MatchDto;
+
 @Mapper
 public interface ReviewMapper {
 	void writeReview(ReviewDto reviewDto) throws SQLException;

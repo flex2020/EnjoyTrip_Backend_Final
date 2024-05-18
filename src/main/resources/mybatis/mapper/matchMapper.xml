@@ -17,4 +17,8 @@
 			from matches
 			where match_id = #{matchId}
 	</select>
+	
+	<select id="getMatches" resultType="matchDto">
+		select * from matches
+	</select>
 </mapper>

@@ -2,6 +2,8 @@ package com.ssafy.enjoytrip.review.model;
 
 import java.util.Map;
 
+import com.ssafy.enjoytrip.match.model.MatchDto;
+
 public interface ReviewService {
 	void writeReview(ReviewDto reviewDto) throws Exception;
 
