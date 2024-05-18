@@ -68,7 +68,7 @@ public class ReviewController {
 	}
 	
 	@GetMapping("/{viewid}")
-	public ResponseEntity<ReviewViewDto> getArticle(
+	public ResponseEntity<ReviewViewDto> getReview(
 			@PathVariable("viewid") int viewId)
 			throws Exception {
 		reviewService.updateHit(viewId);

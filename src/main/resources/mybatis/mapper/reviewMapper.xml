@@ -10,6 +10,20 @@
 	
 	<select id="listReview" resultType="reviewDto">
 		select review_id, match_id, member_id, review_title, scope, content, hit, register_time, deleted, like_count from reviews
+		<choose>
+	        <when test="sortKey == 0">
+	            ORDER BY review_id DESC
+	        </when>
+	        <when test="sortKey == 1">
+	            ORDER BY like_count DESC
+	        </when>
+	        <when test="sortKey == 2">
+	            ORDER BY hit DESC
+	        </when>
+	        <otherwise>
+	            ORDER BY review_id DESC
+	        </otherwise>
+	    </choose>
 		limit #{start}, #{listsize}
 	</select>
 	

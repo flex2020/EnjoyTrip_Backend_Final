@@ -36,9 +36,11 @@ public class ReviewServiceImpl implements ReviewService {
 		Map<String, Object> param = new HashMap<String, Object>();
 		int currentPage = Integer.parseInt(map.get("pgno") == null ? "1" : map.get("pgno"));
 		int sizePerPage = Integer.parseInt(map.get("spp") == null ? "9" : map.get("spp"));
+		int sortKey = Integer.parseInt(map.get("sortKey") == null ? "0" : map.get("sortKey"));
 		int start = currentPage * sizePerPage - sizePerPage;
 		param.put("start", start);
 		param.put("listsize", sizePerPage);
+		param.put("sortKey", sortKey);
 		
 		List<ReviewDto> list = reviewMapper.listReview(param);
 		
@@ -49,9 +51,9 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewListDto.setReviews(list);
 		reviewListDto.setCurrentPage(currentPage);
 		reviewListDto.setTotalPageCount(totalPageCount);
-		
-//		System.out.println(start+" "+sizePerPage);
-//		System.out.println(list.toString());
+
+		System.out.println(start + " " + sizePerPage + " " + sortKey);
+		System.out.println(list.toString());
 		
 		return reviewListDto;
 	}
