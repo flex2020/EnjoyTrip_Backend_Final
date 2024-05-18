@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.match.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,14 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public List<MatchDto> getMatches() {
 		return matchMapper.getMatches();
+	}
+	@Override
+	public List<MatchDto> getMatchesByMember(String memberId) {
+		return matchMapper.getMatchesByMember(memberId);
+	}
+	@Override
+	public void removeMatchOfMember(Map<String, Object> map) {
+		matchMapper.removeMatchOfMember(map);
 	}
 	
 }
