@@ -124,13 +124,13 @@ public class SocketHandler extends TextWebSocketHandler {
 			        .userIdx(curUser.getUserIdx())
 			        .timestamp(timestamp)
 			        .build();
-			networkService.sendBroadcast(chatDto, chat.getMatchId());
+			networkService.sendBroadcastExcept(chatDto, chat.getMatchId());
 		}
-		// delete-tab : 탭 삭제
-		else if (chat.getType().equals("delete-tab")) {
+		// remove-tab : 탭 삭제
+		else if (chat.getType().equals("remove-tab")) {
 			User curUser = networkService.getUser(session.getId());
 			ChatDto chatDto = ChatDto.builder()
-			        .type("delete-tab")
+			        .type("remove-tab")
 			        .content(chat.getContent())
 			        .username(curUser.getUsername())
 			        .idx(curIdx)
@@ -138,7 +138,7 @@ public class SocketHandler extends TextWebSocketHandler {
 			        .userIdx(curUser.getUserIdx())
 			        .timestamp(timestamp)
 			        .build();
-			networkService.sendBroadcast(chatDto, chat.getMatchId());
+			networkService.sendBroadcastExcept(chatDto, chat.getMatchId());
 		}
 		// update-tab : 여행 코스 수정
 		else if (chat.getType().equals("update-tab")) {
