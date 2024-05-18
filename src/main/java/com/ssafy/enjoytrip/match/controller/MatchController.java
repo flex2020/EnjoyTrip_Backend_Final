@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,5 +34,10 @@ public class MatchController {
 		resultMap.put("courseItem", result);
 		resultMap.put("matchInfo", matchInfo);
 		return ResponseEntity.ok(resultMap);
+	}
+	
+	@GetMapping("/matches")
+	public ResponseEntity<List<MatchDto>> getMatches() throws Exception {
+		return new ResponseEntity<List<MatchDto>>(matchService.getMatches(), HttpStatus.OK);
 	}
 }

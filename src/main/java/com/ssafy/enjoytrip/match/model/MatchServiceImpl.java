@@ -20,5 +20,9 @@ public class MatchServiceImpl implements MatchService {
 	public MatchDto matchDetail(String matchId) {
 		return matchMapper.matchDetail(matchId);
 	}
+	@Override
+	public List<MatchDto> getMatches() {
+		return matchMapper.getMatches();
+	}
 	
 }
