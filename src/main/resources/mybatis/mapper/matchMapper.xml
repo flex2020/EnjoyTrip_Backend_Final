@@ -21,4 +21,18 @@
 	<select id="getMatches" resultType="matchDto">
 		select * from matches
 	</select>
+	
+	<select id="getMatchesByMember" parameterType="string">
+		select m.*
+			from match_members mm
+			join matches m on mm.match_id = m.match_id
+			where mm.member_id = #{memberId}
+				and m.travel_end_date &gt;= current_date()
+	</select>
+	
+	<delete id="removeMatchOfMember" parameterType="map">
+		delete
+			from match_members
+			where member_id = #{memberId} and match_id = #{matchId}
+	</delete>
 </mapper>
