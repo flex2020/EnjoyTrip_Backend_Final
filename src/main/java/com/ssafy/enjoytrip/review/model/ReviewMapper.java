@@ -13,4 +13,14 @@ public interface ReviewMapper {
 	List<ReviewDto> listReview(Map<String, Object> param) throws SQLException;
 
 	int getTotalReviewCount(Map<String, Object> param) throws SQLException;
+
+	void updateHit(int viewId) throws SQLException;
+
+	ReviewViewDto getReviewView(int viewId) throws SQLException;
+
+	ReviewDto getReviewUpdate(int viewId) throws SQLException;
+
+	void updateReview(ReviewDto reviewDto) throws SQLException;
+
+	void deleteReview(int viewId) throws SQLException;
 }
