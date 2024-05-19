@@ -66,6 +66,20 @@ public class MemberServiceImpl implements MemberService {
 		log.info("해싱 : " + passwordEncoder.encode(password));
 		return passwordEncoder.encode(password);
 	}
+
+	@Override
+	public boolean find(FindRequestDto findRequestDto) throws Exception {
+		MemberDto member = memberMapper.findByEmailAndName(findRequestDto.getEmail(), findRequestDto.getName());
+		if(member!=null) return true;
+		return false;
+	}
+
+	@Override
+	public void updatePassword(PasswordUpdateRequestDto passwordUpdateRequestDto) throws Exception {
+		// TODO Auto-generated method stub
+		passwordUpdateRequestDto.setNewPassword(hashPassword(passwordUpdateRequestDto.getNewPassword()));
+		memberMapper.updatePassword(passwordUpdateRequestDto);
+	}
     
     
 }
