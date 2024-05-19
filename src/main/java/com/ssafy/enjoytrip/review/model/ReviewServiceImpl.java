@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.review.model;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,8 +8,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.ssafy.enjoytrip.match.model.MatchDto;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -86,6 +85,26 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void deleteReview(int viewId) throws Exception {
 		reviewMapper.deleteReview(viewId);
+	}
+
+	@Override
+	public void updateLikeCount(Map<String,Object> res) throws Exception {
+		reviewMapper.updateLikeCount(res);
+	}
+
+	@Override
+	public ReviewMemberLikesDto selectLikeCount(int viewId) throws Exception {
+		return reviewMapper.selectLikeCount(viewId);
+	}
+
+	@Override
+	public void insertLikeCount(int viewId) throws Exception {
+		reviewMapper.insertLikeCount(viewId);
+	}
+
+	@Override
+	public void deleteLikeCount(int viewId) throws Exception {
+		reviewMapper.deleteLikeCount(viewId);
 	}
 
 }

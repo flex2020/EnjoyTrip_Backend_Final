@@ -9,6 +9,7 @@
   <typeAliases>
     <typeAlias type="com.ssafy.enjoytrip.review.model.ReviewDto" alias="reviewDto"/>
     <typeAlias type="com.ssafy.enjoytrip.review.model.ReviewViewDto" alias="reviewViewDto"/>
+    <typeAlias type="com.ssafy.enjoytrip.review.model.ReviewMemberLikesDto" alias="reviewMemberLikesDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.trip.model.dto.SidoDto" alias="sidoDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.trip.model.dto.GugunDto" alias="gugunDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.trip.model.dto.AttractionDto" alias="attractionDto"/>

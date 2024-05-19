@@ -25,4 +25,12 @@ public interface ReviewMapper {
 	void updateReview(ReviewDto reviewDto) throws SQLException;
 
 	void deleteReview(int viewId) throws SQLException;
+
+	void updateLikeCount(Map<String,Object> res) throws SQLException;
+
+	ReviewMemberLikesDto selectLikeCount(int viewId) throws SQLException;
+
+	void insertLikeCount(int viewId) throws SQLException;
+
+	void deleteLikeCount(int viewId) throws SQLException;
 }
