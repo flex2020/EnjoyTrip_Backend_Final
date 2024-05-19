@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.enjoytrip.match.model.MatchDto;
 import com.ssafy.enjoytrip.review.model.ReviewDto;
 import com.ssafy.enjoytrip.review.model.ReviewListDto;
+import com.ssafy.enjoytrip.review.model.ReviewMemberLikesDto;
 import com.ssafy.enjoytrip.review.model.ReviewService;
 import com.ssafy.enjoytrip.review.model.ReviewViewDto;
 
@@ -94,8 +95,38 @@ public class ReviewController {
 	public ResponseEntity<String> deleteReview(@PathVariable("viewid") int viewId) throws Exception {
 		reviewService.deleteReview(viewId);
 		return ResponseEntity.ok().build();
-
 	}
+	
+	@GetMapping("/likecount/{viewid}")
+	public ResponseEntity<Boolean> getLikeCount(
+			@PathVariable("viewid") int viewId)
+			throws Exception {
+		ReviewMemberLikesDto reviewMemberLikeDto = reviewService.selectLikeCount(viewId);
+		if (reviewMemberLikeDto == null) {
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}
+	}
+	
+	@PostMapping("/likecount/{viewid}")
+	public ResponseEntity<String> updateLikeCount(@PathVariable("viewid") int viewId) throws Exception {
+		ReviewMemberLikesDto reviewMemberLikeDto = reviewService.selectLikeCount(viewId);
+//		System.out.println(reviewMemberLikeDto);
+		Map<String,Object> res = new HashMap();
+		if (reviewMemberLikeDto == null) {
+			reviewService.insertLikeCount(viewId);
+			res.put("viewId", viewId);
+			res.put("order", "up");
+		} else {
+			reviewService.deleteLikeCount(viewId);
+			res.put("viewId", viewId);
+			res.put("order", "down");
+		}
+		reviewService.updateLikeCount(res);
+		return new ResponseEntity<String>((String) res.get("order"), HttpStatus.OK);
+	}
+	
 	
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		e.printStackTrace();

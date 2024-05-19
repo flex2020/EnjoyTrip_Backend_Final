@@ -18,4 +18,12 @@ public interface ReviewService {
 	void updateReview(ReviewDto reviewDto) throws Exception;
 
 	void deleteReview(int viewId) throws Exception;
+
+	void updateLikeCount(Map<String,Object> res) throws Exception;
+
+	ReviewMemberLikesDto selectLikeCount(int viewId) throws Exception;
+
+	void insertLikeCount(int viewId) throws Exception;
+
+	void deleteLikeCount(int viewId) throws Exception;
 }

@@ -115,4 +115,31 @@
 		delete from reviews
 		where review_id = #{reviewId}
 	</delete>
+	
+	<insert id="insertLikeCount" parameterType="int">
+		insert into review_member_likes (review_id, member_id)
+		values (#{viewId}, 1)
+	</insert>
+	
+	<select  id="selectLikeCount" parameterType="int" resultType="reviewMemberLikesDto">
+		select * from review_member_likes where review_id = #{viewId}
+	</select>
+	
+	<update id="updateLikeCount" parameterType="map">
+		update reviews
+		<choose>
+			<when test="order == 'up'">
+				set like_count = like_count + 1
+			</when>
+			<when test="order == 'down'">
+				set like_count = like_count - 1
+			</when>	
+		</choose>
+		where review_id = #{viewId}
+	</update>
+	
+	<delete id="deleteLikeCount" parameterType="int">
+		delete from review_member_likes
+		where review_id = #{viewId}
+	</delete>
 </mapper>
