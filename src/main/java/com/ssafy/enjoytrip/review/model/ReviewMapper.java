@@ -33,4 +33,12 @@ public interface ReviewMapper {
 	void insertLikeCount(int viewId) throws SQLException;
 
 	void deleteLikeCount(int viewId) throws SQLException;
+
+	void writeComment(CommentDto dto) throws SQLException;
+
+	void setCommentGroup(String commentId) throws SQLException;
+
+	List<CommentDto> commentList(int viewId) throws SQLException;
+
+	void writeReply(CommentDto dto) throws SQLException;
 }

@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.enjoytrip.match.model.MatchDto;
+import com.ssafy.enjoytrip.review.model.CommentDto;
 import com.ssafy.enjoytrip.review.model.ReviewDto;
 import com.ssafy.enjoytrip.review.model.ReviewListDto;
 import com.ssafy.enjoytrip.review.model.ReviewMemberLikesDto;
 import com.ssafy.enjoytrip.review.model.ReviewService;
 import com.ssafy.enjoytrip.review.model.ReviewViewDto;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
@@ -69,11 +70,15 @@ public class ReviewController {
 	}
 	
 	@GetMapping("/{viewid}")
-	public ResponseEntity<ReviewViewDto> getReview(
+	public ResponseEntity<Map<String, Object>> getReview(
 			@PathVariable("viewid") int viewId)
 			throws Exception {
+		Map<String, Object> response = new HashMap<>();
+		response.put("reviewView", reviewService.getReviewView(viewId));
+		response.put("comments", reviewService.commentList(viewId));
 		reviewService.updateHit(viewId);
-		return new ResponseEntity<ReviewViewDto>(reviewService.getReviewView(viewId), HttpStatus.OK);
+		System.out.println(response.get("comments").toString());
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 	
 	@GetMapping("/update/{viewid}")
@@ -127,6 +132,24 @@ public class ReviewController {
 		return new ResponseEntity<String>((String) res.get("order"), HttpStatus.OK);
 	}
 	
+	@PostMapping("/comments")
+	public ResponseEntity<?> writeComment(@RequestBody CommentDto dto) throws Exception {
+		dto.setMemberId("1");
+		dto.setDepth("0");
+//		System.out.println(dto);
+		reviewService.writeComment(dto);
+		reviewService.setCommentGroup(dto.getCommentId());
+		return ResponseEntity.ok("댓글 작성 완료");
+	}
+	
+	@PostMapping("/comments-reply")
+	public ResponseEntity<?> commentReply(@RequestBody CommentDto dto) throws Exception {
+		
+		dto.setMemberId("2");
+		System.out.println(dto.toString());
+		reviewService.writeReply(dto);
+		return ResponseEntity.ok("답글 작성 완료");
+	}
 	
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		e.printStackTrace();
