@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.email.model.EmailMapper">
+    <insert id="insertEmailVerification">
+        INSERT INTO email_verify (email, email_verify_code, expire_time)
+        VALUES (#{email}, #{key}, DATE_ADD(NOW(), INTERVAL #{time} MINUTE))
+    </insert>
+    
+    <delete id="deleteExpiredCodes">
+        DELETE FROM email_verify WHERE expire_time &lt; NOW()
+    </delete>
+
+    <select id="getEmailVerificationCode" resultType="string">
+        SELECT email_verify_code
+        FROM email_verify
+        WHERE email = #{email}
+        ORDER BY expire_time DESC
+        LIMIT 1
+    </select>
+</mapper>
