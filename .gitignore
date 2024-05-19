@@ -34,3 +34,4 @@ build/
 
 ### spring security properties
 securityvalue.properties
+email.properties
