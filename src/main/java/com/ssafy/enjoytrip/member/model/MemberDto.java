@@ -1,15 +1,24 @@
 package com.ssafy.enjoytrip.member.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
 @NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@Builder
 public class MemberDto {
 	private String memberId;
 	private String email;
 	private String memberName;
-	private String birthDay;
+	private String birthday;
 	private String password;
 	private String nickname;
 	private String mbti;

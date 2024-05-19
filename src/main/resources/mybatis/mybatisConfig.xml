@@ -7,7 +7,6 @@
 	<setting name="mapUnderscoreToCamelCase" value="true"/>
   </settings>
   <typeAliases>
-  	<!-- <typeAlias type="com.ssafy.enjoytrip.member.MemberDto" alias="memberDto"/> -->
     <typeAlias type="com.ssafy.enjoytrip.review.model.ReviewDto" alias="reviewDto"/>
     <typeAlias type="com.ssafy.enjoytrip.review.model.ReviewViewDto" alias="reviewViewDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.trip.model.dto.SidoDto" alias="sidoDto"/>
@@ -19,10 +18,10 @@
   	<typeAlias type="com.ssafy.enjoytrip.member.model.MemberDto" alias="memberDto"/>  	
   </typeAliases>
   <mappers>
-    <!-- <mapper resource="mybatis/mapper/memberMapper.xml" /> -->
     <mapper resource="mybatis/mapper/tripMapper.xml" />
     <mapper resource="mybatis/mapper/reviewMapper.xml" />
     <mapper resource="mybatis/mapper/matchMapper.xml" />
     <mapper resource="mybatis/mapper/courseMapper.xml" />
+    <mapper resource="mybatis/mapper/memberMapper.xml" />
   </mappers>
 </configuration>
