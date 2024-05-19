@@ -17,6 +17,7 @@
   	<typeAlias type="com.ssafy.enjoytrip.course.model.CourseDto" alias="courseDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.course.model.TravelDestinationDto" alias="travelDestinationDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.member.model.MemberDto" alias="memberDto"/>  	
+  	<typeAlias type="com.ssafy.enjoytrip.member.model.PasswordUpdateRequestDto" alias="passwordUpdateRequestDto"/>  	
   </typeAliases>
   <mappers>
     <mapper resource="mybatis/mapper/tripMapper.xml" />
@@ -24,5 +25,7 @@
     <mapper resource="mybatis/mapper/matchMapper.xml" />
     <mapper resource="mybatis/mapper/courseMapper.xml" />
     <mapper resource="mybatis/mapper/memberMapper.xml" />
+    <mapper resource="mybatis/mapper/emailMapper.xml" />
+    <mapper resource="mybatis/mapper/followMapper.xml" />
   </mappers>
 </configuration>

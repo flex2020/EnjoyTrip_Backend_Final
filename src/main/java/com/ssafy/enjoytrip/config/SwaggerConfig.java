@@ -41,4 +41,14 @@ public class SwaggerConfig {
 	public GroupedOpenApi tripApi() {
 		return GroupedOpenApi.builder().group("trip").pathsToMatch("/trip/**").build();
 	}
+	
+	@Bean
+	public GroupedOpenApi mailApi() {
+		return GroupedOpenApi.builder().group("email").pathsToMatch("/email/**").build();
+	}
+	
+	@Bean
+	public GroupedOpenApi followApi() {
+		return GroupedOpenApi.builder().group("follow").pathsToMatch("/follow/**").build();
+	}
 }
