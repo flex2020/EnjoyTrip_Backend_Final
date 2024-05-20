@@ -20,7 +20,7 @@ public class ReviewViewDto {
 	private String registerTime;
 	private int deleted;
 	private String likeCount;
-	private String memberName;
+	private String nickName;
 	private String travelStartDate;
 	private String travelEndDate;
 }

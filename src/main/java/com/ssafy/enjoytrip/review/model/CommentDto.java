@@ -19,7 +19,7 @@ public class CommentDto implements Comparable<CommentDto> {
 	private String depth;
 	private String registerTime;
 	private int deleted;
-	private String memberName;
+	private String nickName;
 	private String replyParentName;
 	
 	@Override
