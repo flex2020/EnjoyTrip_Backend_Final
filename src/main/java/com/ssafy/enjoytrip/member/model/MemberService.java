@@ -10,4 +10,5 @@ public interface MemberService {
     void updatePassword(PasswordUpdateRequestDto passwordUpdateRequestDto) throws Exception;
     MemberInfoResponseDto getMemberInfo(String email) throws Exception;
     void updateMember(MemberDto memberDto) throws Exception;
+    void withdrawMember(int memberId) throws Exception;
 }

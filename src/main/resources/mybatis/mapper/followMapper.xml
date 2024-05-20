@@ -28,4 +28,16 @@
     WHERE from_member_id = (SELECT member_id FROM members WHERE email = #{email})
   </select>
   
+  <select id="isFollowing" resultType="boolean">
+      SELECT COUNT(*) > 0
+      FROM followings
+      WHERE from_member_id = #{fromMemberId} AND to_member_id = #{toMemberId}
+  </select>
+
+  <select id="isFollowedBy" resultType="boolean">
+      SELECT COUNT(*) > 0
+      FROM followings
+      WHERE from_member_id = #{toMemberId} AND to_member_id = #{fromMemberId}
+  </select>
+  
 </mapper>

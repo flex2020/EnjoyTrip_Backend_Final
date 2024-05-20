@@ -11,6 +11,8 @@ import com.ssafy.enjoytrip.email.controller.EmailController;
 import com.ssafy.enjoytrip.email.model.EmailService;
 import com.ssafy.enjoytrip.follow.model.FollowCountRequestDto;
 import com.ssafy.enjoytrip.follow.model.FollowCountResponseDto;
+import com.ssafy.enjoytrip.follow.model.FollowRelationRequestDto;
+import com.ssafy.enjoytrip.follow.model.FollowRelationResponseDto;
 import com.ssafy.enjoytrip.follow.model.FollowRequestDto;
 import com.ssafy.enjoytrip.follow.model.FollowService;
 
@@ -54,5 +56,13 @@ public class FollowController {
         		.count(count)
         		.build();
         return ResponseEntity.ok(responseDto);
+    }
+    
+    @PostMapping("/relation")
+    public ResponseEntity<FollowRelationResponseDto> getFollowRelation(@RequestBody FollowRelationRequestDto followRelationRequestDto) throws Exception {
+    	FollowRelationResponseDto follow = FollowRelationResponseDto.builder()
+    			.relation(followService.getFollowRelation(followRelationRequestDto))
+    			.build();
+        return ResponseEntity.ok(follow);
     }
 }

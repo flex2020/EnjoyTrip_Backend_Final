@@ -101,5 +101,10 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.updateMember(memberDto);
     }
     
+    @Override
+    public void withdrawMember(int memberId) throws Exception {
+        memberMapper.updateDeleteMember(memberId);
+    }
+    
     
 }

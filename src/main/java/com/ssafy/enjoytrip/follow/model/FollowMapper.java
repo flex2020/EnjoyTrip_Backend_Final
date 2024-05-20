@@ -9,4 +9,6 @@ public interface FollowMapper {
     void deleteFollow(@Param("fromEmail") String fromEmail, @Param("toEmail") String toEmail);
     int countFollowers(@Param("email") String email);
     int countFollowees(@Param("email") String email);
+    boolean isFollowing(@Param("fromMemberId") int fromMemberId, @Param("toMemberId") int toMemberId);
+    boolean isFollowedBy(@Param("fromMemberId") int fromMemberId, @Param("toMemberId") int toMemberId);
 }

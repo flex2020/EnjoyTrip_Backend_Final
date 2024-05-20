@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.enjoytrip.match.model.MatchService;
 import com.ssafy.enjoytrip.member.model.FindRequestDto;
+import com.ssafy.enjoytrip.member.model.MemberDeleteRequestDto;
+import com.ssafy.enjoytrip.member.model.MemberDeleteRequestDto;
 import com.ssafy.enjoytrip.member.model.MemberDto;
 import com.ssafy.enjoytrip.member.model.MemberInfoResponseDto;
 import com.ssafy.enjoytrip.member.model.MemberService;
@@ -91,6 +93,12 @@ public class MemberController {
         } catch (Exception e) {
             return "회원 정보 수정에 실패했습니다: " + e.getMessage();
         }
+    }
+    
+    // 회원탈퇴
+    @PostMapping("/withdraw")
+    public void withdrawMember(@RequestBody MemberDeleteRequestDto memberDeleteRequestDto) throws Exception {
+        memberService.withdrawMember(memberDeleteRequestDto.getMemberId());
     }
     
     

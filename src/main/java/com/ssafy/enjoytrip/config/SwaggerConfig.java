@@ -19,36 +19,36 @@ public class SwaggerConfig {
 
 	@Bean
 	public GroupedOpenApi courseApi() {
-		return GroupedOpenApi.builder().group("course").pathsToMatch("/course/**").build();
+		return GroupedOpenApi.builder().group("course").pathsToMatch("/api/course/**").build();
 	}
 
 	@Bean
 	public GroupedOpenApi matchApi() {
-		return GroupedOpenApi.builder().group("match").pathsToMatch("/match/**").build();
+		return GroupedOpenApi.builder().group("match").pathsToMatch("/api/match/**").build();
 	}
 	
 	@Bean
 	public GroupedOpenApi memberApi() {
-		return GroupedOpenApi.builder().group("member").pathsToMatch("/member/**").build();
+		return GroupedOpenApi.builder().group("member").pathsToMatch("/api/member/**").build();
 	}
 	
 	@Bean
 	public GroupedOpenApi reviewApi() {
-		return GroupedOpenApi.builder().group("review").pathsToMatch("/review/**").build();
+		return GroupedOpenApi.builder().group("review").pathsToMatch("/api/review/**").build();
 	}
 	
 	@Bean
 	public GroupedOpenApi tripApi() {
-		return GroupedOpenApi.builder().group("trip").pathsToMatch("/trip/**").build();
+		return GroupedOpenApi.builder().group("trip").pathsToMatch("/api/trip/**").build();
 	}
 	
 	@Bean
 	public GroupedOpenApi mailApi() {
-		return GroupedOpenApi.builder().group("email").pathsToMatch("/email/**").build();
+		return GroupedOpenApi.builder().group("email").pathsToMatch("/api/email/**").build();
 	}
 	
 	@Bean
 	public GroupedOpenApi followApi() {
-		return GroupedOpenApi.builder().group("follow").pathsToMatch("/follow/**").build();
+		return GroupedOpenApi.builder().group("follow").pathsToMatch("/api/follow/**").build();
 	}
 }

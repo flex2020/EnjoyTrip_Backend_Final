@@ -70,4 +70,29 @@ public class FollowServiceImpl implements FollowService {
     	if(memberMapper.findByEmail(email)!=null) return true;
         return false;
     }
+
+	@Override
+	public int getFollowRelation(FollowRelationRequestDto followRelationRequestDto) throws Exception {
+        if (followRelationRequestDto.getMemberId() == followRelationRequestDto.getTargetId()) {
+            return 0; // 본인
+        }
+        
+        int memberId = Integer.parseInt(followRelationRequestDto.getMemberId());
+        int targetId = Integer.parseInt(followRelationRequestDto.getTargetId());
+        
+        boolean isFollowing = followMapper.isFollowing(memberId, targetId);
+        boolean isFollowedBy = followMapper.isFollowing(targetId, memberId);
+        
+        log.info(isFollowing + " " + isFollowedBy + " " + memberId + " " + targetId);
+        
+        if (isFollowing && isFollowedBy) {
+            return 3; // 맞팔
+        } else if (isFollowing) {
+            return 1; // 나만 팔로우
+        } else if (isFollowedBy) {
+            return 2; // 걔가 날 팔로우
+        } else {
+            return 0; // 아무 관계 없음
+        }
+	}
 }

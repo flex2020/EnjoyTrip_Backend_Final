@@ -8,13 +8,13 @@
 	<select id="findByEmail" parameterType="string" resultType="memberDto">
 		select *
 		from members
-		where email = #{email}
+		where email = #{email} and deleted = 0
 	</select>
 	
 	<select id="findByEmailAndName" parameterType="string" resultType="memberDto">
 		select *
 		from members
-		where email = #{email} and member_name = #{name}
+		where email = #{email} and member_name = #{name} and deleted = 0
 	</select>
 	
 	<select id="login" parameterType="memberDto" resultType="memberDto">
@@ -56,5 +56,11 @@
             phone_number = #{phoneNumber}
         WHERE 
             email = #{email}
+    </update>
+    
+    <update id="updateDeleteMember">
+        UPDATE members
+        SET deleted = 1
+        WHERE member_id = #{memberId}
     </update>
 </mapper>
