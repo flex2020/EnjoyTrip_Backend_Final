@@ -30,7 +30,7 @@ public class ChatGPTServiceImpl implements ChatGPTService {
     private final RestTemplate restTemplate;
 
     @Override
-    public String generateNickname(String prompt) throws Exception {
+    public String generateAnswer(String prompt) throws Exception {
         String apiUrl = chatGPTConfig.getApiUrl();
         String apiKey = chatGPTConfig.getApiKey();
         

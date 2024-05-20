@@ -1,11 +1,13 @@
 package com.ssafy.enjoytrip.gpt.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/gpt")
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RequiredArgsConstructor
 @Slf4j
 public class ChatGPTController {
@@ -36,9 +38,22 @@ public class ChatGPTController {
         
         log.info(prompt);
         
-        String nickname = chatGPTService.generateNickname(prompt);
+        String nickname = chatGPTService.generateAnswer(prompt);
         ChatGPTResponse response = new ChatGPTResponse(nickname);
         return ResponseEntity.ok(response);
+    }
+    
+    @PostMapping("/generate/attraction-recommend")
+    public ResponseEntity<?> generateAttractionRecommend(@RequestBody Map<String, Object> map) throws Exception {
+    	String attraction = (String) map.get("attraction");
+    	String prompt = "대한민국의 관광지 '" + attraction + "'에 대해 알려줘.\r\n"
+		    			+ "- 근처 다른 여행지를 포함하면 더 좋은 답변이야.\r\n"
+		    			+ "- 다른 여행지는 ''(작은따옴표)로 감싸서 답변해.\r\n"
+		    			+ "- 말투는 ~~합니다. 또는 ~~ 습니다. 체를 사용해.\r\n"
+		    			+ "- 답변은 70자이내로.";
+    	log.info(prompt);
+    	String answer = chatGPTService.generateAnswer(prompt);
+    	return ResponseEntity.ok(answer);
     }
     
     @GetMapping("/models")
