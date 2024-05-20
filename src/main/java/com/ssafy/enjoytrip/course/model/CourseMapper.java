@@ -12,4 +12,7 @@ public interface CourseMapper {
 	void addCourseDestinations(List<TravelDestinationDto> list);
 	List<CourseDto> getMemberCourseList(String memberId);
 	List<AttractionDto> getCourse(String courseId);
+	void addCourse(CourseDto dto);
+	void updateCourse(CourseDto course);
+	void removeCourseByCourseId(String courseId);
 }

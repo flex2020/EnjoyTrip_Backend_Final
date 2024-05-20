@@ -32,4 +32,22 @@
 			    where td.course_id = #{courseId}
 			    order by td.order;
 	</select>
+	
+	<insert id="addCourse" parameterType="courseDto" useGeneratedKeys="true" keyProperty="courseId">
+		insert
+			into courses (member_id, course_name)
+			values (#{memberId}, #{courseName})
+	</insert>
+	
+	<update id="updateCourse" parameterType="courseDto">
+		update courses
+			set course_name = #{courseName}
+			where course_id = #{courseId}
+	</update>
+	
+	<delete id="removeCourseByCourseId" parameterType="string">
+		delete
+			from courses
+			where course_id = #{courseId}
+	</delete>
 </mapper>
