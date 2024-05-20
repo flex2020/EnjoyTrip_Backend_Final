@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.review.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,6 @@ import com.ssafy.enjoytrip.review.model.ReviewDto;
 import com.ssafy.enjoytrip.review.model.ReviewListDto;
 import com.ssafy.enjoytrip.review.model.ReviewMemberLikesDto;
 import com.ssafy.enjoytrip.review.model.ReviewService;
-import com.ssafy.enjoytrip.review.model.ReviewViewDto;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -153,7 +153,14 @@ public class ReviewController {
 			@PathVariable("memberid") int memberId)
 			throws Exception {
 		System.out.println(memberId);
-		return new ResponseEntity<ReviewDto>(reviewService.getRecentlyReview(memberId), HttpStatus.OK);
+		return new ResponseEntity<ReviewDto>(reviewService.getRecentlyReview(memberId).get(0), HttpStatus.OK);
+	}
+	
+	@GetMapping("/getfollowreviews")
+	public ResponseEntity<List<ReviewDto>> getFollowReview(
+			@RequestParam Map<String, String> map) throws Exception {
+		// logic 처리
+		return new ResponseEntity<List<ReviewDto>>(reviewService.getFollowReview(map), HttpStatus.OK);
 	}
 	
 	// 댓글

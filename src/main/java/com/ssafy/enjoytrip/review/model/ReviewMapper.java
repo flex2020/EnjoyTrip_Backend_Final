@@ -34,6 +34,10 @@ public interface ReviewMapper {
 
 	void deleteLikeCount(ReviewMemberLikesDto dto) throws SQLException;
 
+	List<ReviewDto> getRecentlyReview(int memberId) throws SQLException;
+
+	List<ReviewDto> getFollowReview(Map<String, String> map) throws SQLException;
+
 	void writeComment(CommentDto dto) throws SQLException;
 
 	void setCommentGroup(String commentId) throws SQLException;
@@ -47,7 +51,5 @@ public interface ReviewMapper {
 	void updateComment(CommentDto dto) throws SQLException;
 
 	void deleteComment(int commentId) throws SQLException;
-
-	ReviewDto getRecentlyReview(int memberId) throws SQLException;
 
 }

@@ -106,6 +106,16 @@ public class ReviewServiceImpl implements ReviewService {
 	public void deleteLikeCount(ReviewMemberLikesDto dto) throws Exception {
 		reviewMapper.deleteLikeCount(dto);
 	}
+
+	@Override
+	public List<ReviewDto> getRecentlyReview(int memberId) throws Exception {
+		return reviewMapper.getRecentlyReview(memberId);
+	}
+
+	@Override
+	public List<ReviewDto> getFollowReview(Map<String, String> map) throws Exception {
+		return reviewMapper.getFollowReview(map);
+	}
 	
 	
 	//댓글
@@ -145,11 +155,6 @@ public class ReviewServiceImpl implements ReviewService {
 	public void deleteComment(int commentId) throws Exception {
 		reviewMapper.deleteComment(commentId);
 		
-	}
-
-	@Override
-	public ReviewDto getRecentlyReview(int memberId) throws Exception {
-		return reviewMapper.getRecentlyReview(memberId);
 	}
 
 }

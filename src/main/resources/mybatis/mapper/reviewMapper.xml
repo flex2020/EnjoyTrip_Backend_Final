@@ -147,6 +147,34 @@
 	<select id="getRecentlyReview" parameterType="int" resultType="reviewDto">
 		select * from reviews
 		where member_id = #{memberId}
+		order by review_id DESC
+	</select>
+	
+	<select id="getFollowReview" parameterType="map" resultType="reviewDto">
+		SELECT 
+		    r.review_id,
+		    r.match_id,
+		    r.member_id,
+		    r.review_title,
+		    r.scope,
+		    r.content,
+		    r.hit,
+		    r.register_time,
+		    r.deleted,
+		    r.like_count
+		FROM 
+	        reviews r
+	    LEFT JOIN 
+	        followings f 
+	    ON 
+	        r.member_id = f.to_member_id 
+	        AND f.from_member_id = #{loginUserId}
+	    WHERE 
+	        r.member_id = #{targetUserId}
+	        AND (
+	            (f.from_member_id IS NOT NULL AND r.scope &lt; 2)
+	            OR (f.from_member_id IS NULL AND r.scope &lt; 1)
+	        )
 	</select>
 	
 	<!-- 댓글 -->
