@@ -44,7 +44,9 @@ public class FollowServiceImpl implements FollowService {
 
     @Override
     public int getFollowerCount(FollowCountRequestDto followCountRequestDto) throws SQLException {
+    	log.info(followCountRequestDto.toString());
         if (isEmailExist(followCountRequestDto.getEmail())) {
+        	log.info(followCountRequestDto.toString());
             return followMapper.countFollowers(followCountRequestDto.getEmail());
         } else {
             log.error("Invalid email address");
@@ -54,6 +56,7 @@ public class FollowServiceImpl implements FollowService {
 
     @Override
     public int getFolloweeCount(FollowCountRequestDto followCountRequestDto) throws SQLException {
+    	log.info(followCountRequestDto.toString());
         if (isEmailExist(followCountRequestDto.getEmail())) {
             return followMapper.countFollowees(followCountRequestDto.getEmail());
         } else {

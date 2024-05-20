@@ -76,10 +76,30 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updatePassword(PasswordUpdateRequestDto passwordUpdateRequestDto) throws Exception {
-		// TODO Auto-generated method stub
 		passwordUpdateRequestDto.setNewPassword(hashPassword(passwordUpdateRequestDto.getNewPassword()));
 		memberMapper.updatePassword(passwordUpdateRequestDto);
 	}
+
+	@Override
+	public MemberInfoResponseDto getMemberInfo(String email) throws Exception {
+		MemberDto member = memberMapper.findByEmail(email);
+		return MemberInfoResponseDto.builder()
+				.email(member.getEmail())
+				.memberName(member.getMemberName())
+				.nickname(member.getNickname())
+				.mbti(member.getMbti())
+				.gender(member.getGender())
+				.intro(member.getIntro())
+				.valuedCount(member.getValuedCount())
+				.score(member.getScore())
+				.phoneNumber(member.getPhoneNumber())
+				.build();
+	}
+
+    @Override
+    public void updateMember(MemberDto memberDto) throws Exception {
+        memberMapper.updateMember(memberDto);
+    }
     
     
 }

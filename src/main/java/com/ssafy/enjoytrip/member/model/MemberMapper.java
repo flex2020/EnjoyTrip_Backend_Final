@@ -11,4 +11,5 @@ public interface MemberMapper {
 	void insertMember(MemberDto memberDto) throws SQLException;
 	MemberDto findByEmailAndName(@Param("email") String email, @Param("name") String name) throws SQLException;
 	void updatePassword(PasswordUpdateRequestDto passwordUpdateRequestDto) throws SQLException;
+	void updateMember(MemberDto memberDto) throws SQLException;
 }
