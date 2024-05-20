@@ -112,6 +112,22 @@ public class SocketHandler extends TextWebSocketHandler {
 			networkService.sendBroadcast(chatDto, chat.getMatchId());
 			
 		}
+		// gpt-answer: gpt 답변
+		else if (chat.getType().equals("gpt-answer")) {
+			User curUser = networkService.getUser(session.getId());
+			ChatDto chatDto = ChatDto.builder()
+			        .type("gpt-answer")
+			        .content(chat.getContent())
+			        .username("Chat-GPT")
+			        .idx(curIdx)
+			        .matchId(curUser.getMatchId())
+			        .userIdx(curUser.getUserIdx())
+			        .timestamp(timestamp)
+			        .build();
+
+			networkService.sendBroadcast(chatDto, chat.getMatchId());
+			
+		}
 		// add-tab : 탭 추가
 		else if (chat.getType().equals("add-tab")) {
 			User curUser = networkService.getUser(session.getId());
