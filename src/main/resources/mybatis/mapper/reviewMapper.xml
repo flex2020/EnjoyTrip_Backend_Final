@@ -5,7 +5,7 @@
 <mapper namespace="com.ssafy.enjoytrip.review.model.ReviewMapper">
 	<insert id="writeReview" parameterType="reviewDto">
 		insert into reviews (match_id, member_id, review_title, scope, content, hit, register_time, deleted, like_count)
-		values (#{matchId}, 1, #{reviewTitle}, #{scope}, #{content}, #{hit}, now(), #{deleted}, #{likeCount})
+		values (#{matchId}, #{memberId}, #{reviewTitle}, #{scope}, #{content}, #{hit}, now(), #{deleted}, #{likeCount})
 	</insert>
 	
 	<sql id="search">
@@ -75,7 +75,7 @@
     		r.register_time AS registerTime,
     		r.deleted AS deleted,
     		r.like_count AS likeCount,
-    		m.member_name AS memberName,
+    		m.nickname AS nickName,
     		DATE_FORMAT(mt.travel_start_date, '%Y-%m-%d') AS travelStartDate,
     		DATE_FORMAT(mt.travel_end_date, '%Y-%m-%d') AS travelEndDate
 		FROM 
@@ -111,10 +111,11 @@
 		where review_id = #{reviewId}
 	</update>
 	
-	<delete id="deleteReview" parameterType="int">
-		delete from reviews
-		where review_id = #{reviewId}
-	</delete>
+	<update id="deleteReview" parameterType="int">
+		update reviews
+			set deleted = 1
+			where review_id = #{reviewId} 
+	</update>
 	
 	<insert id="insertLikeCount" parameterType="int">
 		insert into review_member_likes (review_id, member_id)
@@ -145,14 +146,14 @@
 	
 	<!-- 댓글 -->
 	<select id="commentList" parameterType="int" resultType="commentDto">
-		select c.comment_id, c.review_id, c.member_id, c.content, c.comment_group, c.depth, c.register_time, c.deleted, c.reply_parent_name, m.member_name
+		select c.comment_id, c.review_id, c.member_id, c.content, c.comment_group, c.depth, c.register_time, c.deleted, c.reply_parent_name, m.nickname
 			from review_comments c join members m on c.member_id = m.member_id
 			where review_id = #{reviewId}
 	</select>
 	
 	<!-- 추가된 쿼리: comment_id로 member_name 조회 -->
     <select id="getReplyParentName" parameterType="string" resultType="string">
-        select m.member_name
+        select m.nickname
         from review_comments c
         join members m on c.member_id = m.member_id
         where c.comment_id = #{commentId}

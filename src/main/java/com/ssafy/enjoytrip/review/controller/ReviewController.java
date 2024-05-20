@@ -134,9 +134,7 @@ public class ReviewController {
 	
 	@PostMapping("/comments")
 	public ResponseEntity<?> writeComment(@RequestBody CommentDto dto) throws Exception {
-		dto.setMemberId("1");
 		dto.setDepth("0");
-//		System.out.println(dto);
 		reviewService.writeComment(dto);
 		reviewService.setCommentGroup(dto.getCommentId());
 		return ResponseEntity.ok("댓글 작성 완료");
@@ -144,10 +142,7 @@ public class ReviewController {
 	
 	@PostMapping("/comments-reply")
 	public ResponseEntity<?> commentReply(@RequestBody CommentDto dto) throws Exception {
-		
-		dto.setMemberId("2");
 		dto.setReplyParentName(reviewService.getReplyParentName(dto.getCommentId()));
-//		System.out.println(dto.getCommentId());
 		reviewService.writeReply(dto);
 		return ResponseEntity.ok("답글 작성 완료");
 	}
