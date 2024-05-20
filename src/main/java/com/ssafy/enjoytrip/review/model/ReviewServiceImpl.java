@@ -108,8 +108,14 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<ReviewDto> getRecentlyReview(int memberId) throws Exception {
-		return reviewMapper.getRecentlyReview(memberId);
+	public Integer getRelation(Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return reviewMapper.getRelation(map);
+	}
+
+	@Override
+	public List<ReviewDto> getRecentlyReview(Map<String, String> map) throws Exception {
+		return reviewMapper.getRecentlyReview(map);
 	}
 
 	@Override
