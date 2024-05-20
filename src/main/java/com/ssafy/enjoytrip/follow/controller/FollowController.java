@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/follow")
+@RequestMapping("/api/follow")
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RequiredArgsConstructor
 @Slf4j

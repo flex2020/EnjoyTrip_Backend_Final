@@ -21,7 +21,7 @@ import com.ssafy.enjoytrip.trip.model.service.TripService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/match")
+@RequestMapping("/api/match")
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RequiredArgsConstructor
 public class MatchController {
