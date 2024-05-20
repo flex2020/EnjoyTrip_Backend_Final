@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.ssafy.enjoytrip.course.model.CourseMapper;
+import com.ssafy.enjoytrip.member.model.MemberMapper;
 import com.ssafy.enjoytrip.util.RandomKeyGenerator;
 
 import jakarta.mail.internet.InternetAddress;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class EmailServiceImpl implements EmailService {
     private final JavaMailSender emailSender;
     private final EmailMapper emailMapper;
+    private final MemberMapper memberMapper;
     
     @Value("${admin.id}")
     private String senderEmail;
@@ -41,7 +43,11 @@ public class EmailServiceImpl implements EmailService {
 
         MimeMessage message = createEmailAuthMessage(email, authKey);
         try {
-            emailSender.send(message);
+        	if(memberMapper.findByEmail(email)==null) {
+        		emailSender.send(message);
+        	}else {
+        		throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 등록된 아이디가 존재합니다.");
+        	}
         } catch (MailException e) {
             log.error("메일 전송에 실패했습니다.", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "메일 전송에 실패했습니다.");
