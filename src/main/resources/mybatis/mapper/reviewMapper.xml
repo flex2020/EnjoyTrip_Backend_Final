@@ -145,11 +145,18 @@
 	
 	<!-- 댓글 -->
 	<select id="commentList" parameterType="int" resultType="commentDto">
-		select c.comment_id, c.review_id, c.member_id, c.content, c.comment_group, c.depth, c.register_time, c.deleted, m.member_name
+		select c.comment_id, c.review_id, c.member_id, c.content, c.comment_group, c.depth, c.register_time, c.deleted, c.reply_parent_name, m.member_name
 			from review_comments c join members m on c.member_id = m.member_id
 			where review_id = #{reviewId}
-			ORDER BY comment_group ASC, comment_id ASC;
 	</select>
+	
+	<!-- 추가된 쿼리: comment_id로 member_name 조회 -->
+    <select id="getReplyParentName" parameterType="string" resultType="string">
+        select m.member_name
+        from review_comments c
+        join members m on c.member_id = m.member_id
+        where c.comment_id = #{commentId}
+    </select>
 	
 	<insert id="writeComment" parameterType="commentDto" useGeneratedKeys="true" keyProperty="commentId">
 		insert into review_comments (review_id, member_id, content, depth)
@@ -163,7 +170,19 @@
 	</update>
 	
 	<insert id="writeReply" parameterType="commentDto">
-		insert into review_comments (review_id, member_id, content, depth, comment_group)
-			values (#{reviewId}, #{memberId}, #{content}, #{depth}, #{commentGroup})
+		insert into review_comments (review_id, member_id, content, depth, comment_group, reply_parent_name)
+			values (#{reviewId}, #{memberId}, #{content}, #{depth}, #{commentGroup}, #{replyParentName})
 	</insert>
+	
+	<update id="updateComment" parameterType="commentDto">
+		update review_comments
+			set content = #{content}
+			where comment_id = #{commentId}
+	</update>
+	
+	<update id="deleteComment" parameterType="int">
+		update review_comments
+			set deleted = 1
+			where comment_id = #{commentId} 
+	</update>
 </mapper>

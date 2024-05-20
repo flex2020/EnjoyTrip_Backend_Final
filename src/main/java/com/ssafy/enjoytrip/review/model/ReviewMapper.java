@@ -41,4 +41,11 @@ public interface ReviewMapper {
 	List<CommentDto> commentList(int viewId) throws SQLException;
 
 	void writeReply(CommentDto dto) throws SQLException;
+
+	String getReplyParentName(String commentId) throws SQLException;
+
+	void updateComment(CommentDto dto) throws SQLException;
+
+	void deleteComment(int commentId) throws SQLException;
+
 }

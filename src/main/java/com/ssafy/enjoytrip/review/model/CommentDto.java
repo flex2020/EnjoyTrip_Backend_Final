@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class CommentDto {
+public class CommentDto implements Comparable<CommentDto> {
 	private String commentId;
 	private String reviewId;
 	private String memberId;
@@ -20,4 +20,12 @@ public class CommentDto {
 	private String registerTime;
 	private int deleted;
 	private String memberName;
+	private String replyParentName;
+	
+	@Override
+	public int compareTo(CommentDto o) {
+		if (Integer.parseInt(commentGroup) != Integer.parseInt(o.commentGroup)) return Integer.parseInt(commentGroup) - Integer.parseInt(o.commentGroup);
+		if (Integer.parseInt(depth) != Integer.parseInt(o.depth)) return Integer.parseInt(depth) - Integer.parseInt(o.depth);
+		return Integer.parseInt(commentId) - Integer.parseInt(o.commentId);
+	}
 }
