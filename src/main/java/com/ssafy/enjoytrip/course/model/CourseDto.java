@@ -7,5 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CourseDto {
 	private String courseId;
+	private String memberId;
 	private String courseName;
 }
