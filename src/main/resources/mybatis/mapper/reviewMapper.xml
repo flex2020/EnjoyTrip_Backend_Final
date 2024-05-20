@@ -142,4 +142,28 @@
 		delete from review_member_likes
 		where review_id = #{viewId}
 	</delete>
+	
+	<!-- 댓글 -->
+	<select id="commentList" parameterType="int" resultType="commentDto">
+		select c.comment_id, c.review_id, c.member_id, c.content, c.comment_group, c.depth, c.register_time, c.deleted, m.member_name
+			from review_comments c join members m on c.member_id = m.member_id
+			where review_id = #{reviewId}
+			ORDER BY comment_group ASC, comment_id ASC;
+	</select>
+	
+	<insert id="writeComment" parameterType="commentDto" useGeneratedKeys="true" keyProperty="commentId">
+		insert into review_comments (review_id, member_id, content, depth)
+			values (#{reviewId}, #{memberId}, #{content}, #{depth})
+	</insert>
+	
+	<update id="setCommentGroup" parameterType="String">
+		update review_comments
+			set comment_group = #{commentId}
+			where comment_id = #{commentId}
+	</update>
+	
+	<insert id="writeReply" parameterType="commentDto">
+		insert into review_comments (review_id, member_id, content, depth, comment_group)
+			values (#{reviewId}, #{memberId}, #{content}, #{depth}, #{commentGroup})
+	</insert>
 </mapper>

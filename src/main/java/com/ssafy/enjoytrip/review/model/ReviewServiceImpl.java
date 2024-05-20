@@ -1,6 +1,6 @@
 package com.ssafy.enjoytrip.review.model;
 
-import java.sql.SQLException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,6 +105,30 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void deleteLikeCount(int viewId) throws Exception {
 		reviewMapper.deleteLikeCount(viewId);
+	}
+	
+	
+	//댓글
+	@Override
+	public void writeComment(CommentDto dto) throws Exception {
+		reviewMapper.writeComment(dto);
+	}
+
+	@Override
+	public void setCommentGroup(String commentId) throws Exception {
+		reviewMapper.setCommentGroup(commentId);
+	}
+
+	@Override
+	public List<CommentDto> commentList(int viewId) throws Exception {
+		List<CommentDto> comments = reviewMapper.commentList(viewId);
+//		Collections.sort(comments);
+		return comments;
+	}
+
+	@Override
+	public void writeReply(CommentDto dto) throws Exception {
+		reviewMapper.writeReply(dto);
 	}
 
 }
