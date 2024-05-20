@@ -8,4 +8,6 @@ public interface MemberService {
     void signout() throws Exception;
     boolean find(FindRequestDto findRequestDto) throws Exception;
     void updatePassword(PasswordUpdateRequestDto passwordUpdateRequestDto) throws Exception;
+    MemberInfoResponseDto getMemberInfo(String email) throws Exception;
+    void updateMember(MemberDto memberDto) throws Exception;
 }

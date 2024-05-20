@@ -1,9 +1,12 @@
 package com.ssafy.enjoytrip.member.controller;
 
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.enjoytrip.match.model.MatchService;
 import com.ssafy.enjoytrip.member.model.FindRequestDto;
 import com.ssafy.enjoytrip.member.model.MemberDto;
+import com.ssafy.enjoytrip.member.model.MemberInfoResponseDto;
 import com.ssafy.enjoytrip.member.model.MemberService;
 import com.ssafy.enjoytrip.member.model.PasswordUpdateRequestDto;
 import com.ssafy.enjoytrip.member.model.SigninRequestDto;
@@ -68,4 +72,26 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("비밀번호 업데이트에 실패했습니다. 다시 시도해주세요.");
         }
     }
+    
+    @PostMapping("/info")
+    public ResponseEntity<MemberInfoResponseDto> updatePassword(@RequestBody Map<String, String> map) {
+        try {
+            MemberInfoResponseDto member = memberService.getMemberInfo(map.get("email"));
+            return ResponseEntity.ok(member);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+    
+    @PutMapping("/update")
+    public String updateMember(@RequestBody MemberDto memberDto) {
+        try {
+            memberService.updateMember(memberDto);
+            return "회원 정보가 성공적으로 수정되었습니다.";
+        } catch (Exception e) {
+            return "회원 정보 수정에 실패했습니다: " + e.getMessage();
+        }
+    }
+    
+    
 }
