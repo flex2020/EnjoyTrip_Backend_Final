@@ -147,4 +147,9 @@ public class ReviewServiceImpl implements ReviewService {
 		
 	}
 
+	@Override
+	public ReviewDto getRecentlyReview(int memberId) throws Exception {
+		return reviewMapper.getRecentlyReview(memberId);
+	}
+
 }

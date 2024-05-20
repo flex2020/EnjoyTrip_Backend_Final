@@ -148,6 +148,15 @@ public class ReviewController {
 		return new ResponseEntity<String>((String) res.get("order"), HttpStatus.OK);
 	}
 	
+	@GetMapping("/recently/{memberid}")
+	public ResponseEntity<ReviewDto> getRecentlyReview(
+			@PathVariable("memberid") int memberId)
+			throws Exception {
+		System.out.println(memberId);
+		return new ResponseEntity<ReviewDto>(reviewService.getRecentlyReview(memberId), HttpStatus.OK);
+	}
+	
+	// 댓글
 	@PostMapping("/comments")
 	public ResponseEntity<?> writeComment(@RequestBody CommentDto dto) throws Exception {
 		dto.setDepth("0");

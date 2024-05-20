@@ -41,4 +41,6 @@ public interface ReviewService {
 	void updateComment(CommentDto dto) throws Exception;
 
 	void deleteComment(int commentId) throws Exception;
+
+	ReviewDto getRecentlyReview(int memberId) throws Exception;
 }

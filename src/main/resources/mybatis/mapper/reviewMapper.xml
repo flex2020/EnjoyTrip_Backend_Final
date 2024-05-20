@@ -144,6 +144,11 @@
 		where review_id = #{reviewId}
 	</delete>
 	
+	<select id="getRecentlyReview" parameterType="int" resultType="reviewDto">
+		select * from reviews
+		where member_id = #{memberId}
+	</select>
+	
 	<!-- 댓글 -->
 	<select id="commentList" parameterType="int" resultType="commentDto">
 		select c.comment_id, c.review_id, c.member_id, c.content, c.comment_group, c.depth, c.register_time, c.deleted, c.reply_parent_name, m.nickname

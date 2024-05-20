@@ -48,4 +48,6 @@ public interface ReviewMapper {
 
 	void deleteComment(int commentId) throws SQLException;
 
+	ReviewDto getRecentlyReview(int memberId) throws SQLException;
+
 }
