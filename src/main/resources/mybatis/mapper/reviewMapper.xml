@@ -117,13 +117,13 @@
 			where review_id = #{reviewId} 
 	</update>
 	
-	<insert id="insertLikeCount" parameterType="int">
+	<insert id="insertLikeCount" parameterType="reviewMemberLikesDto">
 		insert into review_member_likes (review_id, member_id)
-		values (#{viewId}, 1)
+		values (#{reviewId}, #{memberId})
 	</insert>
 	
-	<select  id="selectLikeCount" parameterType="int" resultType="reviewMemberLikesDto">
-		select * from review_member_likes where review_id = #{viewId}
+	<select  id="selectLikeCount" parameterType="reviewMemberLikesDto" resultType="reviewMemberLikesDto">
+		select * from review_member_likes where review_id = #{reviewId} and member_id = #{memberId}
 	</select>
 	
 	<update id="updateLikeCount" parameterType="map">
@@ -139,9 +139,9 @@
 		where review_id = #{viewId}
 	</update>
 	
-	<delete id="deleteLikeCount" parameterType="int">
+	<delete id="deleteLikeCount" parameterType="reviewMemberLikesDto">
 		delete from review_member_likes
-		where review_id = #{viewId}
+		where review_id = #{reviewId}
 	</delete>
 	
 	<!-- 댓글 -->
