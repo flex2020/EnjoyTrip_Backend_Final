@@ -144,9 +144,25 @@
 		where review_id = #{reviewId}
 	</delete>
 	
-	<select id="getRecentlyReview" parameterType="int" resultType="reviewDto">
+	<!-- 팔로잉 관계를 확인하는 쿼리 -->
+    <select id="getRelation" parameterType="map" resultType="int">
+        SELECT COUNT(*) > 0
+        FROM followings
+        WHERE (from_member_id = #{loginUserId} AND to_member_id = #{targetUserId})
+           OR (from_member_id = #{targetUserId} AND to_member_id = #{loginUserId})
+    </select>
+	
+	<select id="getRecentlyReview" parameterType="map" resultType="reviewDto">
 		select * from reviews
-		where member_id = #{memberId}
+		where member_id = #{targetUserId}
+		<choose>
+			<when test="isRelation == '0'">
+				and scope = 0
+			</when>
+			<otherwise>
+				and scope &lt; 2
+			</otherwise>
+		</choose>
 		order by review_id DESC
 	</select>
 	
@@ -164,17 +180,16 @@
 		    r.like_count
 		FROM 
 	        reviews r
-	    LEFT JOIN 
-	        followings f 
-	    ON 
-	        r.member_id = f.to_member_id 
-	        AND f.from_member_id = #{loginUserId}
 	    WHERE 
 	        r.member_id = #{targetUserId}
-	        AND (
-	            (f.from_member_id IS NOT NULL AND r.scope &lt; 2)
-	            OR (f.from_member_id IS NULL AND r.scope &lt; 1)
-	        )
+	        <choose>
+			<when test="isRelation == '0'">
+				and scope = 0
+			</when>
+			<otherwise>
+				and scope &lt; 2
+			</otherwise>
+		</choose>
 	</select>
 	
 	<!-- 댓글 -->

@@ -34,7 +34,9 @@ public interface ReviewMapper {
 
 	void deleteLikeCount(ReviewMemberLikesDto dto) throws SQLException;
 
-	List<ReviewDto> getRecentlyReview(int memberId) throws SQLException;
+	Integer getRelation(Map<String, String> map) throws SQLException;
+
+	List<ReviewDto> getRecentlyReview(Map<String, String> map) throws SQLException;
 
 	List<ReviewDto> getFollowReview(Map<String, String> map) throws SQLException;
 

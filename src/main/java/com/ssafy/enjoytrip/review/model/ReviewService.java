@@ -26,7 +26,9 @@ public interface ReviewService {
 
 	void deleteLikeCount(ReviewMemberLikesDto dto) throws Exception;
 
-	List<ReviewDto> getRecentlyReview(int memberId) throws Exception;
+	Integer getRelation(Map<String, String> map) throws Exception;
+
+	List<ReviewDto> getRecentlyReview(Map<String, String> map) throws Exception;
 
 	List<ReviewDto> getFollowReview(Map<String, String> map) throws Exception;
 	
