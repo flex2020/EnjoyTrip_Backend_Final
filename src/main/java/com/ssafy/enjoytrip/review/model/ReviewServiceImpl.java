@@ -93,18 +93,18 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public ReviewMemberLikesDto selectLikeCount(int viewId) throws Exception {
-		return reviewMapper.selectLikeCount(viewId);
+	public ReviewMemberLikesDto selectLikeCount(ReviewMemberLikesDto dto) throws Exception {
+		return reviewMapper.selectLikeCount(dto);
 	}
 
 	@Override
-	public void insertLikeCount(int viewId) throws Exception {
-		reviewMapper.insertLikeCount(viewId);
+	public void insertLikeCount(ReviewMemberLikesDto dto) throws Exception {
+		reviewMapper.insertLikeCount(dto);
 	}
 
 	@Override
-	public void deleteLikeCount(int viewId) throws Exception {
-		reviewMapper.deleteLikeCount(viewId);
+	public void deleteLikeCount(ReviewMemberLikesDto dto) throws Exception {
+		reviewMapper.deleteLikeCount(dto);
 	}
 	
 	
@@ -145,6 +145,11 @@ public class ReviewServiceImpl implements ReviewService {
 	public void deleteComment(int commentId) throws Exception {
 		reviewMapper.deleteComment(commentId);
 		
+	}
+
+	@Override
+	public ReviewDto getRecentlyReview(int memberId) throws Exception {
+		return reviewMapper.getRecentlyReview(memberId);
 	}
 
 }

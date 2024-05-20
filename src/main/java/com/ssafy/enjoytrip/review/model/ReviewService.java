@@ -20,11 +20,11 @@ public interface ReviewService {
 
 	void updateLikeCount(Map<String,Object> res) throws Exception;
 
-	ReviewMemberLikesDto selectLikeCount(int viewId) throws Exception;
+	ReviewMemberLikesDto selectLikeCount(ReviewMemberLikesDto dto) throws Exception;
 
-	void insertLikeCount(int viewId) throws Exception;
+	void insertLikeCount(ReviewMemberLikesDto dto) throws Exception;
 
-	void deleteLikeCount(int viewId) throws Exception;
+	void deleteLikeCount(ReviewMemberLikesDto dto) throws Exception;
 
 	
 	//댓글
@@ -41,4 +41,6 @@ public interface ReviewService {
 	void updateComment(CommentDto dto) throws Exception;
 
 	void deleteComment(int commentId) throws Exception;
+
+	ReviewDto getRecentlyReview(int memberId) throws Exception;
 }

@@ -102,11 +102,24 @@ public class ReviewController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@GetMapping("/likecount/{viewid}")
+//	@GetMapping("/likecount/{viewid}")
+//	public ResponseEntity<Boolean> getLikeCount(
+//			@PathVariable("viewid") int viewId)
+//			throws Exception {
+//		ReviewMemberLikesDto reviewMemberLikeDto = reviewService.selectLikeCount(viewId);
+//		if (reviewMemberLikeDto == null) {
+//			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+//		} else {
+//			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+//		}
+//	}
+	
+	@PostMapping("/get/likecount")
 	public ResponseEntity<Boolean> getLikeCount(
-			@PathVariable("viewid") int viewId)
+			@RequestBody ReviewMemberLikesDto dto)
 			throws Exception {
-		ReviewMemberLikesDto reviewMemberLikeDto = reviewService.selectLikeCount(viewId);
+		ReviewMemberLikesDto reviewMemberLikeDto = reviewService.selectLikeCount(dto);
+//		System.out.println(reviewMemberLikeDto.toString());
 		if (reviewMemberLikeDto == null) {
 			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		} else {
@@ -114,24 +127,36 @@ public class ReviewController {
 		}
 	}
 	
-	@PostMapping("/likecount/{viewid}")
-	public ResponseEntity<String> updateLikeCount(@PathVariable("viewid") int viewId) throws Exception {
-		ReviewMemberLikesDto reviewMemberLikeDto = reviewService.selectLikeCount(viewId);
+	@PostMapping("/likecount")
+	public ResponseEntity<String> updateLikeCount(@RequestBody ReviewMemberLikesDto dto) throws Exception {
+		ReviewMemberLikesDto reviewMemberLikeDto = reviewService.selectLikeCount(dto);
 //		System.out.println(reviewMemberLikeDto);
+//		System.out.println(Integer.parseInt(dto.getReviewId()));
 		Map<String,Object> res = new HashMap();
 		if (reviewMemberLikeDto == null) {
-			reviewService.insertLikeCount(viewId);
-			res.put("viewId", viewId);
+			reviewService.insertLikeCount(dto);
+			res.put("viewId", dto.getReviewId());
+			res.put("memberId", dto.getMemberId());
 			res.put("order", "up");
 		} else {
-			reviewService.deleteLikeCount(viewId);
-			res.put("viewId", viewId);
+			reviewService.deleteLikeCount(dto);
+			res.put("viewId", dto.getReviewId());
+			res.put("memberId", dto.getMemberId());
 			res.put("order", "down");
 		}
 		reviewService.updateLikeCount(res);
 		return new ResponseEntity<String>((String) res.get("order"), HttpStatus.OK);
 	}
 	
+	@GetMapping("/recently/{memberid}")
+	public ResponseEntity<ReviewDto> getRecentlyReview(
+			@PathVariable("memberid") int memberId)
+			throws Exception {
+		System.out.println(memberId);
+		return new ResponseEntity<ReviewDto>(reviewService.getRecentlyReview(memberId), HttpStatus.OK);
+	}
+	
+	// 댓글
 	@PostMapping("/comments")
 	public ResponseEntity<?> writeComment(@RequestBody CommentDto dto) throws Exception {
 		dto.setDepth("0");
