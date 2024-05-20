@@ -53,8 +53,9 @@ public class JwtProvider {
         // JWT 액세스 토큰을 생성한다.
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName()) // 토큰의 주체(Subject)를 설정
-                .claim("email", member.getEmail()) // 토큰에 사용자 ID를 클레임으로 추가
-                .claim("nickname", member.getNickname())
+                .claim("email", member.getEmail()) // 토큰에 이메일을 클레임으로 추가
+                .claim("nickname", member.getNickname()) // 토큰에 닉네임을 클레임으로 추가
+                .claim("memberId", member.getMemberId()) // 토큰에 id를 클레임으로 추가
                 .claim("auth", authorities) // 토큰에 권한 정보를 클레임으로 추가
                 .setExpiration(accessTokenExpiresIn) // 토큰의 만료 시간을 설정
                 .signWith(key, SignatureAlgorithm.HS256) // HMAC SHA-256 알고리즘을 사용하여 서명
