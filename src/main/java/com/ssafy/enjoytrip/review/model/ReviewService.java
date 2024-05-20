@@ -35,4 +35,10 @@ public interface ReviewService {
 	List<CommentDto> commentList(int viewId) throws Exception;
 
 	void writeReply(CommentDto dto) throws Exception;
+
+	String getReplyParentName(String commentId) throws Exception;
+
+	void updateComment(CommentDto dto) throws Exception;
+
+	void deleteComment(int commentId) throws Exception;
 }

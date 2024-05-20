@@ -77,7 +77,7 @@ public class ReviewController {
 		response.put("reviewView", reviewService.getReviewView(viewId));
 		response.put("comments", reviewService.commentList(viewId));
 		reviewService.updateHit(viewId);
-		System.out.println(response.get("comments").toString());
+//		System.out.println(response.get("comments").toString());
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 	
@@ -146,9 +146,23 @@ public class ReviewController {
 	public ResponseEntity<?> commentReply(@RequestBody CommentDto dto) throws Exception {
 		
 		dto.setMemberId("2");
-		System.out.println(dto.toString());
+		dto.setReplyParentName(reviewService.getReplyParentName(dto.getCommentId()));
+//		System.out.println(dto.getCommentId());
 		reviewService.writeReply(dto);
 		return ResponseEntity.ok("답글 작성 완료");
+	}
+	
+	@PutMapping("/comments")
+	public ResponseEntity<?> commentUpdate(@RequestBody CommentDto dto, HttpSession session) throws Exception {
+//		System.out.println(dto);
+		reviewService.updateComment(dto);
+		return ResponseEntity.ok("댓글 수정 완료");
+	}
+	
+	@DeleteMapping("/comments/{commentId}")
+	public  ResponseEntity<?> commentDelete(@PathVariable("commentId") int commentId) throws Exception {
+		reviewService.deleteComment(commentId);
+		return ResponseEntity.ok("댓글 삭제 완료");
 	}
 	
 	private ResponseEntity<String> exceptionHandling(Exception e) {
