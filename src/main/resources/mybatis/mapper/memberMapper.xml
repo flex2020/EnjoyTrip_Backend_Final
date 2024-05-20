@@ -11,6 +11,12 @@
 		where email = #{email}
 	</select>
 	
+	<select id="findByEmailAndName" parameterType="string" resultType="memberDto">
+		select *
+		from members
+		where email = #{email} and member_name = #{name}
+	</select>
+	
 	<select id="login" parameterType="memberDto" resultType="memberDto">
 		select member_id, id
 			from members
@@ -26,11 +32,17 @@
 		update members
 			set password = #{password}, name = #{name}, email = #{email}
 			where id = #{id}
+	</update> -->
+	
+	<update id="deleteMember" parameterType="memberDto">
+		update members
+			set email = CONCAT('deleted_user_', REPLACE(UUID(), '-', '')), deleted = 1
+			where email = #{email}
 	</update>
 	
-	<update id="delete" parameterType="memberDto">
-		update members
-			set id = CONCAT('deleted_user_', REPLACE(UUID(), '-', '')), deleted = 1
-			where id = #{id}
-	</update> -->
+    <update id="updatePassword" parameterType="passwordUpdateRequestDto">
+        UPDATE members
+        SET password = #{newPassword}
+        WHERE email = #{email}
+    </update>
 </mapper>
