@@ -19,7 +19,7 @@ import com.ssafy.enjoytrip.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/trip")
+@RequestMapping("/api/trip")
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RequiredArgsConstructor
 public class TripController {

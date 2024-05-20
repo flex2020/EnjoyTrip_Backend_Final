@@ -23,7 +23,7 @@ import com.ssafy.enjoytrip.trip.model.dto.AttractionDto;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/api/course")
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RequiredArgsConstructor
 public class CourseController {

@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
-@RequestMapping("/review")
+@RequestMapping("/api/review")
 @Slf4j
 public class ReviewController {
 	private ReviewService reviewService;
