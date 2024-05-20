@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssafy.enjoytrip.trip.model.dto.AttractionDto;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,4 +22,13 @@ public class CourseServiceImpl implements CourseService{
 		courseMapper.addCourseDestinations(list);
 	}
 
+	@Override
+	public List<CourseDto> getMemberCourseList(String memberId) {
+		return courseMapper.getMemberCourseList(memberId);
+	}
+
+	@Override
+	public List<AttractionDto> getCourse(String courseId) {
+		return courseMapper.getCourse(courseId);
+	}
 }
