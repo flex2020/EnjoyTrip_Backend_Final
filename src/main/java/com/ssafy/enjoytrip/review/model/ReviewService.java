@@ -14,7 +14,7 @@ public interface ReviewService {
 
 	ReviewDto getReviewUpdate(int viewId) throws Exception;
 
-	void updateReview(ReviewDto reviewDto) throws Exception;
+	void updateReview(ReviewAddDto reviewDto) throws Exception;
 
 	void deleteReview(int viewId) throws Exception;
 

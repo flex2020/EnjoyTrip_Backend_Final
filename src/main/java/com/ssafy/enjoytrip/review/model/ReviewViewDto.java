@@ -23,4 +23,5 @@ public class ReviewViewDto {
 	private String nickName;
 	private String travelStartDate;
 	private String travelEndDate;
+	private String memberCount;
 }

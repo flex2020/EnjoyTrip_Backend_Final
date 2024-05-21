@@ -90,13 +90,16 @@
     		r.like_count AS likeCount,
     		m.nickname AS nickName,
     		DATE_FORMAT(mt.travel_start_date, '%Y-%m-%d') AS travelStartDate,
-    		DATE_FORMAT(mt.travel_end_date, '%Y-%m-%d') AS travelEndDate
+    		DATE_FORMAT(mt.travel_end_date, '%Y-%m-%d') AS travelEndDate,
+    		count(mm.match_id) as memberCount
 		FROM 
 		    reviews r
 		INNER JOIN 
 		    members m ON r.member_id = m.member_id
 		INNER JOIN 
 		    matches mt ON r.match_id = mt.match_id
+		join
+			match_members mm on r.match_id = mm.match_id 
 		where r.member_id = m.member_id
 				and r.review_id = #{viewId}
 	</select>
@@ -120,8 +123,8 @@
 	
 	<update id="updateReview" parameterType="reviewDto">
 		update reviews
-		set review_title = #{reviewTitle}, content = #{content}, scope = #{scope}
-		where review_id = #{reviewId}
+			set review_title = #{reviewTitle}, content = #{content}, scope = #{scope}, preview_content = #{previewContent}, first_image = #{firstImage}
+			where review_id = #{reviewId}
 	</update>
 	
 	<update id="deleteReview" parameterType="int">
