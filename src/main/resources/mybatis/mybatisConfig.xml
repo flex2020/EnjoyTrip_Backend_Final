@@ -21,6 +21,7 @@
   	<typeAlias type="com.ssafy.enjoytrip.member.model.MemberDto" alias="memberDto"/>  	
   	<typeAlias type="com.ssafy.enjoytrip.member.model.PasswordUpdateRequestDto" alias="passwordUpdateRequestDto"/>  	
   	<typeAlias type="com.ssafy.enjoytrip.file.model.FileDto" alias="fileDto"/>  	
+  	<typeAlias type="com.ssafy.enjoytrip.follow.model.FollowProfileDto" alias="followProfileDto"/>  	
   </typeAliases>
   <mappers>
     <mapper resource="mybatis/mapper/tripMapper.xml" />

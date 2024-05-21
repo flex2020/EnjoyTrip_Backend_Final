@@ -12,6 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.ssafy.enjoytrip.security.JwtAuthenticationFilter;
 import com.ssafy.enjoytrip.security.JwtProvider;
+import com.ssafy.enjoytrip.security.OAuth2UserServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 	// 이 친구는 JWT 토큰의 생성 및 검증을 담당
     private final JwtProvider jwtProvider;
+    private final OAuth2UserServiceImpl oAuth2UserService;
 
     @Bean // 이 메소드가 반환하는 객체를 빈으로 등록. filterChain 메소드는 Spring Security의 주요 설정을 구성한다. HttpSecurity 객체로 다양한 보안 설정이 가능하다.
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -47,6 +49,15 @@ public class SecurityConfig {
 //                                    .requestMatchers(HttpMethod.PUT).hasAnyRole("ADMIN")
                                     .anyRequest().authenticated(); // 나머지 모든 요청에 대해 인증을 요구
                 })
+                .oauth2Login(oauth2LoginConfigurer -> 
+                	oauth2LoginConfigurer
+                    	.userInfoEndpoint(userInfoEndpointConfigurer ->
+                        	userInfoEndpointConfigurer
+                            	.userService(oAuth2UserService)
+                    	)
+                    	.defaultSuccessUrl("/")
+                    	.failureUrl("/login?error=true")
+                )
         		// UsernamePasswordAuthenticationFilter(사용자 이름과 비밀번호를 통한 기본 인증 필터) 전에 JWT 인증을 처리하는 JwtAuthenticationFilter((user-defined) 필터 추가
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
         

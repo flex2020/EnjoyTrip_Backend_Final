@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.member.model;
 
 import java.sql.SQLException;
+import java.util.Collections;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -56,6 +57,18 @@ public class MemberServiceImpl implements MemberService {
         // CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal(); 이캐 갖다쓰면 된다.
         
         MemberDto member = memberMapper.findByEmail(signinRequestDto.getEmail());
+        if (member == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "입력된 정보와 일치하는 사용자가 없습니다.");
+        
+        // 3. 인증 정보를 기반으로 JWT 생성 및 반환
+        return jwtProvider.generateToken(authentication, member);
+    }
+	
+	@Override
+    public TokenInfo signin(MemberDto memberRequest) throws SQLException {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(memberRequest.getEmail(), null, Collections.emptyList());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        
+        MemberDto member = memberMapper.findByEmail(memberRequest.getEmail());
         if (member == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "입력된 정보와 일치하는 사용자가 없습니다.");
         
         // 3. 인증 정보를 기반으로 JWT 생성 및 반환
@@ -134,5 +147,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public String getMemberProfileImage(int memberId) throws Exception {
         return memberMapper.findProfileImagePathByMemberId(memberId);
+    }
+    
+    @Override
+    public MemberDto findByEmail(String email) throws Exception {
+        return memberMapper.findByEmail(email);
     }
 }
