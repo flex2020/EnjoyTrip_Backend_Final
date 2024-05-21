@@ -12,4 +12,5 @@ public interface MatchService {
 	List<MatchDto> getMatchesByMember(String memberId);
 	void removeMatchOfMember(Map<String, Object> map);
 	MatchListDto getFindMatches(Map<String, Object> map);
+	void writeMatch(MatchDto matchDto);
 }

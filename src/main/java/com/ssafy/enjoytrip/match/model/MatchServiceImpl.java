@@ -65,4 +65,9 @@ public class MatchServiceImpl implements MatchService {
 		return matchListDto;
 	}
 	
+	@Override
+	public void writeMatch(MatchDto matchDto) {
+		matchMapper.writeMatch(matchDto);
+	}
+	
 }

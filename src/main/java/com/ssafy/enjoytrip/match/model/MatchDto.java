@@ -1,5 +1,7 @@
 package com.ssafy.enjoytrip.match.model;
 
+import java.util.List;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +16,9 @@ public class MatchDto {
 	private String travelEndDate;
 	private String maxPeople;
 	private String genderType;
-	private String deadLine;
+	private String deadline;
 	private String hit;
 	private int deleted;
+	private String content;
+	private List<String> hashtags;
 }

@@ -65,4 +65,9 @@
 		select count(match_id)
 		from matches
 	</select>
+	
+	<insert id="writeMatch" parameterType="matchDto" useGeneratedKeys="true" keyProperty="matchId">
+		insert into matches (course_id, author_id, match_title, travel_start_date, travel_end_date, max_people, gender_type, deadline, hit, register_time, deleted, content)
+		values (#{courseId}, #{authorId}, #{matchTitle}, #{travelStartDate}, #{travelEndDate}, #{maxPeople}, #{genderType}, #{deadline}, #{hit}, now(), #{deleted}, #{content})
+	</insert>
 </mapper>
