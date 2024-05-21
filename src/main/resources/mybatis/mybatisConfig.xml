@@ -16,6 +16,7 @@
   	<typeAlias type="com.ssafy.enjoytrip.trip.model.dto.GugunDto" alias="gugunDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.trip.model.dto.AttractionDto" alias="attractionDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.match.model.MatchDto" alias="matchDto"/>
+  	<typeAlias type="com.ssafy.enjoytrip.match.model.MatchListItemDto" alias="matchListItemDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.match.model.HashtagDto" alias="hashtagDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.course.model.CourseDto" alias="courseDto"/>
   	<typeAlias type="com.ssafy.enjoytrip.course.model.TravelDestinationDto" alias="travelDestinationDto"/>
