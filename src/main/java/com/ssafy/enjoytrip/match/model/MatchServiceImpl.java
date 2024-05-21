@@ -69,5 +69,39 @@ public class MatchServiceImpl implements MatchService {
 	public void writeMatch(MatchDto matchDto) {
 		matchMapper.writeMatch(matchDto);
 	}
+	@Override
+	public void writeHashtag(HashtagDto hashtagDto) {
+		matchMapper.writeHashtag(hashtagDto);
+	}
+	@Override
+	public HashtagDto isDuplicateHashtag(HashtagDto hashtagDto) {
+		// TODO Auto-generated method stub
+		return matchMapper.isDuplicateHashtag(hashtagDto);
+	}
+	@Override
+	public void mappingHashtag(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		matchMapper.mappingHashtag(map);
+	}
+	@Override
+	public void mappingFile(MatchDto matchDto) {
+		// TODO Auto-generated method stub
+		matchMapper.mappingFile(matchDto);
+	}
+	@Override
+	public MatchDto getFindMatch(int matchId) {
+		// TODO Auto-generated method stub
+		return matchMapper.getFindMatch(matchId);
+	}
+	@Override
+	public String countMembersByMatchId(int matchId) {
+		// TODO Auto-generated method stub
+		return matchMapper.countMembersByMatchId(matchId);
+	}
+	@Override
+	public List<String> getHashtags(int matchId) {
+		// TODO Auto-generated method stub
+		return matchMapper.getHashtags(matchId);
+	}
 	
 }
