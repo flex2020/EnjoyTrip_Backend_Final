@@ -36,3 +36,4 @@ build/
 securityvalue.properties
 email.properties
 gpt.properties
+kakao.properties
