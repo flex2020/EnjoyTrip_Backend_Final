@@ -34,7 +34,7 @@
 	<select id="listReview" resultType="reviewDto">
 		select review_id, match_id, member_id, review_title, scope, content, preview_content, hit, register_time, deleted, like_count, first_image
 			from reviews
-			where 1=1
+			where deleted = 0
 			<choose>
 				<when test="scopeKey == 1">
 		            and scope = 1
