@@ -40,18 +40,58 @@
       WHERE from_member_id = #{toMemberId} AND to_member_id = #{fromMemberId}
   </select>
 
-  <select id="getFollowers" resultType="memberDto">
-      SELECT m.member_id, m.email, m.member_name, m.nickname
-      FROM followings f
-      JOIN members m ON f.from_member_id = m.member_id
-      WHERE f.to_member_id = #{memberId}
-  </select>
+    <select id="getFollowers" resultType="followProfileDto">
+        SELECT 
+            m.member_id AS memberId, 
+            m.member_name AS memberName, 
+            m.nickname,
+            COALESCE(f.file_path, '/src/assets/img/profileDefault.png') AS profileImage,
+            CASE
+                WHEN EXISTS (
+                    SELECT 1 FROM followings f1 WHERE f1.from_member_id = m.member_id AND f1.to_member_id = #{memberId}
+                ) AND EXISTS (
+                    SELECT 1 FROM followings f2 WHERE f2.from_member_id = #{memberId} AND f2.to_member_id = m.member_id
+                ) THEN 3
+                WHEN EXISTS (
+                    SELECT 1 FROM followings f1 WHERE f1.from_member_id = m.member_id AND f1.to_member_id = #{memberId}
+                ) THEN 2
+                WHEN EXISTS (
+                    SELECT 1 FROM followings f1 WHERE f1.from_member_id = #{memberId} AND f1.to_member_id = m.member_id
+                ) THEN 1
+                ELSE 0
+            END AS relation
+        FROM followings fg
+        JOIN members m ON fg.from_member_id = m.member_id
+        LEFT JOIN member_file mf ON mf.member_id = m.member_id
+        LEFT JOIN files f ON f.file_id = mf.file_id
+        WHERE fg.to_member_id = #{memberId}
+    </select>
 
-  <select id="getFollowees" resultType="memberDto">
-      SELECT m.member_id, m.email, m.member_name, m.nickname
-      FROM followings f
-      JOIN members m ON f.to_member_id = m.member_id
-      WHERE f.from_member_id = #{memberId}
-  </select>  
+    <select id="getFollowees" resultType="followProfileDto">
+        SELECT 
+            m.member_id AS memberId, 
+            m.member_name AS memberName, 
+            m.nickname,
+            COALESCE(f.file_path, '/src/assets/img/profileDefault.png') AS profileImage,
+            CASE
+                WHEN EXISTS (
+                    SELECT 1 FROM followings f1 WHERE f1.from_member_id = m.member_id AND f1.to_member_id = #{memberId}
+                ) AND EXISTS (
+                    SELECT 1 FROM followings f2 WHERE f2.from_member_id = #{memberId} AND f2.to_member_id = m.member_id
+                ) THEN 3
+                WHEN EXISTS (
+                    SELECT 1 FROM followings f1 WHERE f1.from_member_id = m.member_id AND f1.to_member_id = #{memberId}
+                ) THEN 2
+                WHEN EXISTS (
+                    SELECT 1 FROM followings f1 WHERE f1.from_member_id = #{memberId} AND f1.to_member_id = m.member_id
+                ) THEN 1
+                ELSE 0
+            END AS relation
+        FROM followings fg
+        JOIN members m ON fg.to_member_id = m.member_id
+        LEFT JOIN member_file mf ON mf.member_id = m.member_id
+        LEFT JOIN files f ON f.file_id = mf.file_id
+        WHERE fg.from_member_id = #{memberId}
+    </select>
   
 </mapper>

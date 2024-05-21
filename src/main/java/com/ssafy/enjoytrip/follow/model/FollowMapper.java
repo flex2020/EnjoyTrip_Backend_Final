@@ -15,6 +15,6 @@ public interface FollowMapper {
     int countFollowees(@Param("memberId") String memberId);
     boolean isFollowing(@Param("fromMemberId") int fromMemberId, @Param("toMemberId") int toMemberId);
     boolean isFollowedBy(@Param("fromMemberId") int fromMemberId, @Param("toMemberId") int toMemberId);
-    List<MemberDto> getFollowers(@Param("memberId") int memberId);
-    List<MemberDto> getFollowees(@Param("memberId") int memberId);
+    List<FollowProfileDto> getFollowers(@Param("memberId") int memberId);
+    List<FollowProfileDto> getFollowees(@Param("memberId") int memberId);
 }

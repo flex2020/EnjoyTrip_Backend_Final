@@ -14,6 +14,7 @@ import com.ssafy.enjoytrip.email.controller.EmailController;
 import com.ssafy.enjoytrip.email.model.EmailService;
 import com.ssafy.enjoytrip.follow.model.FollowCountRequestDto;
 import com.ssafy.enjoytrip.follow.model.FollowCountResponseDto;
+import com.ssafy.enjoytrip.follow.model.FollowProfileDto;
 import com.ssafy.enjoytrip.follow.model.FollowRelationRequestDto;
 import com.ssafy.enjoytrip.follow.model.FollowRelationResponseDto;
 import com.ssafy.enjoytrip.follow.model.FollowRequestDto;
@@ -71,16 +72,16 @@ public class FollowController {
     }
     
     @PostMapping("/followers/list")
-    public ResponseEntity<List<MemberProfileDto>> getFollowers(@RequestBody Map<String, Integer> request) {
+    public ResponseEntity<List<FollowProfileDto>> getFollowers(@RequestBody Map<String, Integer> request) throws Exception {
         int memberId = request.get("memberId");
-        List<MemberProfileDto> followers = followService.getFollowers(memberId);
+        List<FollowProfileDto> followers = followService.getFollowers(memberId);
         return ResponseEntity.ok(followers);
     }
 
     @PostMapping("/followees/list")
-    public ResponseEntity<List<MemberProfileDto>> getFollowees(@RequestBody Map<String, Integer> request) {
+    public ResponseEntity<List<FollowProfileDto>> getFollowees(@RequestBody Map<String, Integer> request) throws Exception {
         int memberId = request.get("memberId");
-        List<MemberProfileDto> followees = followService.getFollowees(memberId);
+        List<FollowProfileDto> followees = followService.getFollowees(memberId);
         return ResponseEntity.ok(followees);
     }
 }

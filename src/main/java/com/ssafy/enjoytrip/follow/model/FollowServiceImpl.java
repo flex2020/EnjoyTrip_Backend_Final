@@ -99,12 +99,12 @@ public class FollowServiceImpl implements FollowService {
 	}
 
     @Override
-    public List<MemberDto> getFollowers(int memberId) throws Exception {
+    public List<FollowProfileDto> getFollowers(int memberId) throws Exception {
         return followMapper.getFollowers(memberId);
     }
 
     @Override
-    public List<MemberDto> getFollowees(int memberId) throws Exception {
+    public List<FollowProfileDto> getFollowees(int memberId) throws Exception {
         return followMapper.getFollowees(memberId);
     }
 }

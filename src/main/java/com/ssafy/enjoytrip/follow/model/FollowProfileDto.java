@@ -18,4 +18,5 @@ public class FollowProfileDto {
     private String memberName;
     private String nickname;
     private String profileImage;
+    private int relation;
 }

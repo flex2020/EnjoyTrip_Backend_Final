@@ -11,6 +11,6 @@ public interface FollowService {
     int getFolloweeCount(FollowCountRequestDto followCountRequestDto) throws Exception;
     boolean isEmailExist(String email) throws Exception;
     int getFollowRelation(FollowRelationRequestDto followRelationRequestDto) throws Exception;
-    List<MemberDto> getFollowers(int memberId) throws Exception;
-    List<MemberDto> getFollowees(int memberId) throws Exception;
+    List<FollowProfileDto> getFollowers(int memberId) throws Exception;
+    List<FollowProfileDto> getFollowees(int memberId) throws Exception;
 }
