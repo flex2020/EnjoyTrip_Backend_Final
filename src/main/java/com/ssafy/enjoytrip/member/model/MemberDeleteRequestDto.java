@@ -1,6 +1,4 @@
-package com.ssafy.enjoytrip.follow.model;
-
-import com.ssafy.enjoytrip.email.model.EmailVerifyDto;
+package com.ssafy.enjoytrip.member.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +13,6 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @Builder
-public class FollowCountRequestDto {
-	private String memberId;
+public class MemberDeleteRequestDto {
+	private int memberId;
 }

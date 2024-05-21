@@ -1,7 +1,5 @@
 package com.ssafy.enjoytrip.follow.model;
 
-import com.ssafy.enjoytrip.email.model.EmailVerifyDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +13,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @Builder
-public class FollowCountRequestDto {
+public class FollowRelationRequestDto {
 	private String memberId;
+	private String targetId;
 }

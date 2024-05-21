@@ -16,6 +16,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 public class FollowRequestDto {
-    private String fromEmail;
-    private String toEmail;
+    private String fromMemberId;
+    private String toMemberId;
 }

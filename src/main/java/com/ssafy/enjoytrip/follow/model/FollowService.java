@@ -6,4 +6,5 @@ public interface FollowService {
     int getFollowerCount(FollowCountRequestDto followCountRequestDto) throws Exception;
     int getFolloweeCount(FollowCountRequestDto followCountRequestDto) throws Exception;
     boolean isEmailExist(String email) throws Exception;
+    int getFollowRelation(FollowRelationRequestDto followRelationRequestDto) throws Exception;
 }
