@@ -90,8 +90,18 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public void updateReview(ReviewDto reviewDto) throws Exception {
-		reviewMapper.updateReview(reviewDto);
+	public void updateReview(ReviewAddDto reviewDto) throws Exception {
+		reviewMapper.updateReview(reviewDto.getReview());
+		if (reviewDto.getFileIds().size() > 0) {
+			List<ReviewFileDto> files = new ArrayList<>();
+			for (int fileId : reviewDto.getFileIds()) {
+				ReviewFileDto rfdto = new ReviewFileDto("0", reviewDto.getReview().getReviewId() + "", fileId + "");
+				System.out.println(rfdto);
+				files.add(rfdto);
+			}
+			
+			reviewMapper.mappingFiles(files);
+		}
 	}
 
 	@Override

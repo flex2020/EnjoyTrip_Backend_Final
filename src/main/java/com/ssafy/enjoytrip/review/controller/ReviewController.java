@@ -91,8 +91,9 @@ public class ReviewController {
 	
 	@PutMapping
 	public ResponseEntity<String> updateReview(
-			@RequestBody ReviewDto reviewDto)
+			@RequestBody ReviewAddDto reviewDto)
 			throws Exception {
+		System.out.println(reviewDto);
 		reviewService.updateReview(reviewDto);
 		return ResponseEntity.ok().build();
 	}
