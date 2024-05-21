@@ -1,8 +1,5 @@
 package com.ssafy.enjoytrip.match.model;
 
-import com.ssafy.enjoytrip.course.model.CourseDto;
-import com.ssafy.enjoytrip.member.model.MemberDto;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +15,6 @@ public class MatchDto {
 	private String maxPeople;
 	private String genderType;
 	private String deadLine;
+	private String hit;
+	private int deleted;
 }

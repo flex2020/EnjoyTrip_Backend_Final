@@ -35,4 +35,34 @@
 			from match_members
 			where member_id = #{memberId} and match_id = #{matchId}
 	</delete>
+	
+	<select id="getFindMatches" resultType="matchDto">
+		select * from matches
+		where 1=1
+		<choose>
+			<when test="keyword != ''">
+	            and match_title like concat('%', #{keyword}, '%')
+	        </when>
+		</choose>
+		<choose>
+	        <when test="sortKey == 0">
+	            ORDER BY match_id DESC
+	        </when>
+	        <!-- <when test="sortKey == 1">
+	            ORDER BY like_count DESC
+	        </when> -->
+	        <when test="sortKey == 2">
+	            ORDER BY hit DESC
+	        </when>
+	        <otherwise>
+	            ORDER BY match_id DESC
+	        </otherwise>
+	    </choose>
+		limit #{start}, #{listsize}
+	</select>
+	
+	<select id="getTotalMatchCount" parameterType="map" resultType="int">
+		select count(match_id)
+		from matches
+	</select>
 </mapper>
