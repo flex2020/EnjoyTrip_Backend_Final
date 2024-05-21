@@ -1,5 +1,8 @@
 package com.ssafy.enjoytrip.follow.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +18,7 @@ import com.ssafy.enjoytrip.follow.model.FollowRelationRequestDto;
 import com.ssafy.enjoytrip.follow.model.FollowRelationResponseDto;
 import com.ssafy.enjoytrip.follow.model.FollowRequestDto;
 import com.ssafy.enjoytrip.follow.model.FollowService;
+import com.ssafy.enjoytrip.member.model.MemberDto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,5 +68,19 @@ public class FollowController {
     			.relation(followService.getFollowRelation(followRelationRequestDto))
     			.build();
         return ResponseEntity.ok(follow);
+    }
+    
+    @PostMapping("/followers/list")
+    public ResponseEntity<List<MemberProfileDto>> getFollowers(@RequestBody Map<String, Integer> request) {
+        int memberId = request.get("memberId");
+        List<MemberProfileDto> followers = followService.getFollowers(memberId);
+        return ResponseEntity.ok(followers);
+    }
+
+    @PostMapping("/followees/list")
+    public ResponseEntity<List<MemberProfileDto>> getFollowees(@RequestBody Map<String, Integer> request) {
+        int memberId = request.get("memberId");
+        List<MemberProfileDto> followees = followService.getFollowees(memberId);
+        return ResponseEntity.ok(followees);
     }
 }

@@ -1,7 +1,11 @@
 package com.ssafy.enjoytrip.follow.model;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.ssafy.enjoytrip.member.model.MemberDto;
 
 @Mapper
 public interface FollowMapper {
@@ -11,4 +15,6 @@ public interface FollowMapper {
     int countFollowees(@Param("memberId") String memberId);
     boolean isFollowing(@Param("fromMemberId") int fromMemberId, @Param("toMemberId") int toMemberId);
     boolean isFollowedBy(@Param("fromMemberId") int fromMemberId, @Param("toMemberId") int toMemberId);
+    List<MemberDto> getFollowers(@Param("memberId") int memberId);
+    List<MemberDto> getFollowees(@Param("memberId") int memberId);
 }

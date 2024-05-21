@@ -39,5 +39,19 @@
       FROM followings
       WHERE from_member_id = #{toMemberId} AND to_member_id = #{fromMemberId}
   </select>
+
+  <select id="getFollowers" resultType="memberDto">
+      SELECT m.member_id, m.email, m.member_name, m.nickname
+      FROM followings f
+      JOIN members m ON f.from_member_id = m.member_id
+      WHERE f.to_member_id = #{memberId}
+  </select>
+
+  <select id="getFollowees" resultType="memberDto">
+      SELECT m.member_id, m.email, m.member_name, m.nickname
+      FROM followings f
+      JOIN members m ON f.to_member_id = m.member_id
+      WHERE f.from_member_id = #{memberId}
+  </select>  
   
 </mapper>
