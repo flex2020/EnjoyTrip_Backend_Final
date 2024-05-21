@@ -92,4 +92,9 @@
         INSERT INTO match_hashtag (match_id, hashtag_id)
         VALUES (#{matchId}, #{hashtagId})
     </insert>
+    
+    <insert id="mappingFile" parameterType="matchDto">
+        INSERT INTO match_file (match_id, file_id)
+        VALUES (#{matchId}, #{fileId})
+    </insert>
 </mapper>

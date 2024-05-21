@@ -21,4 +21,5 @@ public interface MatchMapper {
 	void writeHashtag(HashtagDto hashtagDto);
 	HashtagDto isDuplicateHashtag(HashtagDto hashtagDto);
 	void mappingHashtag(Map<String, Object> map);
+	void mappingFile(MatchDto matchDto);
 }

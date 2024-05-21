@@ -74,9 +74,10 @@ public class MatchController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> writeReview(
+	public ResponseEntity<?> writeMatch(
 			@RequestBody MatchDto matchDto) {
 		matchService.writeMatch(matchDto);
+		matchService.mappingFile(matchDto);
 		
 		List<String> hashtagList = matchDto.getHashtags(); 
 		HashtagDto hashtagDto = new HashtagDto();

@@ -83,5 +83,10 @@ public class MatchServiceImpl implements MatchService {
 		// TODO Auto-generated method stub
 		matchMapper.mappingHashtag(map);
 	}
+	@Override
+	public void mappingFile(MatchDto matchDto) {
+		// TODO Auto-generated method stub
+		matchMapper.mappingFile(matchDto);
+	}
 	
 }

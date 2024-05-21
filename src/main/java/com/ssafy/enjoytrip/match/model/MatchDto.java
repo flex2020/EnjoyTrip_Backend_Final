@@ -21,4 +21,5 @@ public class MatchDto {
 	private int deleted;
 	private String content;
 	private List<String> hashtags;
+	private String fileId;
 }
