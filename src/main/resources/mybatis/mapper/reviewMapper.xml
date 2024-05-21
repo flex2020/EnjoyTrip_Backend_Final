@@ -3,9 +3,21 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.enjoytrip.review.model.ReviewMapper">
-	<insert id="writeReview" parameterType="reviewDto">
-		insert into reviews (match_id, member_id, review_title, scope, content, hit, register_time, deleted, like_count)
-		values (#{matchId}, #{memberId}, #{reviewTitle}, #{scope}, #{content}, #{hit}, now(), #{deleted}, #{likeCount})
+	<insert id="writeReview" parameterType="reviewDto" useGeneratedKeys="true" keyProperty="reviewId">
+		insert into reviews (match_id, member_id, review_title, scope, content, preview_content, hit, register_time, deleted, like_count, first_image)
+		values (#{matchId}, #{memberId}, #{reviewTitle}, #{scope}, #{content}, #{previewContent}, #{hit}, now(), #{deleted}, #{likeCount}, #{firstImage})
+	</insert>
+	
+	<insert id="mappingFiles" parameterType="reviewFileDto">
+		insert 
+			into review_files (review_id, file_id)
+			values
+			<foreach collection="list" item="item" index="idx" separator=",">
+                 ( 
+                       #{item.reviewId}
+                     , #{item.fileId}
+                 )
+            </foreach>
 	</insert>
 	
 	<sql id="search">
@@ -20,36 +32,37 @@
 	</sql>
 	
 	<select id="listReview" resultType="reviewDto">
-		select review_id, match_id, member_id, review_title, scope, content, hit, register_time, deleted, like_count from reviews
-		where 1=1
-		<choose>
-			<when test="scopeKey == 1">
-	            and scope = 1
-	        </when>
-	        <when test="scopeKey == 2">
-	            and scope = 2
-	        </when>
-		</choose>
-		<choose>
-			<when test="keyword != ''">
-	            and review_title like concat('%', #{keyword}, '%')
-	        </when>
-		</choose>
-		<choose>
-	        <when test="sortKey == 0">
-	            ORDER BY review_id DESC
-	        </when>
-	        <when test="sortKey == 1">
-	            ORDER BY like_count DESC
-	        </when>
-	        <when test="sortKey == 2">
-	            ORDER BY hit DESC
-	        </when>
-	        <otherwise>
-	            ORDER BY review_id DESC
-	        </otherwise>
-	    </choose>
-		limit #{start}, #{listsize}
+		select review_id, match_id, member_id, review_title, scope, content, preview_content, hit, register_time, deleted, like_count, first_image
+			from reviews
+			where 1=1
+			<choose>
+				<when test="scopeKey == 1">
+		            and scope = 1
+		        </when>
+		        <when test="scopeKey == 2">
+		            and scope = 2
+		        </when>
+			</choose>
+			<choose>
+				<when test="keyword != ''">
+		            and review_title like concat('%', #{keyword}, '%')
+		        </when>
+			</choose>
+			<choose>
+		        <when test="sortKey == 0">
+		            ORDER BY review_id DESC
+		        </when>
+		        <when test="sortKey == 1">
+		            ORDER BY like_count DESC
+		        </when>
+		        <when test="sortKey == 2">
+		            ORDER BY hit DESC
+		        </when>
+		        <otherwise>
+		            ORDER BY review_id DESC
+		        </otherwise>
+		    </choose>
+			limit #{start}, #{listsize}
 	</select>
 	
 	<select id="getTotalReviewCount" parameterType="map" resultType="int">

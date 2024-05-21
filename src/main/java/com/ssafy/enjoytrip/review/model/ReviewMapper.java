@@ -11,7 +11,9 @@ import com.ssafy.enjoytrip.match.model.MatchDto;
 @Mapper
 public interface ReviewMapper {
 	void writeReview(ReviewDto reviewDto) throws SQLException;
-
+	
+	void mappingFiles(List<ReviewFileDto> dto) throws SQLException;
+	
 	List<ReviewDto> listReview(Map<String, Object> param) throws SQLException;
 
 	int getTotalReviewCount(Map<String, Object> param) throws SQLException;

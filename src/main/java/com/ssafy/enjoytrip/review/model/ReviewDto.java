@@ -15,9 +15,11 @@ public class ReviewDto {
 	private int memberId;
 	private String reviewTitle;
 	private int scope;
+	private String previewContent;
 	private String content;
 	private int hit;
 	private String registerTime;
 	private int deleted;
 	private int likeCount;
+	private String firstImage;
 }
