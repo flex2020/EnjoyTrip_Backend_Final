@@ -9,11 +9,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.ssafy.enjoytrip.file.model.FileDto;
+import com.ssafy.enjoytrip.file.model.FileService;
 import com.ssafy.enjoytrip.security.JwtProvider;
 import com.ssafy.enjoytrip.security.TokenInfo;
 
+import jakarta.servlet.ServletContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +30,8 @@ public class MemberServiceImpl implements MemberService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtProvider jwtProvider;
+    private final FileService fileService;
+    private final ServletContext servletContext;
     
 	@Override
 	public void signup(MemberDto memberDto) throws Exception {
@@ -81,8 +88,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberInfoResponseDto getMemberInfo(String email) throws Exception {
-		MemberDto member = memberMapper.findByEmail(email);
+	public MemberInfoResponseDto getMemberInfo(String memberId) throws Exception {
+		MemberDto member = memberMapper.findById(memberId);
+		log.info(member.toString());
 		return MemberInfoResponseDto.builder()
 				.email(member.getEmail())
 				.memberName(member.getMemberName())
@@ -96,9 +104,25 @@ public class MemberServiceImpl implements MemberService {
 				.build();
 	}
 
+//    @Override
+//    public void updateMember(MemberDto memberDto) throws Exception {
+//        memberMapper.updateMember(memberDto);
+//    }
+    
     @Override
-    public void updateMember(MemberDto memberDto) throws Exception {
+    @Transactional
+    public void updateMember(MemberDto memberDto, MultipartFile profileImage) throws Exception {
         memberMapper.updateMember(memberDto);
+
+        if (profileImage != null) {
+            FileDto fileDto = fileService.uploadFile(profileImage, servletContext);
+            int memberId = Integer.parseInt(memberDto.getMemberId());
+            Integer oldFileId = memberMapper.getMemberProfileImage(memberId);
+            if (oldFileId != null) {
+                memberMapper.deleteMemberProfileImage(memberId);
+            }
+            memberMapper.insertMemberProfileImage(memberId, Integer.parseInt(fileDto.getFileId()));
+        }
     }
     
     @Override
@@ -107,4 +131,8 @@ public class MemberServiceImpl implements MemberService {
     }
     
     
+    @Override
+    public String getMemberProfileImage(int memberId) throws Exception {
+        return memberMapper.findProfileImagePathByMemberId(memberId);
+    }
 }

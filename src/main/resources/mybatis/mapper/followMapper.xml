@@ -9,23 +9,23 @@
     INSERT INTO followings (from_member_id, to_member_id)
     SELECT m1.member_id, m2.member_id
     FROM members m1, members m2
-    WHERE m1.email = #{fromEmail} AND m2.email = #{toEmail}
+    WHERE m1.member_id = #{fromMemberId} AND m2.member_id = #{toMemberId}
   </insert>
 
   <delete id="deleteFollow">
     DELETE FROM followings
-    WHERE from_member_id = (SELECT member_id FROM members WHERE email = #{fromEmail})
-    AND to_member_id = (SELECT member_id FROM members WHERE email = #{toEmail})
+    WHERE from_member_id = (SELECT member_id FROM members WHERE member_id = #{fromMemberId})
+    AND to_member_id = (SELECT member_id FROM members WHERE member_id = #{toMemberId})
   </delete>
 
   <select id="countFollowers" resultType="int">
     SELECT COUNT(*) FROM followings
-    WHERE to_member_id = (SELECT member_id FROM members WHERE email = #{email})
+    WHERE to_member_id = (SELECT member_id FROM members WHERE member_id = #{memberId})
   </select>
 
   <select id="countFollowees" resultType="int">
     SELECT COUNT(*) FROM followings
-    WHERE from_member_id = (SELECT member_id FROM members WHERE email = #{email})
+    WHERE from_member_id = (SELECT member_id FROM members WHERE member_id = #{memberId})
   </select>
   
   <select id="isFollowing" resultType="boolean">

@@ -51,4 +51,9 @@ public class SwaggerConfig {
 	public GroupedOpenApi followApi() {
 		return GroupedOpenApi.builder().group("follow").pathsToMatch("/api/follow/**").build();
 	}
+	
+	@Bean
+	public GroupedOpenApi fileApi() {
+		return GroupedOpenApi.builder().group("file").pathsToMatch("/api/files/**").build();
+	}
 }

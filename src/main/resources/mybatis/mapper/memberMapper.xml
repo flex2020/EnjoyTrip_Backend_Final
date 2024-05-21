@@ -11,6 +11,12 @@
 		where email = #{email} and deleted = 0
 	</select>
 	
+	<select id="findById" parameterType="string" resultType="memberDto">
+		select *
+		from members	
+		where member_id = #{memberId} and deleted = 0
+	</select>
+	
 	<select id="findByEmailAndName" parameterType="string" resultType="memberDto">
 		select *
 		from members
@@ -57,10 +63,32 @@
         WHERE 
             email = #{email}
     </update>
+
+    <select id="getMemberProfileImage" resultType="Integer">
+        SELECT file_id
+        FROM member_file
+        WHERE member_id = #{memberId}
+    </select>
+
+    <delete id="deleteMemberProfileImage">
+        DELETE FROM member_file
+        WHERE member_id = #{memberId}
+    </delete>
+
+    <insert id="insertMemberProfileImage">
+        INSERT INTO member_file (member_id, file_id)
+        VALUES (#{memberId}, #{fileId})
+    </insert>
     
     <update id="updateDeleteMember">
         UPDATE members
         SET deleted = 1
         WHERE member_id = #{memberId}
     </update>
+    
+    <select id="findProfileImagePathByMemberId">
+    	SELECT f.file_path
+    	FROM files f JOIN member_file mf ON f.file_id = mf.file_id
+    	WHERE mf.member_id = #{memberId}
+    </select>
 </mapper>

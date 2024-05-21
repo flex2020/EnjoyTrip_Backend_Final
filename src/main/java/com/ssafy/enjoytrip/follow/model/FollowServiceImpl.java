@@ -24,50 +24,50 @@ public class FollowServiceImpl implements FollowService {
 
     @Override
     public void follow(FollowRequestDto followRequestDto) throws SQLException {
-        if (isEmailExist(followRequestDto.getFromEmail()) && isEmailExist(followRequestDto.getToEmail())) {
-            followMapper.insertFollow(followRequestDto.getFromEmail(), followRequestDto.getToEmail());
+        if (isEmailExist(followRequestDto.getFromMemberId()) && isEmailExist(followRequestDto.getToMemberId())) {
+            followMapper.insertFollow(followRequestDto.getFromMemberId(), followRequestDto.getToMemberId());
         } else {
-            log.error("Invalid email address");
-            throw new IllegalArgumentException("Invalid email address");
+            log.error("Invalid memberId");
+            throw new IllegalArgumentException("Invalid memberId");
         }
     }
 
     @Override
     public void unfollow(FollowRequestDto followRequestDto) throws SQLException {
-        if (isEmailExist(followRequestDto.getFromEmail()) && isEmailExist(followRequestDto.getToEmail())) {
-            followMapper.deleteFollow(followRequestDto.getFromEmail(), followRequestDto.getToEmail());
+        if (isEmailExist(followRequestDto.getFromMemberId()) && isEmailExist(followRequestDto.getToMemberId())) {
+            followMapper.deleteFollow(followRequestDto.getFromMemberId(), followRequestDto.getToMemberId());
         } else {
-            log.error("Invalid email address");
-            throw new IllegalArgumentException("Invalid email address");
+            log.error("Invalid memberId");
+            throw new IllegalArgumentException("Invalid memberId");
         }
     }
 
     @Override
     public int getFollowerCount(FollowCountRequestDto followCountRequestDto) throws SQLException {
     	log.info(followCountRequestDto.toString());
-        if (isEmailExist(followCountRequestDto.getEmail())) {
+        if (isEmailExist(followCountRequestDto.getMemberId())) {
         	log.info(followCountRequestDto.toString());
-            return followMapper.countFollowers(followCountRequestDto.getEmail());
+            return followMapper.countFollowers(followCountRequestDto.getMemberId());
         } else {
-            log.error("Invalid email address");
-            throw new IllegalArgumentException("Invalid email address");
+            log.error("Invalid memberId");
+            throw new IllegalArgumentException("Invalid memberId");
         }
     }
 
     @Override
     public int getFolloweeCount(FollowCountRequestDto followCountRequestDto) throws SQLException {
     	log.info(followCountRequestDto.toString());
-        if (isEmailExist(followCountRequestDto.getEmail())) {
-            return followMapper.countFollowees(followCountRequestDto.getEmail());
+        if (isEmailExist(followCountRequestDto.getMemberId())) {
+            return followMapper.countFollowees(followCountRequestDto.getMemberId());
         } else {
-            log.error("Invalid email address");
-            throw new IllegalArgumentException("Invalid email address");
+            log.error("Invalid memberId");
+            throw new IllegalArgumentException("Invalid memberId");
         }
     }
 
     @Override
-    public boolean isEmailExist(String email) throws SQLException {
-    	if(memberMapper.findByEmail(email)!=null) return true;
+    public boolean isEmailExist(String memberId) throws SQLException {
+    	if(memberMapper.findById(memberId)!=null) return true;
         return false;
     }
 

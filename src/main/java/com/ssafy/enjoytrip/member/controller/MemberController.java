@@ -9,8 +9,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.enjoytrip.file.model.FileDto;
+import com.ssafy.enjoytrip.file.model.FileService;
 import com.ssafy.enjoytrip.match.model.MatchService;
 import com.ssafy.enjoytrip.member.model.FindRequestDto;
 import com.ssafy.enjoytrip.member.model.MemberDeleteRequestDto;
@@ -18,10 +25,12 @@ import com.ssafy.enjoytrip.member.model.MemberDeleteRequestDto;
 import com.ssafy.enjoytrip.member.model.MemberDto;
 import com.ssafy.enjoytrip.member.model.MemberInfoResponseDto;
 import com.ssafy.enjoytrip.member.model.MemberService;
+import com.ssafy.enjoytrip.member.model.MemberUpdateRequestDto;
 import com.ssafy.enjoytrip.member.model.PasswordUpdateRequestDto;
 import com.ssafy.enjoytrip.member.model.SigninRequestDto;
 import com.ssafy.enjoytrip.security.TokenInfo;
 
+import jakarta.servlet.ServletContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MemberController {
 	private final MemberService memberService;
+	private final ObjectMapper objectMapper;
 	
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody MemberDto memberDto) throws Exception {
@@ -78,20 +88,46 @@ public class MemberController {
     @PostMapping("/info")
     public ResponseEntity<MemberInfoResponseDto> updatePassword(@RequestBody Map<String, String> map) {
         try {
-            MemberInfoResponseDto member = memberService.getMemberInfo(map.get("email"));
+            MemberInfoResponseDto member = memberService.getMemberInfo(map.get("memberId"));
             return ResponseEntity.ok(member);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
     
+//    @PutMapping("/update")
+//    public String updateMember(@RequestBody MemberDto memberDto) {
+//        try {
+//            memberService.updateMember(memberDto);
+//            return "회원 정보가 성공적으로 수정되었습니다.";
+//        } catch (Exception e) {
+//            return "회원 정보 수정에 실패했습니다: " + e.getMessage();
+//        }
+//    }
+    
     @PutMapping("/update")
-    public String updateMember(@RequestBody MemberDto memberDto) {
+    public ResponseEntity<String> updateMember(@RequestPart("data") String memberDtoString,
+                                               @RequestPart(value = "profileImage", required = false) MultipartFile profileImage) throws Exception {
+        MemberDto memberDto = objectMapper.readValue(memberDtoString, MemberDto.class);
+        log.info(memberDto.toString());
         try {
-            memberService.updateMember(memberDto);
-            return "회원 정보가 성공적으로 수정되었습니다.";
+            memberService.updateMember(memberDto, profileImage);
+            return ResponseEntity.ok("회원 정보가 성공적으로 수정되었습니다.");
         } catch (Exception e) {
-            return "회원 정보 수정에 실패했습니다: " + e.getMessage();
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("회원 정보 수정에 실패했습니다. 다시 시도해주세요.");
+        }
+    }
+    
+    // 프로필 가져오기
+    @PostMapping("/profile")
+    public ResponseEntity<String> getMemberProfileImage(@RequestBody Map<String, String> map) {
+        try {
+            String profileImagePath = memberService.getMemberProfileImage(Integer.parseInt(map.get("memberId")));
+            return ResponseEntity.ok(profileImagePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("프로필 이미지 조회에 실패했습니다.");
         }
     }
     
