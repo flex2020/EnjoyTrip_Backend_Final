@@ -13,4 +13,11 @@ public interface MatchService {
 	void removeMatchOfMember(Map<String, Object> map);
 	MatchListDto getFindMatches(Map<String, Object> map);
 	void writeMatch(MatchDto matchDto);
+	void writeHashtag(HashtagDto hashtagDto);
+	HashtagDto isDuplicateHashtag(HashtagDto hashtagDto);
+	void mappingHashtag(Map<String, Object> map);
+	void mappingFile(MatchDto matchDto);
+	MatchDto getFindMatch(int matchId);
+	String countMembersByMatchId(int matchId);
+	List<String> getHashtags(int matchId);
 }

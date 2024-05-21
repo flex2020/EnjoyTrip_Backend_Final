@@ -20,5 +20,9 @@ public class MatchDto {
 	private String hit;
 	private int deleted;
 	private String content;
+	
+	private String nickName;
 	private List<String> hashtags;
+	private String nowPeople;
+	private String fileId;
 }
