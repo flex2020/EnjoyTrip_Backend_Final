@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.enjoytrip.match.model.HashtagDto;
 import com.ssafy.enjoytrip.match.model.MatchDto;
 import com.ssafy.enjoytrip.match.model.MatchListDto;
 import com.ssafy.enjoytrip.match.model.MatchService;
@@ -55,10 +56,30 @@ public class MatchController {
 		return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
 	}
 	
+	@GetMapping("/find/{matchId}")
+	public ResponseEntity<Map<String,Object>> getFindMatch(@PathVariable("matchId") int matchId) throws Exception {
+		MatchDto matchDto = matchService.getFindMatch(matchId);
+		matchDto.setNowPeople(matchService.countMembersByMatchId(matchId));
+		matchDto.setHashtags(matchService.getHashtags(matchId));
+		System.out.println(matchDto);
+		
+		Map<String,Object> res = new HashMap();
+		res.put("msg", "조회완료");
+		res.put("resdata", matchDto);
+		return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
+	}
+	
 	@GetMapping("/member-matches/{memberId}")
 	public ResponseEntity<?> getMatchesByMember(@PathVariable("memberId") String memberId) {
 		List<MatchDto> matchList = matchService.getMatchesByMember(memberId);
 		return ResponseEntity.ok(matchList);
+	}
+	
+	@PostMapping("/member-matches")
+	public ResponseEntity<?> postMatchesByMember(@RequestParam Map<String, Object> map) {
+		matchService.postMatchesByMember(map);
+//		System.out.println(map);
+		return ResponseEntity.ok("채팅방 입장 완료");
 	}
 	
 	@DeleteMapping("/member-matches/{memberId}/{matchId}")
@@ -73,13 +94,26 @@ public class MatchController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> writeReview(
+	public ResponseEntity<?> writeMatch(
 			@RequestBody MatchDto matchDto) {
-		System.out.println(matchDto.toString());
 		matchService.writeMatch(matchDto);
+		matchService.mappingFile(matchDto);
 		
-//		matchService.writeHashtag(matchDto);
-//		matchService.mappingHashtag();
+		List<String> hashtagList = matchDto.getHashtags(); 
+		HashtagDto hashtagDto = new HashtagDto();
+		for (int i = 0; i < hashtagList.size(); i++) {
+			hashtagDto.setHashtagName(hashtagList.get(i));
+			HashtagDto isDuplicateHashtag = matchService.isDuplicateHashtag(hashtagDto);
+			Map<String, Object> map = new HashMap<>();
+			map.put("matchId", matchDto.getMatchId());
+			if (isDuplicateHashtag == null) {
+				matchService.writeHashtag(hashtagDto);
+				map.put("hashtagId", hashtagDto.getHashtagId());
+			} else {
+				map.put("hashtagId", isDuplicateHashtag.getHashtagId());
+			}
+			matchService.mappingHashtag(map);
+		}
 		
 		return ResponseEntity.ok("저장 완료");
 	}

@@ -22,6 +22,33 @@
 		select * from matches
 	</select>
 	
+	<select id="getFindMatch" parameterType="int" resultType="matchDto">
+		select m.match_id, m.course_id, m.author_id, m.match_title, DATE_FORMAT(m.travel_start_date, '%Y-%m-%d') as travel_start_date
+		, DATE_FORMAT(m.travel_end_date, '%Y-%m-%d') as travel_end_date
+		, m.max_people, m.gender_type,DATE_FORMAT(m.deadline, '%Y-%m-%d') as deadline, m.hit, m.register_time, m.deleted, m.content, mem.nickname
+		from matches m
+	    join members mem on m.author_id = mem.member_id
+	    where m.match_id = #{matchId}
+	</select>
+	
+	<select id="countMembersByMatchId" parameterType="int" resultType="string">
+	    SELECT COUNT(member_id)
+	    FROM match_members
+	    WHERE match_id = #{matchId}
+	</select>
+	
+	<select id="getHashtags" parameterType="int" resultType="string">
+	    SELECT h.hashtag_name
+	    FROM match_hashtag mh
+	    JOIN hashtags h ON mh.hashtag_id = h.hashtag_id
+	    WHERE mh.match_id = #{matchId}
+	</select>
+	
+	<insert id="postMatchesByMember" parameterType="map" >
+		insert into match_members (match_id, member_id)
+		values (#{matchId}, #{memberId})
+	</insert>
+	
 	<select id="getMatchesByMember" parameterType="string">
 		select m.*
 			from match_members mm
@@ -70,4 +97,31 @@
 		insert into matches (course_id, author_id, match_title, travel_start_date, travel_end_date, max_people, gender_type, deadline, hit, register_time, deleted, content)
 		values (#{courseId}, #{authorId}, #{matchTitle}, #{travelStartDate}, #{travelEndDate}, #{maxPeople}, #{genderType}, #{deadline}, #{hit}, now(), #{deleted}, #{content})
 	</insert>
+	
+	<!-- 중복 체크 쿼리 -->
+    <select id="isDuplicateHashtag" parameterType="string" resultType="HashtagDto">
+        SELECT 
+            hashtag_id AS hashtagId, 
+            hashtag_name AS hashtagName
+        FROM 
+            hashtags
+        WHERE 
+            hashtag_name = #{hashtagName}
+    </select>
+
+    <!-- 삽입 쿼리 -->
+    <insert id="writeHashtag" parameterType="hashtagDto" useGeneratedKeys="true" keyProperty="hashtagId">
+        INSERT INTO hashtags (hashtag_name)
+        VALUES (#{hashtagName})
+    </insert>
+    
+    <insert id="mappingHashtag" parameterType="map">
+        INSERT INTO match_hashtag (match_id, hashtag_id)
+        VALUES (#{matchId}, #{hashtagId})
+    </insert>
+    
+    <insert id="mappingFile" parameterType="matchDto">
+        INSERT INTO match_file (match_id, file_id)
+        VALUES (#{matchId}, #{fileId})
+    </insert>
 </mapper>
