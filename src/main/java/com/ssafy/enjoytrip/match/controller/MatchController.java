@@ -75,7 +75,6 @@ public class MatchController {
 	@PostMapping
 	public ResponseEntity<?> writeReview(
 			@RequestBody MatchDto matchDto) {
-		System.out.println(matchDto.toString());
 		matchService.writeMatch(matchDto);
 		
 //		matchService.writeHashtag(matchDto);
