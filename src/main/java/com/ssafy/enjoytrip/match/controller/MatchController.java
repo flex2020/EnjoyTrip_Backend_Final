@@ -75,6 +75,13 @@ public class MatchController {
 		return ResponseEntity.ok(matchList);
 	}
 	
+	@PostMapping("/member-matches")
+	public ResponseEntity<?> postMatchesByMember(@RequestParam Map<String, Object> map) {
+		matchService.postMatchesByMember(map);
+//		System.out.println(map);
+		return ResponseEntity.ok("채팅방 입장 완료");
+	}
+	
 	@DeleteMapping("/member-matches/{memberId}/{matchId}")
 	public ResponseEntity<?> removeMatchOfMember(
 			@PathVariable("memberId") String memberId
