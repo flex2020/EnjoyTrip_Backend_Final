@@ -17,4 +17,7 @@ public interface MatchService {
 	HashtagDto isDuplicateHashtag(HashtagDto hashtagDto);
 	void mappingHashtag(Map<String, Object> map);
 	void mappingFile(MatchDto matchDto);
+	MatchDto getFindMatch(int matchId);
+	String countMembersByMatchId(int matchId);
+	List<String> getHashtags(int matchId);
 }

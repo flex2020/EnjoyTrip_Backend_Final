@@ -88,5 +88,20 @@ public class MatchServiceImpl implements MatchService {
 		// TODO Auto-generated method stub
 		matchMapper.mappingFile(matchDto);
 	}
+	@Override
+	public MatchDto getFindMatch(int matchId) {
+		// TODO Auto-generated method stub
+		return matchMapper.getFindMatch(matchId);
+	}
+	@Override
+	public String countMembersByMatchId(int matchId) {
+		// TODO Auto-generated method stub
+		return matchMapper.countMembersByMatchId(matchId);
+	}
+	@Override
+	public List<String> getHashtags(int matchId) {
+		// TODO Auto-generated method stub
+		return matchMapper.getHashtags(matchId);
+	}
 	
 }

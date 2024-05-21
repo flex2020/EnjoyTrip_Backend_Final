@@ -56,6 +56,19 @@ public class MatchController {
 		return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
 	}
 	
+	@GetMapping("/find/{matchId}")
+	public ResponseEntity<Map<String,Object>> getFindMatch(@PathVariable("matchId") int matchId) throws Exception {
+		MatchDto matchDto = matchService.getFindMatch(matchId);
+		matchDto.setNowPeople(matchService.countMembersByMatchId(matchId));
+		matchDto.setHashtags(matchService.getHashtags(matchId));
+		System.out.println(matchDto);
+		
+		Map<String,Object> res = new HashMap();
+		res.put("msg", "조회완료");
+		res.put("resdata", matchDto);
+		return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
+	}
+	
 	@GetMapping("/member-matches/{memberId}")
 	public ResponseEntity<?> getMatchesByMember(@PathVariable("memberId") String memberId) {
 		List<MatchDto> matchList = matchService.getMatchesByMember(memberId);
