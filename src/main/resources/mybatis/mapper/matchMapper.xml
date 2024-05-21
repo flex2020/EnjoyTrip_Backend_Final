@@ -58,29 +58,41 @@
 			where member_id = #{memberId} and match_id = #{matchId}
 	</delete>
 	
-	<select id="getFindMatches" resultType="matchDto">
-		select * from matches
-		where 1=1
-		<choose>
-			<when test="keyword != ''">
-	            and match_title like concat('%', #{keyword}, '%')
-	        </when>
-		</choose>
-		<choose>
-	        <when test="sortKey == 0">
-	            ORDER BY match_id DESC
-	        </when>
-	        <!-- <when test="sortKey == 1">
-	            ORDER BY like_count DESC
-	        </when> -->
-	        <when test="sortKey == 2">
-	            ORDER BY hit DESC
-	        </when>
-	        <otherwise>
-	            ORDER BY match_id DESC
-	        </otherwise>
-	    </choose>
-		limit #{start}, #{listsize}
+	<select id="getFindMatches" resultType="matchListItemDto">
+		select 
+			m.match_id, 
+		    m.match_title, 
+		    GROUP_CONCAT(distinct h.hashtag_name ORDER BY h.hashtag_name SEPARATOR ',') as hashtag_names, 
+		    f.file_path, 
+		    m.hit
+			from matches as m
+			left join match_hashtag as mh on m.match_id = mh.match_id
+			left join hashtags as h on mh.hashtag_id = h.hashtag_id
+			left join match_file mf on m.match_id = mf.match_id
+			left join files f on mf.file_id = f.file_id
+			where (
+				m.match_title like concat('%', #{keyword}, '%')
+			    or m.content like concat('%', #{keyword}, '%')
+			    or h.hashtag_name like concat('%', #{keyword}, '%')
+			)
+			
+			group by 
+		    m.match_id, m.match_title, f.file_path, m.hit
+			<choose>
+		        <when test="sortKey == 0">
+		            ORDER BY m.match_id DESC
+		        </when>
+		        <!-- <when test="sortKey == 1">
+		            ORDER BY like_count DESC
+		        </when> -->
+		        <when test="sortKey == 2">
+		            ORDER BY m.hit DESC
+		        </when>
+		        <otherwise>
+		            ORDER BY m.match_id DESC
+		        </otherwise>
+		    </choose>
+			limit #{start}, #{listsize}
 	</select>
 	
 	<select id="getTotalMatchCount" parameterType="map" resultType="int">

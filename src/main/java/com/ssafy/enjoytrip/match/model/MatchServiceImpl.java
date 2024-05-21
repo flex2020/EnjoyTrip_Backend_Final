@@ -1,5 +1,7 @@
 package com.ssafy.enjoytrip.match.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,13 +51,23 @@ public class MatchServiceImpl implements MatchService {
 		param.put("listsize", sizePerPage);
 		param.put("sortKey", sortKey);
 		
-		List<MatchDto> list = matchMapper.getFindMatches(param);
+		List<MatchListItemDto> list = matchMapper.getFindMatches(param);
+		List<Map<String, Object>> result = new ArrayList<>();
+		for (int i=0; i<list.size(); i++) {
+			Map<String, Object> temp = new HashMap<>();
+			if (list.get(i).getHashtagNames() != null) temp.put("hashtags", Arrays.asList(list.get(i).getHashtagNames().split(",")));
+			temp.put("matchId", list.get(i).getMatchId());
+			temp.put("matchTitle", list.get(i).getMatchTitle());
+			temp.put("filePath", list.get(i).getFilePath());
+			temp.put("hit", list.get(i).getHit());
+			result.add(temp);
+		}
 		
 		int totalArticleCount = matchMapper.getTotalMatchCount(param);
 		int totalPageCount = (totalArticleCount - 1) / sizePerPage + 1;
 		
 		MatchListDto matchListDto = new MatchListDto();
-		matchListDto.setMatches(list);
+		matchListDto.setMatches(result);
 		matchListDto.setCurrentPage(currentPage);
 		matchListDto.setTotalPageCount(totalPageCount);
 

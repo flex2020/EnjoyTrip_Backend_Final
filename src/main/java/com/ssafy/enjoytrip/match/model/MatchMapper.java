@@ -15,7 +15,7 @@ public interface MatchMapper {
 	List<MatchDto> getMatches();
 	List<MatchDto> getMatchesByMember(String memberId);
 	void removeMatchOfMember(Map<String, Object> map);
-	List<MatchDto> getFindMatches(Map<String, Object> param);
+	List<MatchListItemDto> getFindMatches(Map<String, Object> param);
 	int getTotalMatchCount(Map<String, Object> param);
 	void writeMatch(MatchDto matchDto);
 	void writeHashtag(HashtagDto hashtagDto);
