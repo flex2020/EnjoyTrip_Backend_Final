@@ -188,6 +188,7 @@
 		    r.match_id,
 		    r.member_id,
 		    r.review_title,
+		    r.preview_content,
 		    r.scope,
 		    r.content,
 		    r.hit,
@@ -209,6 +210,7 @@
 					and scope &lt; 3
 				</when>
 			</choose>
+		ORDER BY register_time DESC
 	</select>
 	
 	<!-- 댓글 -->
