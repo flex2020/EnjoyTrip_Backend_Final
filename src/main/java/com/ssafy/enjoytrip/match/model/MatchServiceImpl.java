@@ -103,5 +103,10 @@ public class MatchServiceImpl implements MatchService {
 		// TODO Auto-generated method stub
 		return matchMapper.getHashtags(matchId);
 	}
+	@Override
+	public void postMatchesByMember(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		matchMapper.postMatchesByMember(map);
+	}
 	
 }

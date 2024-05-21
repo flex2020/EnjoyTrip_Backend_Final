@@ -20,4 +20,5 @@ public interface MatchService {
 	MatchDto getFindMatch(int matchId);
 	String countMembersByMatchId(int matchId);
 	List<String> getHashtags(int matchId);
+	void postMatchesByMember(Map<String, Object> map);
 }

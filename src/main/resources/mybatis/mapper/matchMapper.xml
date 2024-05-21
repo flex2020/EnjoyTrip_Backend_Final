@@ -44,6 +44,11 @@
 	    WHERE mh.match_id = #{matchId}
 	</select>
 	
+	<insert id="postMatchesByMember" parameterType="map" >
+		insert into match_members (match_id, member_id)
+		values (#{matchId}, #{memberId})
+	</insert>
+	
 	<select id="getMatchesByMember" parameterType="string">
 		select m.*
 			from match_members mm
