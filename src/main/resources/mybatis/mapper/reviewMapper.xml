@@ -156,12 +156,15 @@
 		select * from reviews
 		where member_id = #{targetUserId}
 		<choose>
-			<when test="isRelation == '0'">
+			<when test="isRelation == 0">
 				and scope = 0
 			</when>
-			<otherwise>
+			<when test="isRelation == 1">
 				and scope &lt; 2
-			</otherwise>
+			</when>
+			<when test="isRelation == 2">
+				and scope &lt; 3
+			</when>
 		</choose>
 		order by review_id DESC
 	</select>
@@ -183,13 +186,16 @@
 	    WHERE 
 	        r.member_id = #{targetUserId}
 	        <choose>
-			<when test="isRelation == '0'">
-				and scope = 0
-			</when>
-			<otherwise>
-				and scope &lt; 2
-			</otherwise>
-		</choose>
+				<when test="isRelation == 0">
+					and scope = 0
+				</when>
+				<when test="isRelation == 1">
+					and scope &lt; 2
+				</when>
+				<when test="isRelation == 2">
+					and scope &lt; 3
+				</when>
+			</choose>
 	</select>
 	
 	<!-- 댓글 -->
