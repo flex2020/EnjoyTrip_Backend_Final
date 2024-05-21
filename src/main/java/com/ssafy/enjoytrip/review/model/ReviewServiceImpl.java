@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.review.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +23,19 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	@Transactional
-	public void writeReview(ReviewDto reviewDto) throws Exception {
-		reviewMapper.writeReview(reviewDto);
+	public void writeReview(ReviewAddDto reviewDto) throws Exception {
+		reviewMapper.writeReview(reviewDto.getReview());
+		if (reviewDto.getFileIds().size() > 0) {
+			List<ReviewFileDto> files = new ArrayList<>();
+			for (int fileId : reviewDto.getFileIds()) {
+				ReviewFileDto rfdto = new ReviewFileDto("0", reviewDto.getReview().getReviewId() + "", fileId + "");
+				System.out.println(rfdto);
+				files.add(rfdto);
+			}
+			
+			reviewMapper.mappingFiles(files);
+		}
+		
 //		List<FileInfoDto> fileInfos = reviewDto.getFileInfos();
 //		if (fileInfos != null && !fileInfos.isEmpty()) {
 //			reviewMapper.registerFile(reviewDto);

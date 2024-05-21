@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.enjoytrip.review.model.CommentDto;
+import com.ssafy.enjoytrip.review.model.ReviewAddDto;
 import com.ssafy.enjoytrip.review.model.ReviewDto;
 import com.ssafy.enjoytrip.review.model.ReviewListDto;
 import com.ssafy.enjoytrip.review.model.ReviewMemberLikesDto;
@@ -40,7 +41,7 @@ public class ReviewController {
 	
 	@PostMapping
 	public ResponseEntity<?> writeReview(
-			@RequestBody ReviewDto reviewDto) {
+			@RequestBody ReviewAddDto reviewDto) {
 		System.out.println(reviewDto.toString());
 		try {
 			reviewService.writeReview(reviewDto);
