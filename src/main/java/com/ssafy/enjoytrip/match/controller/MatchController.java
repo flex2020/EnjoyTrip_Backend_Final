@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.enjoytrip.match.model.MatchDto;
+import com.ssafy.enjoytrip.match.model.MatchListDto;
 import com.ssafy.enjoytrip.match.model.MatchService;
 import com.ssafy.enjoytrip.trip.model.dto.AttractionDto;
-import com.ssafy.enjoytrip.trip.model.service.TripService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,6 +41,15 @@ public class MatchController {
 	@GetMapping("/matches")
 	public ResponseEntity<List<MatchDto>> getMatches() throws Exception {
 		return new ResponseEntity<List<MatchDto>>(matchService.getMatches(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/find/matches")
+	public ResponseEntity<Map<String,Object>> getFindMatches(@RequestParam Map<String, Object> map) throws Exception {
+		MatchListDto matchListDto = matchService.getFindMatches(map);
+		Map<String,Object> res = new HashMap();
+		res.put("msg", "조회완료");
+		res.put("resdata", matchListDto);
+		return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
 	}
 	
 	@GetMapping("/member-matches/{memberId}")
