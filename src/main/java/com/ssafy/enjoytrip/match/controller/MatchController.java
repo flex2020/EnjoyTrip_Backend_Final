@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.enjoytrip.match.model.MatchDto;
 import com.ssafy.enjoytrip.match.model.MatchListDto;
 import com.ssafy.enjoytrip.match.model.MatchService;
+import com.ssafy.enjoytrip.review.model.ReviewAddDto;
 import com.ssafy.enjoytrip.trip.model.dto.AttractionDto;
 
 import lombok.RequiredArgsConstructor;
@@ -67,5 +70,17 @@ public class MatchController {
 		paramMap.put("matchId", matchId);
 		matchService.removeMatchOfMember(paramMap);
 		return ResponseEntity.ok("나가기 완료");
+	}
+	
+	@PostMapping
+	public ResponseEntity<?> writeReview(
+			@RequestBody MatchDto matchDto) {
+		System.out.println(matchDto.toString());
+		matchService.writeMatch(matchDto);
+		
+//		matchService.writeHashtag(matchDto);
+//		matchService.mappingHashtag();
+		
+		return ResponseEntity.ok("저장 완료");
 	}
 }

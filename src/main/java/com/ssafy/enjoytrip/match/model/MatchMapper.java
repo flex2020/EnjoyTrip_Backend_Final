@@ -17,4 +17,5 @@ public interface MatchMapper {
 	void removeMatchOfMember(Map<String, Object> map);
 	List<MatchDto> getFindMatches(Map<String, Object> param);
 	int getTotalMatchCount(Map<String, Object> param);
+	void writeMatch(MatchDto matchDto);
 }
