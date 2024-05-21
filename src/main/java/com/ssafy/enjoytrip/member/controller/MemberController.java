@@ -1,9 +1,12 @@
 package com.ssafy.enjoytrip.member.controller;
 
+import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,19 +23,25 @@ import com.ssafy.enjoytrip.file.model.FileDto;
 import com.ssafy.enjoytrip.file.model.FileService;
 import com.ssafy.enjoytrip.match.model.MatchService;
 import com.ssafy.enjoytrip.member.model.FindRequestDto;
+import com.ssafy.enjoytrip.member.model.KakaoMemberInfo;
 import com.ssafy.enjoytrip.member.model.MemberDeleteRequestDto;
 import com.ssafy.enjoytrip.member.model.MemberDeleteRequestDto;
 import com.ssafy.enjoytrip.member.model.MemberDto;
 import com.ssafy.enjoytrip.member.model.MemberInfoResponseDto;
 import com.ssafy.enjoytrip.member.model.MemberService;
 import com.ssafy.enjoytrip.member.model.MemberUpdateRequestDto;
+import com.ssafy.enjoytrip.member.model.OAuth2Response;
 import com.ssafy.enjoytrip.member.model.PasswordUpdateRequestDto;
 import com.ssafy.enjoytrip.member.model.SigninRequestDto;
+import com.ssafy.enjoytrip.security.JwtProvider;
 import com.ssafy.enjoytrip.security.TokenInfo;
 
 import jakarta.servlet.ServletContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 
 @RestController
 @RequestMapping("/api/member")
@@ -42,6 +51,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 	private final MemberService memberService;
 	private final ObjectMapper objectMapper;
+    private final JwtProvider jwtProvider;
+    private final PasswordEncoder passwordEncoder;
 	
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody MemberDto memberDto) throws Exception {
@@ -135,6 +146,19 @@ public class MemberController {
     @PostMapping("/withdraw")
     public void withdrawMember(@RequestBody MemberDeleteRequestDto memberDeleteRequestDto) throws Exception {
         memberService.withdrawMember(memberDeleteRequestDto.getMemberId());
+    }
+    
+    @PostMapping("/oauth2/kakao")
+    public ResponseEntity<?> kakaoLogin(@RequestBody KakaoMemberInfo userInfo) throws Exception {
+        MemberDto member = memberService.findByEmail(userInfo.getEmail());
+        if (member == null) {
+            // 새로운 사용자
+            return ResponseEntity.ok(new OAuth2Response(true, userInfo.getEmail(), userInfo.getNickname()));
+        } else {
+            // 기존 사용자
+            TokenInfo token = memberService.signin(member);
+            return ResponseEntity.ok(token.getAccessToken());
+        }
     }
     
     

@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.follow.model;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.enjoytrip.email.model.EmailMapper;
 import com.ssafy.enjoytrip.email.model.EmailServiceImpl;
+import com.ssafy.enjoytrip.member.model.MemberDto;
 import com.ssafy.enjoytrip.member.model.MemberMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -95,4 +97,14 @@ public class FollowServiceImpl implements FollowService {
             return 0; // 아무 관계 없음
         }
 	}
+
+    @Override
+    public List<FollowProfileDto> getFollowers(int memberId) throws Exception {
+        return followMapper.getFollowers(memberId);
+    }
+
+    @Override
+    public List<FollowProfileDto> getFollowees(int memberId) throws Exception {
+        return followMapper.getFollowees(memberId);
+    }
 }
