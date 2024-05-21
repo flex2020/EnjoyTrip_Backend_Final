@@ -153,22 +153,26 @@ public class ReviewController {
 			@RequestParam Map<String, String> map)
 			throws Exception {
 		// 관계 파악 (관계가 있는지, 관계가 없는지)
-		Integer isRelation = reviewService.getRelation(map);
-//		System.out.println(isRelation);
-		map.put("isRelation", isRelation == 0 ? "0" : "1");
-//		System.out.println(reviewService.getRecentlyReview(map));
-		
-		return new ResponseEntity<ReviewDto>(reviewService.getRecentlyReview(map).size() != 0 ? reviewService.getRecentlyReview(map).get(0) : new ReviewDto() , HttpStatus.OK);
+		if(map.get("loginUserId").equals(map.get("targetUserId"))) {
+			map.put("isRelation", "2");
+		} else {
+			Integer isRelation = reviewService.getRelation(map);
+			map.put("isRelation", isRelation == 0 ? "0" : "1");
+		}
+		List<ReviewDto> list = reviewService.getRecentlyReview(map);
+		return new ResponseEntity<ReviewDto>(list.size() != 0 ? list.get(0) : new ReviewDto() , HttpStatus.OK);
 	}
 	
 	@GetMapping("/getfollowreviews")
 	public ResponseEntity<List<ReviewDto>> getFollowReview(
 			@RequestParam Map<String, String> map) throws Exception {
 		// 관계 파악 (관계가 있는지, 관계가 없는지)
-		Integer isRelation = reviewService.getRelation(map);
-		System.out.println(isRelation);
-		map.put("isRelation", isRelation == 0 ? "0" : "1");
-		System.out.println(reviewService.getRecentlyReview(map));
+		if(map.get("loginUserId").equals(map.get("targetUserId"))) {
+			map.put("isRelation", "2");
+		} else {
+			Integer isRelation = reviewService.getRelation(map);
+			map.put("isRelation", isRelation == 0 ? "0" : "1");
+		}
 		return new ResponseEntity<List<ReviewDto>>(reviewService.getFollowReview(map), HttpStatus.OK);
 	}
 	
