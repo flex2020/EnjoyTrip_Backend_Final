@@ -70,4 +70,26 @@
 		insert into matches (course_id, author_id, match_title, travel_start_date, travel_end_date, max_people, gender_type, deadline, hit, register_time, deleted, content)
 		values (#{courseId}, #{authorId}, #{matchTitle}, #{travelStartDate}, #{travelEndDate}, #{maxPeople}, #{genderType}, #{deadline}, #{hit}, now(), #{deleted}, #{content})
 	</insert>
+	
+	<!-- 중복 체크 쿼리 -->
+    <select id="isDuplicateHashtag" parameterType="string" resultType="HashtagDto">
+        SELECT 
+            hashtag_id AS hashtagId, 
+            hashtag_name AS hashtagName
+        FROM 
+            hashtags
+        WHERE 
+            hashtag_name = #{hashtagName}
+    </select>
+
+    <!-- 삽입 쿼리 -->
+    <insert id="writeHashtag" parameterType="hashtagDto" useGeneratedKeys="true" keyProperty="hashtagId">
+        INSERT INTO hashtags (hashtag_name)
+        VALUES (#{hashtagName})
+    </insert>
+    
+    <insert id="mappingHashtag" parameterType="map">
+        INSERT INTO match_hashtag (match_id, hashtag_id)
+        VALUES (#{matchId}, #{hashtagId})
+    </insert>
 </mapper>

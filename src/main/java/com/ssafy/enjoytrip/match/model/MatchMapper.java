@@ -18,4 +18,7 @@ public interface MatchMapper {
 	List<MatchDto> getFindMatches(Map<String, Object> param);
 	int getTotalMatchCount(Map<String, Object> param);
 	void writeMatch(MatchDto matchDto);
+	void writeHashtag(HashtagDto hashtagDto);
+	HashtagDto isDuplicateHashtag(HashtagDto hashtagDto);
+	void mappingHashtag(Map<String, Object> map);
 }
