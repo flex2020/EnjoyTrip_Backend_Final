@@ -26,4 +26,9 @@ public interface MatchMapper {
 	String countMembersByMatchId(int matchId);
 	List<String> getHashtags(int matchId);
 	void postMatchesByMember(Map<String, Object> map);
+	void updateMatchHit(int matchId);
+	void updateMatch(MatchDto matchDto);
+	void deleteMappingHashtag(String matchId);
+	void deleteMatchImage(int fileId);
+	void deleteMatch(int matchId);
 }

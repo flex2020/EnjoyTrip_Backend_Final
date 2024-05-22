@@ -31,6 +31,12 @@
 	    where m.match_id = #{matchId}
 	</select>
 	
+	<update id="updateMatchHit" parameterType="int">
+		update matches
+		set hit = hit + 1
+		where match_id = #{matchId}
+	</update>
+	
 	<select id="countMembersByMatchId" parameterType="int" resultType="string">
 	    SELECT COUNT(member_id)
 	    FROM match_members
@@ -110,6 +116,13 @@
 		values (#{courseId}, #{authorId}, #{matchTitle}, #{travelStartDate}, #{travelEndDate}, #{maxPeople}, #{genderType}, #{deadline}, #{hit}, now(), #{deleted}, #{content})
 	</insert>
 	
+	<update id="updateMatch" parameterType="matchDto">
+		update matches
+		set course_id = #{courseId}, match_title = #{matchTitle}, travel_start_date = #{travelStartDate}, travel_end_date = #{travelEndDate}
+		, max_people = #{maxPeople}, gender_type = #{genderType}, deadline = #{deadline}, content = #{content}
+		where author_id = #{authorId}
+	</update>
+	
 	<!-- 중복 체크 쿼리 -->
     <select id="isDuplicateHashtag" parameterType="string" resultType="HashtagDto">
         SELECT 
@@ -132,8 +145,24 @@
         VALUES (#{matchId}, #{hashtagId})
     </insert>
     
+    <delete id="deleteMappingHashtag" parameterType="string">
+        delete from match_hashtag
+        where match_id = #{matchId}
+    </delete>
+    
     <insert id="mappingFile" parameterType="matchDto">
         INSERT INTO match_file (match_id, file_id)
         VALUES (#{matchId}, #{fileId})
     </insert>
+    
+    <delete id="deleteMatchImage" parameterType="int">
+    	delete from match_file
+        where match_id = #{matchId}
+    </delete>
+    
+    <update id="deleteMatch" parameterType="int">
+    	update matches
+        set deleted = 1
+        where match_id = #{matchId}
+    </update>
 </mapper>
