@@ -164,6 +164,8 @@ public class MemberController {
     
     @PostMapping("/score")
     public ResponseEntity<String> updateMemberScore(@RequestBody ScoreUpdateDto scoreUpdateDto) throws Exception {
+    	System.out.println(scoreUpdateDto);
+    	
         memberService.updateMemberScore(scoreUpdateDto);
         return ResponseEntity.ok("Member score updated successfully");
     }

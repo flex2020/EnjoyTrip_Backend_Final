@@ -194,14 +194,14 @@
     </update>
     
     <select id="getMatesByMatch" parameterType="int" resultType="mateDto">
-    SELECT
-        m.member_id,
-        m.nickname
-    FROM
-        match_members mm
-    INNER JOIN
-        members m ON mm.member_id = m.member_id
-    WHERE
-        mm.match_id = #{matchId}
-</select>
+	    SELECT
+	        m.member_id,
+	        m.nickname
+	    FROM
+	        match_members mm
+	    INNER JOIN
+	        members m ON mm.member_id = m.member_id
+	    WHERE
+	        mm.match_id = #{matchId}
+	</select>
 </mapper>
