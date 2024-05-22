@@ -21,6 +21,7 @@ import com.ssafy.enjoytrip.match.model.HashtagDto;
 import com.ssafy.enjoytrip.match.model.MatchDto;
 import com.ssafy.enjoytrip.match.model.MatchListDto;
 import com.ssafy.enjoytrip.match.model.MatchService;
+import com.ssafy.enjoytrip.match.model.MateDto;
 import com.ssafy.enjoytrip.trip.model.dto.AttractionDto;
 
 import lombok.RequiredArgsConstructor;
@@ -81,6 +82,12 @@ public class MatchController {
 	@GetMapping("/member-matches/{memberId}")
 	public ResponseEntity<?> getMatchesByMember(@PathVariable("memberId") String memberId) {
 		List<MatchDto> matchList = matchService.getMatchesByMember(memberId);
+		return ResponseEntity.ok(matchList);
+	}
+	
+	@GetMapping("/match-mates/{matchId}")
+	public ResponseEntity<?> getMatesByMatch(@PathVariable("matchId") int matchId) {
+		List<MateDto> matchList = matchService.getMatesByMatch(matchId);
 		return ResponseEntity.ok(matchList);
 	}
 	
