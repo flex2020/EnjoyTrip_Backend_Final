@@ -175,4 +175,10 @@ public class MatchController {
 		matchService.deleteMatch(matchId);
 		return ResponseEntity.ok("삭제 완료");
 	}
+	
+	@GetMapping("/profile/{matchId}")
+	public ResponseEntity<?> getMatchProfile(@PathVariable("matchId") String matchId) throws Exception {
+		String profilePath = matchService.getMatchProfile(matchId);
+		return ResponseEntity.ok(profilePath);
+	}
 }
