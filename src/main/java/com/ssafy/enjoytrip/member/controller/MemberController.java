@@ -32,6 +32,7 @@ import com.ssafy.enjoytrip.member.model.MemberService;
 import com.ssafy.enjoytrip.member.model.MemberUpdateRequestDto;
 import com.ssafy.enjoytrip.member.model.OAuth2Response;
 import com.ssafy.enjoytrip.member.model.PasswordUpdateRequestDto;
+import com.ssafy.enjoytrip.member.model.ScoreUpdateDto;
 import com.ssafy.enjoytrip.member.model.SigninRequestDto;
 import com.ssafy.enjoytrip.security.JwtProvider;
 import com.ssafy.enjoytrip.security.TokenInfo;
@@ -161,5 +162,12 @@ public class MemberController {
         }
     }
     
+    @PostMapping("/score")
+    public ResponseEntity<String> updateMemberScore(@RequestBody ScoreUpdateDto scoreUpdateDto) throws Exception {
+    	System.out.println(scoreUpdateDto);
+    	
+        memberService.updateMemberScore(scoreUpdateDto);
+        return ResponseEntity.ok("Member score updated successfully");
+    }
     
 }
