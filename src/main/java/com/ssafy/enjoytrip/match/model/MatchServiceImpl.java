@@ -145,5 +145,10 @@ public class MatchServiceImpl implements MatchService {
 		// TODO Auto-generated method stub
 		matchMapper.deleteMatch(matchId);
 	}
+	@Override
+	public List<MatchDto> getFindMatchByMemberId(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return matchMapper.getFindMatchByMemberId(map);
+	}
 	
 }

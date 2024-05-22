@@ -106,6 +106,26 @@
 			limit #{start}, #{listsize}
 	</select>
 	
+	<select id="getFindMatchByMemberId" parameterType="map" resultType="matchDto">
+		select 
+            match_id, 
+            course_id, 
+            author_id, 
+            match_title, 
+            travel_start_date, 
+            travel_end_date, 
+            max_people, 
+            gender_type, 
+            deadline, 
+            hit, 
+            register_time,
+            deleted, 
+            content
+        from matches
+        where author_id = #{memberId}
+        order by match_id DESC
+	</select>
+	
 	<select id="getTotalMatchCount" parameterType="map" resultType="int">
 		select count(match_id)
 		from matches
