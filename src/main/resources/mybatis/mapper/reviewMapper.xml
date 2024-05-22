@@ -216,6 +216,30 @@
 		ORDER BY register_time DESC
 	</select>
 	
+
+	<select id="getLikedReviews" parameterType="map" resultType="reviewDto">
+	  SELECT 
+	      r.review_id,
+	      r.match_id,
+	      r.member_id,
+	      r.review_title,
+	      r.preview_content,
+	      r.scope,
+	      r.content,
+	      r.hit,
+	      r.register_time,
+	      r.deleted,
+	      r.like_count
+	  FROM 
+	      reviews r
+	  JOIN 
+	      review_member_likes l ON r.review_id = l.review_id
+	  WHERE 
+	      l.member_id = #{memberId}
+	  ORDER BY 
+	      r.register_time DESC
+	</select>
+	
 	<!-- 댓글 -->
 	<select id="commentList" parameterType="int" resultType="commentDto">
 		select c.comment_id, c.review_id, c.member_id, c.content, c.comment_group, c.depth, c.register_time, c.deleted, c.reply_parent_name, m.nickname
@@ -258,4 +282,10 @@
 			set deleted = 1
 			where comment_id = #{commentId} 
 	</update>
+	
+    <select id="getReviewCount" resultType="int">
+        SELECT 
+        (SELECT COUNT(*) FROM matches WHERE author_id = #{memberId}) +
+        (SELECT COUNT(*) FROM reviews WHERE member_id = #{memberId}) AS reviewCount
+    </select>
 </mapper>
