@@ -21,6 +21,7 @@ public interface MatchService {
 	String countMembersByMatchId(int matchId);
 	List<String> getHashtags(int matchId);
 	void postMatchesByMember(Map<String, Object> map);
+	List<MatchDto> getMatchesNotFinished(); 
 	void updateMatchHit(int matchId);
 	void updateMatch(MatchDto matchDto);
 	void deleteMappingHashtag(String matchId);

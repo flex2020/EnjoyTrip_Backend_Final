@@ -41,7 +41,7 @@ public class ChatGPTServiceImpl implements ChatGPTService {
         headers.set("Authorization", "Bearer " + apiKey);
 
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("model", "gpt-3.5-turbo-16k");
+        requestBody.put("model", "gpt-4o");
         requestBody.put("messages", List.of(
                 Map.of("role", "user", "content", prompt)
         ));

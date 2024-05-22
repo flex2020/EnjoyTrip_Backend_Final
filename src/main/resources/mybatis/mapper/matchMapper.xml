@@ -174,7 +174,14 @@
         INSERT INTO match_file (match_id, file_id)
         VALUES (#{matchId}, #{fileId})
     </insert>
-    
+  
+    <select id="getMatchesNotFinished" resultType="matchDto">
+    	select *
+    		from matches
+    		where deadline &gt;= now()
+    		and deleted = 0
+    </select>
+  
     <delete id="deleteMatchImage" parameterType="int">
     	delete from match_file
         where match_id = #{matchId}

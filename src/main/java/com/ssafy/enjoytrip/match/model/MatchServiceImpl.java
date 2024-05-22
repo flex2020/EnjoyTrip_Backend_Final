@@ -126,6 +126,8 @@ public class MatchServiceImpl implements MatchService {
 		matchMapper.postMatchesByMember(map);
 	}
 	@Override
+	public List<MatchDto> getMatchesNotFinished() {
+		return matchMapper.getMatchesNotFinished();
 	public void updateMatchHit(int matchId) {
 		// TODO Auto-generated method stub
 		matchMapper.updateMatchHit(matchId);
