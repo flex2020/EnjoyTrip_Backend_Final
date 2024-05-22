@@ -96,6 +96,11 @@ public class MatchServiceImpl implements MatchService {
 		matchMapper.mappingHashtag(map);
 	}
 	@Override
+	public void deleteMappingHashtag(String matchId) {
+		// TODO Auto-generated method stub
+		matchMapper.deleteMappingHashtag(matchId);
+	}
+	@Override
 	public void mappingFile(MatchDto matchDto) {
 		// TODO Auto-generated method stub
 		matchMapper.mappingFile(matchDto);
@@ -123,6 +128,29 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public List<MatchDto> getMatchesNotFinished() {
 		return matchMapper.getMatchesNotFinished();
+	public void updateMatchHit(int matchId) {
+		// TODO Auto-generated method stub
+		matchMapper.updateMatchHit(matchId);
+	}
+	@Override
+	public void updateMatch(MatchDto matchDto) {
+		// TODO Auto-generated method stub
+		matchMapper.updateMatch(matchDto);
+	}
+	@Override
+	public void deleteMatchImage(int fileId) {
+		// TODO Auto-generated method stub
+		matchMapper.deleteMatchImage(fileId);
+	}
+	@Override
+	public void deleteMatch(int matchId) {
+		// TODO Auto-generated method stub
+		matchMapper.deleteMatch(matchId);
+	}
+	@Override
+	public List<MatchDto> getFindMatchByMemberId(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return matchMapper.getFindMatchByMemberId(map);
 	}
 	
 }

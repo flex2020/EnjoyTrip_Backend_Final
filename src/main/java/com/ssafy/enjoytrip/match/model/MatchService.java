@@ -21,10 +21,11 @@ public interface MatchService {
 	String countMembersByMatchId(int matchId);
 	List<String> getHashtags(int matchId);
 	void postMatchesByMember(Map<String, Object> map);
-	
-	
-	
-	
-	
 	List<MatchDto> getMatchesNotFinished(); 
+	void updateMatchHit(int matchId);
+	void updateMatch(MatchDto matchDto);
+	void deleteMappingHashtag(String matchId);
+	void deleteMatchImage(int fileId);
+	void deleteMatch(int matchId);
+	List<MatchDto> getFindMatchByMemberId(Map<String, Object> map);
 }

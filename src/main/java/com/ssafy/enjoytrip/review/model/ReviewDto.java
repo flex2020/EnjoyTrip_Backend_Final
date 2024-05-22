@@ -22,4 +22,6 @@ public class ReviewDto {
 	private int deleted;
 	private int likeCount;
 	private String firstImage;
+	
+	private String loginMemberId;
 }
