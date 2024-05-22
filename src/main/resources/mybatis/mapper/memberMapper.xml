@@ -91,4 +91,11 @@
     	FROM files f JOIN member_file mf ON f.file_id = mf.file_id
     	WHERE mf.member_id = #{memberId}
     </select>
+    
+    <update id="updateMemberScore">
+        UPDATE members
+        SET score = score + #{score},
+            valued_count = valued_count + 1
+        WHERE member_id = #{memberId}
+    </update>
 </mapper>
