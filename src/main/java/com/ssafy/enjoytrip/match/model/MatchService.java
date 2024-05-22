@@ -29,4 +29,5 @@ public interface MatchService {
 	void deleteMatch(int matchId);
 	List<MatchDto> getFindMatchByMemberId(Map<String, Object> map);
 	List<MateDto> getMatesByMatch(int matchId);
+	String getMatchProfile(String matchId) throws Exception;
 }

@@ -17,7 +17,7 @@
         SELECT email_verify_code
         FROM email_verify
         WHERE email = #{email}
-        ORDER BY expire_time DESC
+        ORDER BY verify_id DESC
         LIMIT 1
     </select>
 </mapper>

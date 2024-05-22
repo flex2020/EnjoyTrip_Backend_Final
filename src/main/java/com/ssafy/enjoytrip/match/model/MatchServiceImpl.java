@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.match.model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.ssafy.enjoytrip.member.model.MemberMapper;
 import com.ssafy.enjoytrip.review.model.ReviewDto;
 import com.ssafy.enjoytrip.review.model.ReviewListDto;
 import com.ssafy.enjoytrip.trip.model.dto.AttractionDto;
@@ -18,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MatchServiceImpl implements MatchService {
 	private final MatchMapper matchMapper;
+	private final MemberMapper memberMapper;
 	@Override
 	public List<AttractionDto> match(String matchId) {
 		return matchMapper.match(matchId);
@@ -158,6 +162,12 @@ public class MatchServiceImpl implements MatchService {
 	public List<MateDto> getMatesByMatch(int matchId) {
 		// TODO Auto-generated method stub
 		return matchMapper.getMatesByMatch(matchId);
+	}
+	@Override
+	@Transactional
+	public String getMatchProfile(String matchId) throws Exception {
+		MatchDto matchDto = matchMapper.matchDetail(matchId);
+		return memberMapper.findProfileImagePathByMemberId(Integer.parseInt(matchDto.getAuthorId()));
 	}
 	
 }
