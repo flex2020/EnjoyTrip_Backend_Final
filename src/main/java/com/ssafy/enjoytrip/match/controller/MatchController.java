@@ -114,7 +114,17 @@ public class MatchController {
 	public ResponseEntity<MatchDto> writeMatch(
 			@RequestBody MatchDto matchDto) {
 		matchService.writeMatch(matchDto);
-		matchService.mappingFile(matchDto);
+		
+		// fileId null이 아니면
+		String fileId = matchDto.getFileId();
+		
+		System.out.println(fileId);
+		
+		if (!fileId.equals("0")) {
+			// 기존 사진 삭제
+			// 새로운 삭제 업로드
+			matchService.mappingFile(matchDto);
+		}
 		
 		List<String> hashtagList = matchDto.getHashtags(); 
 		HashtagDto hashtagDto = new HashtagDto();
