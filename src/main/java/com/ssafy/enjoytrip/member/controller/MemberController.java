@@ -66,6 +66,7 @@ public class MemberController {
     public ResponseEntity<String> signin(@RequestBody SigninRequestDto signinRequestDto) throws Exception {
     	log.info(signinRequestDto.toString());
         TokenInfo token = memberService.signin(signinRequestDto);
+        log.info(token.toString());
         return ResponseEntity.ok(token.getAccessToken());
     }
 

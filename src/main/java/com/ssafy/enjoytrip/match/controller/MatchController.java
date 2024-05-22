@@ -71,6 +71,7 @@ public class MatchController {
 		MatchDto matchDto = matchService.getFindMatch(matchId);
 		matchDto.setNowPeople(matchService.countMembersByMatchId(matchId));
 		matchDto.setHashtags(matchService.getHashtags(matchId));
+		
 		matchService.updateMatchHit(matchId);
 		
 		Map<String,Object> res = new HashMap();
@@ -157,11 +158,11 @@ public class MatchController {
 			}
 			matchService.mappingHashtag(map);
 		}
-		System.out.println(matchDto.getMatchId());
+		
 		// fileId null이 아니면
 		String matchId = matchDto.getMatchId();
 		String fileId = matchDto.getFileId();
-		if (matchId != null) {
+		if (fileId != null) {
 			// 기존 사진 삭제
 			matchService.deleteMatchImage(Integer.parseInt(matchId));
 			// 새로운 삭제 업로드
