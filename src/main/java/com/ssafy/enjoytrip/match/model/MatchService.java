@@ -28,4 +28,5 @@ public interface MatchService {
 	void deleteMatchImage(int fileId);
 	void deleteMatch(int matchId);
 	List<MatchDto> getFindMatchByMemberId(Map<String, Object> map);
+	List<MateDto> getMatesByMatch(int matchId);
 }

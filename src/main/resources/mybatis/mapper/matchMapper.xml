@@ -85,7 +85,7 @@
 				m.match_title like concat('%', #{keyword}, '%')
 			    or m.content like concat('%', #{keyword}, '%')
 			    or h.hashtag_name like concat('%', #{keyword}, '%')
-			)
+			) and m.deleted = 0
 			
 			group by 
 		    m.match_id, m.match_title, f.file_path, m.hit
@@ -192,4 +192,16 @@
         set deleted = 1
         where match_id = #{matchId}
     </update>
+    
+    <select id="getMatesByMatch" parameterType="int" resultType="mateDto">
+    SELECT
+        m.member_id,
+        m.nickname
+    FROM
+        match_members mm
+    INNER JOIN
+        members m ON mm.member_id = m.member_id
+    WHERE
+        mm.match_id = #{matchId}
+</select>
 </mapper>
