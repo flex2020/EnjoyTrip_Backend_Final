@@ -56,4 +56,9 @@ public class SwaggerConfig {
 	public GroupedOpenApi fileApi() {
 		return GroupedOpenApi.builder().group("file").pathsToMatch("/api/files/**").build();
 	}
+	
+	@Bean
+	public GroupedOpenApi gptApi() {
+		return GroupedOpenApi.builder().group("gpt").pathsToMatch("/api/gpt/**").build();
+	}
 }

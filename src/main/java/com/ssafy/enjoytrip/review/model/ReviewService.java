@@ -32,6 +32,8 @@ public interface ReviewService {
 
 	List<ReviewDto> getFollowReview(Map<String, String> map) throws Exception;
 	
+	List<ReviewDto> getLikedReviews(Map<String, String> map) throws Exception;
+	
 	//댓글
 	void writeComment(CommentDto dto) throws Exception;
 
@@ -46,4 +48,7 @@ public interface ReviewService {
 	void updateComment(CommentDto dto) throws Exception;
 
 	void deleteComment(int commentId) throws Exception;
+	
+	// 게시글 개수 가져오기
+	int getReviewCount(int memberId) throws Exception;
 }

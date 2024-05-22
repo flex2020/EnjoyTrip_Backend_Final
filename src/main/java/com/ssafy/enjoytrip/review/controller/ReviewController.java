@@ -168,6 +168,7 @@ public class ReviewController {
 	@GetMapping("/getfollowreviews")
 	public ResponseEntity<List<ReviewDto>> getFollowReview(
 			@RequestParam Map<String, String> map) throws Exception {
+		log.info(map.toString());
 		// 관계 파악 (관계가 있는지, 관계가 없는지)
 		if(map.get("loginUserId").equals(map.get("targetUserId"))) {
 			map.put("isRelation", "2");
@@ -177,6 +178,15 @@ public class ReviewController {
 		}
 		return new ResponseEntity<List<ReviewDto>>(reviewService.getFollowReview(map), HttpStatus.OK);
 	}
+	
+    @GetMapping("/getlikereviews")
+    public ResponseEntity<List<ReviewDto>> getLikedReview(@RequestParam Map<String, String> map) throws Exception {
+    	Map<String, String> customMap = new HashMap<>();
+    	log.info(map.toString());
+    	customMap.put("memberId", map.get("targetUserId"));
+    	log.info(customMap.toString());
+    	return new ResponseEntity<List<ReviewDto>>(reviewService.getLikedReviews(customMap), HttpStatus.OK);
+    }
 	
 	// 댓글
 	@PostMapping("/comments")
@@ -207,8 +217,17 @@ public class ReviewController {
 		return ResponseEntity.ok("댓글 삭제 완료");
 	}
 	
+	@PostMapping("/count")
+    public ResponseEntity<Integer> getReviewCount(@RequestBody Map<String, String> request) throws Exception {
+        int memberId = Integer.parseInt(request.get("memberId"));
+        int count = reviewService.getReviewCount(memberId);
+        return ResponseEntity.ok(count);
+    }
+	
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		e.printStackTrace();
 		return new ResponseEntity<String>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.ssafy.enjoytrip.match.model.MatchDto;
 
@@ -41,6 +42,8 @@ public interface ReviewMapper {
 	List<ReviewDto> getRecentlyReview(Map<String, String> map) throws SQLException;
 
 	List<ReviewDto> getFollowReview(Map<String, String> map) throws SQLException;
+	
+	List<ReviewDto> getLikedReviews(Map<String, String> map) throws SQLException;
 
 	void writeComment(CommentDto dto) throws SQLException;
 
@@ -56,4 +59,5 @@ public interface ReviewMapper {
 
 	void deleteComment(int commentId) throws SQLException;
 
+	int getReviewCount(@Param("memberId") int memberId) throws SQLException;
 }
