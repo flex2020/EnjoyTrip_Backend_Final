@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class MateDto {
 	private String memberId;
 	private String nickname;
+	private String score;
 }

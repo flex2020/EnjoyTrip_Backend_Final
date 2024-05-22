@@ -85,7 +85,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public ReviewViewDto getReviewView(int viewId) throws Exception {
-
 		return reviewMapper.getReviewView(viewId);
 	}
 

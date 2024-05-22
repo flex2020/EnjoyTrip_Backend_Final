@@ -79,6 +79,7 @@ public class ReviewController {
 		response.put("reviewView", reviewService.getReviewView(viewId));
 		response.put("comments", reviewService.commentList(viewId));
 		reviewService.updateHit(viewId);
+		System.out.println(response);
 //		System.out.println(response.get("comments").toString());
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}

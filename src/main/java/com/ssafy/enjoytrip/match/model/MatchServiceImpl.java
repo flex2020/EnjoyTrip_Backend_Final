@@ -129,7 +129,7 @@ public class MatchServiceImpl implements MatchService {
 	public List<MatchDto> getMatchesNotFinished() {
 		return matchMapper.getMatchesNotFinished();
 	}
-  
+	@Override
 	public void updateMatchHit(int matchId) {
 		// TODO Auto-generated method stub
 		matchMapper.updateMatchHit(matchId);
