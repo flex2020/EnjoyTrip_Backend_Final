@@ -120,5 +120,9 @@ public class MatchServiceImpl implements MatchService {
 		// TODO Auto-generated method stub
 		matchMapper.postMatchesByMember(map);
 	}
+	@Override
+	public List<MatchDto> getMatchesNotFinished() {
+		return matchMapper.getMatchesNotFinished();
+	}
 	
 }

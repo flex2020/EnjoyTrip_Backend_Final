@@ -21,4 +21,10 @@ public interface MatchService {
 	String countMembersByMatchId(int matchId);
 	List<String> getHashtags(int matchId);
 	void postMatchesByMember(Map<String, Object> map);
+	
+	
+	
+	
+	
+	List<MatchDto> getMatchesNotFinished(); 
 }
