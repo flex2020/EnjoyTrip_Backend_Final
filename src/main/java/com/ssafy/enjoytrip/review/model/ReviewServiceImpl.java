@@ -56,8 +56,12 @@ public class ReviewServiceImpl implements ReviewService {
 		param.put("listsize", sizePerPage);
 		param.put("sortKey", sortKey);
 		param.put("scopeKey", scopeKey);
+		param.put("loginMemberId", map.get("loginMemberId"));
+		
+		System.out.println(param);
 		
 		List<ReviewDto> list = reviewMapper.listReview(param);
+		
 		
 		int totalArticleCount = reviewMapper.getTotalReviewCount(param);
 		int totalPageCount = (totalArticleCount - 1) / sizePerPage + 1;

@@ -31,39 +31,90 @@
 		</if>
 	</sql>
 	
-	<select id="listReview" resultType="reviewDto">
-		select review_id, match_id, member_id, review_title, scope, content, preview_content, hit, register_time, deleted, like_count, first_image
-			from reviews
-			where deleted = 0
-			<choose>
-				<when test="scopeKey == 1">
-		            and scope = 1
-		        </when>
-		        <when test="scopeKey == 2">
-		            and scope = 2
-		        </when>
-			</choose>
-			<choose>
-				<when test="keyword != ''">
-		            and review_title like concat('%', #{keyword}, '%')
-		        </when>
-			</choose>
-			<choose>
-		        <when test="sortKey == 0">
-		            ORDER BY review_id DESC
-		        </when>
-		        <when test="sortKey == 1">
-		            ORDER BY like_count DESC
-		        </when>
-		        <when test="sortKey == 2">
-		            ORDER BY hit DESC
-		        </when>
-		        <otherwise>
-		            ORDER BY review_id DESC
-		        </otherwise>
-		    </choose>
-			limit #{start}, #{listsize}
-	</select>
+	<select id="listReview" parameterType="map" resultType="reviewDto">
+    <choose>
+        <when test="scopeKey == 1">
+            SELECT 
+                r.review_id, 
+                r.match_id, 
+                r.member_id, 
+                r.review_title, 
+                r.scope, 
+                r.content, 
+                r.preview_content, 
+                r.hit, 
+                r.register_time, 
+                r.deleted, 
+                r.like_count, 
+                r.first_image
+            FROM 
+                reviews r
+            INNER JOIN 
+                followings f ON r.member_id = f.to_member_id
+            WHERE 
+                r.deleted = 0
+                AND r.scope &lt; 2
+                AND f.from_member_id = #{loginMemberId}
+                <if test="keyword != null and keyword != ''">
+                    AND r.review_title LIKE CONCAT('%', #{keyword}, '%')
+                </if>
+                <choose>
+                    <when test="sortKey == 0">
+                        ORDER BY r.review_id DESC
+                    </when>
+                    <when test="sortKey == 1">
+                        ORDER BY r.like_count DESC
+                    </when>
+                    <when test="sortKey == 2">
+                        ORDER BY r.hit DESC
+                    </when>
+                    <otherwise>
+                        ORDER BY r.review_id DESC
+                    </otherwise>
+                </choose>
+            LIMIT #{start}, #{listsize}
+        </when>
+        <otherwise>
+            SELECT 
+                r.review_id, 
+                r.match_id, 
+                r.member_id, 
+                r.review_title, 
+                r.scope, 
+                r.content, 
+                r.preview_content, 
+                r.hit, 
+                r.register_time, 
+                r.deleted, 
+                r.like_count, 
+                r.first_image
+            FROM 
+                reviews r
+            WHERE 
+                r.deleted = 0
+                AND r.scope &lt; 2
+                <if test="keyword != null and keyword != ''">
+                    AND r.review_title LIKE CONCAT('%', #{keyword}, '%')
+                </if>
+                <choose>
+                    <when test="sortKey == 0">
+                        ORDER BY r.review_id DESC
+                    </when>
+                    <when test="sortKey == 1">
+                        ORDER BY r.like_count DESC
+                    </when>
+                    <when test="sortKey == 2">
+                        ORDER BY r.hit DESC
+                    </when>
+                    <otherwise>
+                        ORDER BY r.review_id DESC
+                    </otherwise>
+                </choose>
+            LIMIT #{start}, #{listsize}
+        </otherwise>
+    </choose>
+</select>
+	
 	
 	<select id="getTotalReviewCount" parameterType="map" resultType="int">
 		select count(review_id)

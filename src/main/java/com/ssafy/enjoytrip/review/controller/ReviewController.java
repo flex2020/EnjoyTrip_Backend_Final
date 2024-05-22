@@ -59,6 +59,7 @@ public class ReviewController {
 		// logic 처리
 		try {
 			ReviewListDto reviewListDto = reviewService.listReview(map);
+//			System.out.println(reviewListDto.getReviews().size());
 			Map<String,Object> res = new HashMap();
 			res.put("msg", "조회완료");
 			res.put("resdata", reviewListDto);
