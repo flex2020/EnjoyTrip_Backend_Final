@@ -17,5 +17,6 @@ public interface MemberMapper {
     Integer getMemberProfileImage(int memberId) throws SQLException;
     void deleteMemberProfileImage(int memberId) throws SQLException;
     void insertMemberProfileImage(@Param("memberId") int memberId, @Param("fileId") int fileId) throws SQLException;
-    String findProfileImagePathByMemberId(@Param("memberId") int memberId);
+    String findProfileImagePathByMemberId(@Param("memberId") int memberId) throws SQLException;
+    void updateMemberScore(@Param("memberId") String memberId, @Param("score") String score) throws SQLException;
 }
