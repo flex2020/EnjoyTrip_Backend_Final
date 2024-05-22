@@ -129,6 +129,10 @@ public class MatchServiceImpl implements MatchService {
 	public List<MatchDto> getMatchesNotFinished() {
 		return matchMapper.getMatchesNotFinished();
 	}
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 0a65d555207d6f7a2dd03f27fb7a41a6f316f4a8
 	public void updateMatchHit(int matchId) {
 		// TODO Auto-generated method stub
 		matchMapper.updateMatchHit(matchId);

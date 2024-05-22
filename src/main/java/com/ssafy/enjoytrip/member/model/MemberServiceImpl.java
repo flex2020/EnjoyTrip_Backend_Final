@@ -153,4 +153,9 @@ public class MemberServiceImpl implements MemberService {
     public MemberDto findByEmail(String email) throws Exception {
         return memberMapper.findByEmail(email);
     }
+
+    @Override
+    public void updateMemberScore(ScoreUpdateDto scoreUpdateDto) throws Exception {
+        memberMapper.updateMemberScore(scoreUpdateDto.getMemberId(), scoreUpdateDto.getScore());
+    }
 }

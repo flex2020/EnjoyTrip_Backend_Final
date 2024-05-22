@@ -20,4 +20,5 @@ public interface MemberService {
     void withdrawMember(int memberId) throws Exception;
     String getMemberProfileImage(int memberId) throws Exception;
     MemberDto findByEmail(String email) throws Exception;
+    void updateMemberScore(ScoreUpdateDto scoreUpdateDto) throws Exception;
 }
