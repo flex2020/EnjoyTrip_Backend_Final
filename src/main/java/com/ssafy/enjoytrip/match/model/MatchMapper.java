@@ -32,6 +32,7 @@ public interface MatchMapper {
 	void deleteMappingHashtag(String matchId);
 	void deleteMatchImage(int fileId);
 	void deleteMatch(int matchId);
+	void deleteMatchMember(int matchId);
 	List<MatchDto> getFindMatchByMemberId(Map<String, Object> map);
 	List<MateDto> getMatesByMatch(int matchId);
 }

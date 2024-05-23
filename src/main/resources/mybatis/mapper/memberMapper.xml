@@ -31,7 +31,7 @@
 	
 	<insert id="insertMember" parameterType="memberDto">
         INSERT INTO members (email, member_name, birthday, password, nickname, mbti, gender, intro, phone_number, valued_count, score, email_verify_code, deleted)
-        VALUES (#{email}, #{memberName}, #{birthday}, #{password}, #{nickname}, #{mbti}, #{gender}, #{intro}, #{phoneNumber}, 0, 0, #{emailVerifyCode}, 0)
+        VALUES (#{email}, #{memberName}, #{birthday}, #{password}, #{nickname}, #{mbti}, #{gender}, #{intro}, #{phoneNumber}, 1, 50, #{emailVerifyCode}, 0)
 	</insert>
 	
 	<!-- <update id="update" parameterType="memberDto">

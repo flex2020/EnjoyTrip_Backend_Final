@@ -73,7 +73,7 @@
 		select 
 			m.match_id, 
 		    m.match_title, 
-		    GROUP_CONCAT(distinct h.hashtag_name ORDER BY h.hashtag_name SEPARATOR ',') as hashtag_names, 
+		    GROUP_CONCAT(distinct h.hashtag_name ORDER BY h.hashtag_id SEPARATOR ',') as hashtag_names, 
 		    f.file_path, 
 		    m.hit
 			from matches as m
@@ -140,7 +140,7 @@
 		update matches
 		set course_id = #{courseId}, match_title = #{matchTitle}, travel_start_date = #{travelStartDate}, travel_end_date = #{travelEndDate}
 		, max_people = #{maxPeople}, gender_type = #{genderType}, deadline = #{deadline}, content = #{content}
-		where author_id = #{authorId}
+		where match_id = #{matchId}
 	</update>
 	
 	<!-- 중복 체크 쿼리 -->
@@ -185,6 +185,11 @@
     <delete id="deleteMatchImage" parameterType="int">
     	delete from match_file
         where match_id = #{matchId}
+    </delete>
+    
+    <delete id="deleteMatchMember" parameterType="int">
+    	delete from match_members
+    	where match_id = #{matchId}
     </delete>
     
     <update id="deleteMatch" parameterType="int">
