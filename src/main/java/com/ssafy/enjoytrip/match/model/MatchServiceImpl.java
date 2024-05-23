@@ -35,6 +35,10 @@ public class MatchServiceImpl implements MatchService {
 		return matchMapper.getMatches();
 	}
 	@Override
+	public List<MatchDto> getMemberMatchesFinish(String memberId) {
+		return matchMapper.getMemberMatchesFinish(memberId);
+	}
+	@Override
 	public List<MatchDto> getMatchesByMember(String memberId) {
 		return matchMapper.getMatchesByMember(memberId);
 	}
