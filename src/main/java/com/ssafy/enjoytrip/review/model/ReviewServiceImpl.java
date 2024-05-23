@@ -170,7 +170,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<CommentDto> commentList(int viewId) throws Exception {
 		List<CommentDto> comments = reviewMapper.commentList(viewId);
-		Collections.sort(comments);
+//		Collections.sort(comments);
 		return comments;
 	}
 
