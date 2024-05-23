@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.ssafy.enjoytrip.trip.model.dto.AttractionDto;
 
@@ -13,6 +14,7 @@ public interface MatchMapper {
 	List<AttractionDto> match(String matchId);
 	MatchDto matchDetail(String matchId);
 	List<MatchDto> getMatches();
+	List<MatchDto> getMemberMatchesFinish(@Param("memberId") String memberId);
 	List<MatchDto> getMatchesByMember(String memberId);
 	void removeMatchOfMember(Map<String, Object> map);
 	List<MatchListItemDto> getFindMatches(Map<String, Object> param);

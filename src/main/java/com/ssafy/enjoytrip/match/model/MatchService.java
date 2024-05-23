@@ -30,4 +30,5 @@ public interface MatchService {
 	List<MatchDto> getFindMatchByMemberId(Map<String, Object> map);
 	List<MateDto> getMatesByMatch(int matchId);
 	String getMatchProfile(String matchId) throws Exception;
+	List<MatchDto> getMemberMatchesFinish(String memberId);
 }

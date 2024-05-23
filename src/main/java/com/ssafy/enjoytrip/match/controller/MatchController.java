@@ -47,6 +47,10 @@ public class MatchController {
 	public ResponseEntity<List<MatchDto>> getMatches() throws Exception {
 		return new ResponseEntity<List<MatchDto>>(matchService.getMatches(), HttpStatus.OK);
 	}
+	@GetMapping("/finished-matches/{memberId}")
+	public ResponseEntity<List<MatchDto>> getMatchesFinish(@PathVariable("memberId") String memberId) throws Exception {
+		return new ResponseEntity<List<MatchDto>>(matchService.getMemberMatchesFinish(memberId), HttpStatus.OK);
+	}
 	
 	@GetMapping("/find/matches")
 	public ResponseEntity<Map<String,Object>> getFindMatches(@RequestParam Map<String, Object> map) throws Exception {
