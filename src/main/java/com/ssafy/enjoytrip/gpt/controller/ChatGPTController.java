@@ -98,8 +98,8 @@ public class ChatGPTController {
     		.append("이제 게시물 정보를 줄게. 게시물 정보는 다음과 같아.\n")
     		.append(matchData.toString());
     	System.out.println(prompt);
-    	//String answer = chatGPTService.generateAnswer(prompt.toString());
-    	String answer = "[99,89,94,102,103]";
+    	String answer = chatGPTService.generateAnswer(prompt.toString());
+    	//String answer = "[99,89,94,102,103]";
     	System.out.println("answer = " + answer);
 		List<String> numberList = new ArrayList<>();
 		 
