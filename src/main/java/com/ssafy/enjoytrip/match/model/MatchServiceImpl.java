@@ -149,9 +149,11 @@ public class MatchServiceImpl implements MatchService {
 		matchMapper.deleteMatchImage(fileId);
 	}
 	@Override
+	@Transactional
 	public void deleteMatch(int matchId) {
 		// TODO Auto-generated method stub
 		matchMapper.deleteMatch(matchId);
+//		matchMapper.deleteMatchMember(matchId);
 	}
 	@Override
 	public List<MatchDto> getFindMatchByMemberId(Map<String, Object> map) {
