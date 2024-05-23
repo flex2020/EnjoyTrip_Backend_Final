@@ -22,6 +22,15 @@
 		select * from matches
 	</select>
 	
+	<select id="getMemberMatchesFinish" parameterType="string" resultType="matchDto">
+		select *
+			from match_members as mm
+		    join matches as m on mm.match_id = m.match_id
+		    where 
+				mm.member_id = #{memberId}
+		        and m.travel_end_date &lt;= now();
+	</select>
+	
 	<select id="getFindMatch" parameterType="int" resultType="matchDto">
 		select m.match_id, m.course_id, m.author_id, m.match_title, DATE_FORMAT(m.travel_start_date, '%Y-%m-%d') as travel_start_date
 		, DATE_FORMAT(m.travel_end_date, '%Y-%m-%d') as travel_end_date
