@@ -11,18 +11,22 @@ public class ChatDto {
 	private int userIdx;
 	private String username;
 	private String content;
+	private String profileImage;
 	private String timestamp;
 	private int matchId;
 	private int idx;
 	
 	@Builder
-	public ChatDto(String type, int userIdx, String username, String content, String timestamp, int matchId, int idx) {
+	public ChatDto(String type, int userIdx, String username, String content, String profileImage, String timestamp,
+			int matchId, int idx) {
 		this.type = type;
 		this.userIdx = userIdx;
 		this.username = username;
 		this.content = content;
+		this.profileImage = profileImage;
 		this.timestamp = timestamp;
 		this.matchId = matchId;
 		this.idx = idx;
 	}
+
 }

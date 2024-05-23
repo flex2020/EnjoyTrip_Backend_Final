@@ -106,6 +106,7 @@ public class SocketHandler extends TextWebSocketHandler {
 			        .idx(curIdx)
 			        .matchId(curUser.getMatchId())
 			        .userIdx(curUser.getUserIdx())
+			        .profileImage(chat.getProfileImage())
 			        .timestamp(timestamp)
 			        .build();
 
