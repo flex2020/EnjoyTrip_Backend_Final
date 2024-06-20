@@ -1,4 +1,4 @@
-package com.ssafy.enjoytrip.chat.user;
+package com.ssafy.enjoytrip.chat.model;
 
 import lombok.Builder;
 import lombok.Data;

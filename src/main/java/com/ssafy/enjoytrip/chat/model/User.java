@@ -1,4 +1,4 @@
-package com.ssafy.enjoytrip.chat.user;
+package com.ssafy.enjoytrip.chat.model;
 
 import org.springframework.web.socket.WebSocketSession;
 

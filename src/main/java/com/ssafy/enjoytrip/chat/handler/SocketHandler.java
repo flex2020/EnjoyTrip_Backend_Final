@@ -16,9 +16,11 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.ssafy.enjoytrip.chat.user.ChatDto;
-import com.ssafy.enjoytrip.chat.user.NetworkService;
-import com.ssafy.enjoytrip.chat.user.User;
+import com.ssafy.enjoytrip.chat.model.ChatDto;
+import com.ssafy.enjoytrip.chat.model.ChatLogDto;
+import com.ssafy.enjoytrip.chat.model.ChatLogService;
+import com.ssafy.enjoytrip.chat.model.NetworkService;
+import com.ssafy.enjoytrip.chat.model.User;
 
 @Component
 public class SocketHandler extends TextWebSocketHandler {
@@ -27,6 +29,9 @@ public class SocketHandler extends TextWebSocketHandler {
 	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
 	@Autowired
 	private NetworkService networkService;
+	
+	@Autowired
+	private ChatLogService chatLogService;
 	
 	public SocketHandler() {
 		super();
@@ -112,6 +117,13 @@ public class SocketHandler extends TextWebSocketHandler {
 
 			networkService.sendBroadcast(chatDto, chat.getMatchId());
 			
+			ChatLogDto chatLog = ChatLogDto.builder()
+					.matchId(curUser.getMatchId() + "")
+					.sender(curUser.getUsername())
+					.content(chat.getContent())
+					.type("chat")
+					.build();
+			chatLogService.saveChatLog(chatLog);
 		}
 		// gpt-answer: gpt 답변
 		else if (chat.getType().equals("gpt-answer")) {
@@ -128,6 +140,13 @@ public class SocketHandler extends TextWebSocketHandler {
 
 			networkService.sendBroadcast(chatDto, chat.getMatchId());
 			
+			ChatLogDto chatLog = ChatLogDto.builder()
+					.matchId(curUser.getMatchId() + "")
+					.sender(curUser.getUsername())
+					.content(chat.getContent())
+					.type("gpt-answer")
+					.build();
+			chatLogService.saveChatLog(chatLog);
 		}
 		// add-tab : 탭 추가
 		else if (chat.getType().equals("add-tab")) {
