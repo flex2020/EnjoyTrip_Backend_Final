@@ -1,4 +1,4 @@
-package com.ssafy.enjoytrip.chat.user;
+package com.ssafy.enjoytrip.chat.model;
 
 import java.io.IOException;
 import java.security.SecureRandom;

@@ -25,6 +25,7 @@
   	<typeAlias type="com.ssafy.enjoytrip.member.model.PasswordUpdateRequestDto" alias="passwordUpdateRequestDto"/>  	
   	<typeAlias type="com.ssafy.enjoytrip.file.model.FileDto" alias="fileDto"/>  	
   	<typeAlias type="com.ssafy.enjoytrip.follow.model.FollowProfileDto" alias="followProfileDto"/>  	
+  	<typeAlias type="com.ssafy.enjoytrip.chat.model.ChatLogDto" alias="chatLogDto"/>
   </typeAliases>
   <mappers>
     <mapper resource="mybatis/mapper/tripMapper.xml" />
@@ -35,5 +36,6 @@
     <mapper resource="mybatis/mapper/emailMapper.xml" />
     <mapper resource="mybatis/mapper/followMapper.xml" />
     <mapper resource="mybatis/mapper/fileMapper.xml" />
+    <mapper resource="mybatis/mapper/chatLogMapper.xml" />
   </mappers>
 </configuration>
